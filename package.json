@@ -1,7 +1,11 @@
 {
-  "name": "my-next-app",
+  "name": "fudme-web-app-next",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "node": "14.17.3",
+    "yarn": "1.22.4"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -9,12 +13,45 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@material-ui/core": "^4.12.4",
+    "@stripe/react-stripe-js": "^1.7.2",
+    "@stripe/stripe-js": "^1.29.0",
+    "@types/react-router-dom": "^5.3.3",
+    "axios": "^0.27.2",
+    "compress.js": "^1.2.2",
+    "dotenv": "^16.0.0",
+    "firebase": "^9.8.0",
+    "google-maps-react": "^2.0.6",
+    "jquery": "^3.6.0",
+    "md5": "^2.3.0",
     "next": "12.1.6",
+    "next-images": "^1.8.4",
+    "next-redux-wrapper": "^7.0.5",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-apple-login": "^1.1.3",
+    "react-bootstrap": "^2.3.1",
+    "react-confirm-alert": "^2.8.0",
+    "react-datepicker": "^4.7.0",
+    "react-dom": "18.1.0",
+    "react-facebook-login": "^4.1.1",
+    "react-google-login": "^5.2.2",
+    "react-image-crop": "^10.0.0",
+    "react-intl-tel-input": "^8.2.0",
+    "react-loading-skeleton": "^3.1.0",
+    "react-number-format": "^4.9.3",
+    "react-places-autocomplete": "^7.3.0",
+    "react-redux": "^8.0.1",
+    "react-toastify": "^9.0.1",
+    "redux": "^4.2.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
+    "redux-persist": "^6.0.0",
+    "redux-thunk": "^2.4.1",
+    "stripe": "^8.222.0",
+    "swiper": "6.8.4",
+    "uuid": "^8.3.2"
   },
-  "devDependencies": {
-    "eslint": "8.15.0",
-    "eslint-config-next": "12.1.6"
+  "browser": {
+    "child_process": false
   }
 }

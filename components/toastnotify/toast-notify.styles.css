@@ -1,0 +1,9 @@
+
+.Toastify__toast--success {
+    background: rgba(7, 188, 13, 0.63);
+}
+
+.Toastify__toast--warning {
+    background: #f1c40f;
+
+}

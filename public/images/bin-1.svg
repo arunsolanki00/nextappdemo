@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="25px" height="24px" viewBox="0 0 25 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>A06D8CAD-6E30-427C-BA89-93C09DC8B3EC</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="23.-Cart_d" transform="translate(-1082.000000, -191.000000)" stroke="#0D191B" stroke-width="2">
+            <g id="bin-1" transform="translate(1083.000000, 192.000000)">
+                <line x1="0.25" y1="3" x2="22.25" y2="3" id="Shape"></line>
+                <path d="M13.65,0 L8.85,0 C7.9663444,0 7.25,0.671572875 7.25,1.5 L7.25,3 L15.25,3 L15.25,1.5 C15.25,0.671572875 14.5336556,0 13.65,0 Z" id="Shape"></path>
+                <line x1="9.25" y1="16" x2="9.25" y2="8" id="Shape"></line>
+                <line x1="14.25" y1="16" x2="14.25" y2="8" id="Shape"></line>
+                <path d="M18.7390909,20.5475556 C18.6687127,21.3684952 17.959531,22 17.1081818,22 L5.39290909,22 C4.54155987,22 3.8323782,21.3684952 3.762,20.5475556 L2.25,3 L20.25,3 L18.7390909,20.5475556 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

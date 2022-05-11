@@ -1,0 +1,491 @@
+
+h1,h2,h3,h4,h5,h6,p,ul,a,span {
+	font-family: "Circular Std Book";
+}
+
+@font-face {
+	font-family: "Circular Std Book";
+	src: url("../fonts/Circular Std Book.eot"); 
+	src: url("../fonts/Circular Std Book.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/Circular Std Book.woff2") format("woff2"), 
+		 url("../fonts/Circular Std Book.woff") format("woff"), 
+		 url("../fonts/Circular Std Book.ttf") format("truetype"), 
+		 url("../fonts/Circular Std Book.svg#Circular Std Book") format("svg");
+}
+
+h1 {
+	font-size: 44px;
+}
+
+p {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+h3 {
+    font-size: 24px;
+    font-weight: 500;
+}
+
+h4 {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+h6 {
+    font-size: 20px;
+}
+
+
+ 
+/****** NEW BUTTON CSS ******/
+.blue_btn {
+    font-weight: 300;
+    font-size: 22px;
+}
+
+.blue_btn.edit_btn {
+    font-size: 16px;
+}
+
+.blue_btn.blue_btn_porder {
+    font-size: 22px;
+}
+
+.orange_btn {
+    font-weight: 300;
+    font-size: 15px;
+}
+
+.orange_price_btn {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.submit_white {
+    font-size: 16px;
+}
+
+.grey_btn {
+    font-size: 22px;
+    font-weight: 300;
+}
+
+.size_btn {
+	font-size: 12px;
+}
+
+.size_btn:last-child {
+	margin:0;
+}
+
+.size_btn.md {
+	font-size: 14px;
+}
+
+.size_btn.lg {
+	font-size: 18px;
+}
+
+.size_btn.xl {
+	font-size: 22px;
+}
+
+.font_18 {
+    font-size: 18px !important;
+}
+
+.quantity input {
+    font-size: 22px;
+}
+
+/************** LIGHT ORANGE BUTTON *****************/
+.light_orange_btn {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.orange_side_btn {
+    font-size: 20px;
+}
+
+/****** ******/
+.orange_bord_btn {
+    font-weight: 300;
+}
+
+
+/****** ******/
+.modal.getfod .blue_btn {
+    font-size: 22px;
+}
+
+.s-btn {
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.btn_primary {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.ora {
+	font-weight: 300;
+}
+
+span.cls {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.forgot {
+	font-size: 18px;
+	font-weight: 500;
+}
+
+.size_12 {
+    font-size: 12px !important;
+}
+
+.size_14 {
+    font-size: 14px;
+}
+
+.size_16 {
+    font-size: 16px;
+}
+
+.size_17 {
+    font-size: 17px;
+}
+
+.size_18 {
+    font-size: 18px;
+}
+
+.size_19 {
+	font-size:19px;
+}
+
+.size_20 {
+	font-size: 20px;
+}
+
+.size_22 {
+    font-size: 22px;
+}
+
+.size_24 {
+    font-size: 24px;
+}
+
+.size_40 {
+    font-size: 40px;
+}
+
+.size_28 {
+    font-size: 28px;
+}
+
+.weight_600 {
+	font-weight: 600;
+}
+
+.weight_500 {
+	font-weight:500;
+}
+
+.weight_300 {
+	font-weight:300;
+}
+
+.weight_400 {
+	font-weight:400;
+}
+
+.label_small {
+	font-size:16px;
+}
+
+.input_small {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.or_text {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.inf {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.nav-pills>li>a {
+	font-size: 18px;
+	font-weight: 300;
+}
+
+hr {
+    border-top: 1px solid #D4D4D4;
+}
+
+.bg_total p span {
+	font-weight: 300;
+}
+
+.bg_total h6 {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+
+.spe_btn a, .spe_btn .box h3 {
+	font-size: 22px;
+	font-weight: 300;
+}
+
+
+.inf h6 {
+	font-size: 16px;
+	font-weight: 500;
+}
+
+.inf h6 span {
+	font-size: 12px;
+	font-weight: 300;
+}
+
+.inf h6 em {
+	font-size: 16px;
+	font-weight: 300;
+}
+
+@media only screen and (max-width: 1500px) and (min-width: 1200px) {
+.bg_total .blue_btn {
+    font-size: 15px !important;
+}
+}
+
+
+.right-content.account input {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+#pickup.checkout input {
+    font-size: 18px;
+    font-weight: 300;
+
+}
+
+.checkbox label {
+	font-size: 16px;
+	font-weight: 300;
+}
+
+#pickup.checkout .checkbox label input {
+	height: 20px;
+	width: 20px;
+	border: 1px solid #9C9C9C;
+	border-radius: 5px;
+	padding:0;
+	position:absolute;
+	top:0;
+	left:25px;
+}
+
+
+#pickup h3 {
+	font-size: 24px;
+	font-weight: 300;
+}
+
+.rt-total span {
+    font-size: 28px;
+	font-weight: 300;
+}
+
+.rt-total span span.price {
+    font-size: 20px;
+}
+
+
+.numbers {
+	font-size: 24px;
+	font-weight: 500;
+}
+
+
+#pickup .dd h5 {
+	font-size: 24px;
+	font-weight: 300;
+}
+
+
+#pickup .cal ul li span {
+	font-size: 20px;
+	font-weight: 300;
+}
+
+.modal h5 {
+	font-size: 16px;
+    font-weight: 300;
+}
+
+/*** ***/
+
+.modal h5 span {
+	font-size: 17px;
+	display:inline-block;
+}
+
+.modal h5 span.red {
+	font-size: 17px;
+	font-weight: 300;
+}
+
+.modal em {
+	font-size: 16px;
+	font-weight: 300;
+}
+
+.modal .table hr {
+	border-bottom: 1px solid #9C9C9C;
+}
+
+.modal .table th {
+	font-size: 22px;
+	padding:20px 0px;
+}
+
+
+
+
+.modal .table td h5 {
+	font-size: 22px;
+}
+
+.modal .table td h5 span {
+	font-size:20px;
+}
+
+.modal .table td:last-child {
+	padding-top:38px;
+}
+
+.modal .or {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.modal input {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+.modal input.submit {
+    font-size: 22px;
+	margin-bottom:20px;
+}
+
+
+
+
+.modal .forg {
+	font-size: 18px;
+	font-weight: 300;
+}
+
+.modal .regi {
+	font-size: 18px;
+	font-weight: 300;
+}
+
+.modal.address p {
+	font-size: 17px;
+	font-weight: 300;
+}
+
+.modal h3 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+.modal.thanks h3 {
+	font-size: 40px;
+}
+
+
+#pickup .or {
+    font-size: 18px;
+    font-weight: 300;
+}
+
+#pickup .submit {
+	text-align:center;
+	font-size: 20px;
+	font-weight: 300;
+}
+
+
+#pickup .in h5 {
+	font-size: 22px;
+}
+
+.light_orange_btn {
+    font-size: 22px;
+    font-weight: 300;
+}
+
+/***** MEDIA QUERIES *****/
+
+@media only screen and (max-width: 767px) {
+
+.edit_btn, .orange_price_btn, .blue_btn, .grey_btn{
+    margin: 10px 0;
+}
+
+
+#pickup .o-btn .orange_bord_btn {
+    margin: 10px 10px;
+}
+
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1169px) {
+#pickup.checkout .grey_btn {
+    margin-bottom: 10px;
+}
+
+}
+
+
+
+
+/******************************* Changes CSS ***********************************/
+.size_15 {
+    font-size: 15px !important;
+}
+
+.size_14 {
+    font-size: 14px !important;
+}
+
+.size_24 {
+    font-size: 24px !important;
+}
+
+.size_32 {
+    font-size: 32px !important;
+}
+
+.right-content .pizza-in .angle:before {
+	font-size:24px;
+}
+
+.customForm .infs label.formlabel, .right-content.account .infs input {
+	font-size:20px;
+}

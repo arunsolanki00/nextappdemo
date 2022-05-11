@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="27px" height="33px" viewBox="0 0 27 33" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>433DAF79-4FC8-4D1C-A11F-E7F2DB19E7F8</title>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="16.-Home_d" transform="translate(-237.000000, -61.000000)" stroke="#0D191B" stroke-width="2">
+            <g id="alarm-bell" transform="translate(238.000000, 62.000000)">
+                <path d="M9.75,28.90625 C10.1087182,30.1282255 11.229898,30.9675869 12.5034375,30.9675869 C13.776977,30.9675869 14.8981568,30.1282255 15.256875,28.90625" id="Shape"></path>
+                <line x1="12.5" y1="3.125" x2="12.5" y2="0.03125" id="Shape"></line>
+                <path d="M12.5,3.125 C18.1954365,3.125 22.8125,7.74206352 22.8125,13.4375 C22.8125,23.12575 24.875,24.78125 24.875,24.78125 L0.125,24.78125 C0.125,24.78125 2.1875,22.14675 2.1875,13.4375 C2.1875,7.74206352 6.80456352,3.125 12.5,3.125 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

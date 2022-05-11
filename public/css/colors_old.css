@@ -1,0 +1,585 @@
+:root{
+    --primary-color-orange: #FF7332;
+}
+
+p {
+    color: #9C9C9C;
+}
+
+h3 {
+    color: #9C9C9C;
+}
+
+h1 {
+	color: #0D191B;
+}
+
+h4 {
+    color: #0D191B;
+}
+
+h6 {
+    color: #0D191B;
+}
+
+
+.color_black {
+    color: #0D191B;
+}
+
+.color_000 {
+    color: #0D191B;
+}
+
+.color_white {
+    color: #fff;
+}
+
+.color_orange {
+    color: var(--primary-color-orange);
+}
+
+.color_lightgrey {
+    color: #F3F3F3;
+}
+
+.color_grey {
+    color: #9C9C9C;
+}
+
+
+.label_small {
+	color:#fff;
+}
+
+.input_small {
+    border-bottom: 1px solid #fff;
+    color: #FFFFFF;
+}
+
+.or_text {
+    color: #fff;
+}
+
+
+.orange_submit {
+    border-color: var(--primary-color-orange) !important;
+    background-color: var(--primary-color-orange)!important;
+}
+
+
+
+/****************** BLUE BUTTON *******************/
+.blue_btn, .blue_btn.blue_btn_porder, .modal.getfod .blue_btn, .blue_btn.nextbtn {
+    background-color: #3A86F3;
+    color: #fff;
+}
+
+.blue_btn.skip_btn:hover, .blue_btn.active {
+    background: #3A86F3;
+    border-color: #3A86F3;
+    color: #fff;
+}
+
+/****************** GREY BUTTON *******************/
+.grey_btn {
+    background-color: #F2F2F2;
+    color: #0D191B;
+}
+
+.grey_btn:hover, .grey_btn.active {
+    background-color: var(--primary-color-orange);
+    color: #fff;
+}
+
+
+/****************** ORANGE BUTTON *******************/
+.orange_price_btn {
+    border: 1px solid var(--primary-color-orange);
+    background-color: var(--primary-color-orange);
+    color: #fff;
+}
+
+.orange_price_btn:hover, .orange_price_btn.active {
+    background: #fff;
+    color: var(--primary-color-orange);
+    border-color: var(--primary-color-orange);
+}
+
+.orange_side_btn {
+    background: #fff;
+    color: var(--primary-color-orange);
+    border-color: var(--primary-color-orange);
+}
+
+.orange_side_btn:hover, .orange_side_btn.active {
+    background-color: var(--primary-color-orange);
+    color: #fff;
+    border-color: var(--primary-color-orange);
+}
+
+/****************** LIGHT ORANGE BUTTON *******************/
+.orange_btn, .light_orange_btn {
+    background-color: #FBEFEA;
+    color: var(--primary-color-orange);
+}
+
+.orange_btn:hover, .orange_btn.active, .light_orange_btn:hover, .light_orange_btn.active {
+    background: var(--primary-color-orange);
+    color: #fff;
+    border-color: var(--primary-color-orange);
+}
+
+/****************** ORANGE BORDER BUTTON *******************/
+.orange_bord_btn {
+    color: var(--primary-color-orange);
+    border: 1px solid var(--primary-color-orange);
+}
+
+.orange_bord_btn:hover, .orange_bord_btn.active {
+    background-color: var(--primary-color-orange);
+    color: #fff;
+}
+
+.orange_bd_btn {
+    color: var(--primary-color-orange);
+    border: 1px solid var(--primary-color-orange);
+}
+
+.orange_bd_btn:hover, .orange_bd_btn.active {
+    background-color: var(--primary-color-orange);
+    color: #fff;
+}
+
+.orange_btn_submit {
+    border-color: var(--primary-color-orange);
+    background-color: var(--primary-color-orange);
+    color: #fff;
+}
+
+/****************** WHITE BUTTON *******************/
+.submit_white {
+    background-color: #FFFFFF;
+    color: var(--primary-color-orange);
+}
+
+.submit_white:hover, .submit_white.active {
+	background:#3A86F3;
+	border-color:#3A86F3;
+	color:#fff;
+}
+
+
+
+.s-btn {
+    background-color: #3A66B8;
+    color: #FFFFFF;
+    border: 1px solid #3A66B8;
+}
+
+.s-btn.gp {
+    color: #9A9797;
+    border: 1px solid #9A9797;
+    background: none;
+}
+
+.s-btn.app {
+    color: #000000;
+    border: 1px solid #000000;
+    background: none;
+}
+
+
+.btn_primary {
+	color: #9C9C9C;
+}
+
+
+.ora {
+	background-color: var(--primary-color-orange);
+	color: #FFFFFF;
+}
+
+span.cls {
+	color: #9C9C9C;
+}
+
+.forgot {
+	color: var(--primary-color-orange);
+}
+
+.b-right {
+	border-right: 1px solid #D4D4D4;
+}
+
+.b-bottom {
+	border-bottom: 1px solid #D4D4D4;
+}
+
+hr {
+    border-top: 1px solid #D4D4D4;
+}
+
+.grey_border {
+    border-top: 1px solid #D4D4D4;
+}
+
+.bg_total {
+    background-color: #F3F3F3;
+}
+
+.inf {
+    border: 1px solid #F3F3F3;
+    color: #0D191B;
+}
+
+.nav-pills>li>a {
+	border-bottom: 1px solid #F2F2F2;
+	color: #9C9C9C;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+	border-color:var(--primary-color-orange);
+	background:none;
+	color: var(--primary-color-orange);
+}
+
+
+.bg_total p span {
+	color: #0D191B;
+}
+
+
+.bg_total h6 {
+	color: #000;
+}
+
+
+.spe_btn a {
+	border: 1px solid #F3F3F3;
+	color: #0D191B;
+}
+
+.spe_btn .box h3 {
+    color:#0D191B;
+}
+
+.inf h6 {
+	color: #0D191B;
+}
+
+.inf h6 span {
+	color: #9C9C9C;
+}
+
+.inf h6 em {
+	color: #0D191B;
+}
+
+.right-content.account input {
+    border: 1px solid #9C9C9C;
+    color: var(--primary-color-orange);
+}
+
+#pickup.checkout input {
+    border: 1px solid #9C9C9C;
+    color: #9C9C9C;
+}
+
+.checkbox label {
+	color: #9C9C9C;
+}
+
+#pickup.checkout .checkbox label input {
+	border: 1px solid #9C9C9C;
+}
+
+.bgg_orange {
+	background:var(--primary-color-orange);
+}
+
+.bg_grey {
+    background-color: #F2F2F2;
+}
+
+.numbers {
+	background-color: var(--primary-color-orange);
+	color: #FFFFFF;
+}
+
+#pickup .line {
+    background: var(--primary-color-orange);
+}
+
+#pickup .cal ul li:hover, #pickup .cal ul li.active {
+	color: var(--primary-color-orange);
+}
+
+#pickup .cal ul li:hover span,  #pickup .cal ul li.active span {
+	background-color: var(--primary-color-orange);
+	color: #fff;
+}
+
+#pickup .cal ul li span {
+	background-color: #F2F2F2;
+	color: #0D191B;
+}
+
+.modal h5 {
+    color: #0D191B;
+}
+
+
+.modal hr {
+	border-top: 1px solid #9C9C9C;
+}
+
+
+.modal h5 span {
+    color: #9C9C9C;
+}
+
+.modal h5 span.red {
+	color: #FF0000;
+}
+
+.modal em {
+	color: #C7C7C7;
+}
+
+.modal .table hr {
+	border-bottom: 1px solid #9C9C9C;
+}
+
+.modal .table th {
+	color: #0D191B;
+}
+
+
+.modal .table td h5 {
+	color: var(--primary-color-orange);
+}
+
+
+.modal .table td:last-child {
+	padding-top:38px;
+}
+
+.modal .or {
+    color: #9C9C9C;
+    background: #fff;
+}
+
+.modal input {
+    border: 1px solid #9C9C9C;
+    color: #9C9C9C;
+    background: #fff;
+}
+
+.modal input.submit {
+	border-color: var(--primary-color-orange);
+	background-color: var(--primary-color-orange);
+	color:#fff;
+}
+
+
+
+.modal .forg {
+	color: #9C9C9C;
+}
+
+.modal .regi {
+	color: var(--primary-color-orange);
+}
+
+.modal.address input {
+	margin-bottom:39px;
+}
+
+.modal.address p {
+	color: #0D191B;
+}
+
+.modal.address p span {
+	color: var(--primary-color-orange);
+}
+
+.modal.address .nav-tabs>li>a {
+	background-color: #F2F2F2;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover {
+	border-radius: 20px!important;
+	background-color: var(--primary-color-orange)!important;
+	color:#fff !important;
+}
+
+.modal.address input.submit {
+    color: #fff;
+    border-color: #3A86F3;
+    background-color: #3A86F3;
+}
+
+.modal h3 {
+    color: #0D191B;
+}
+
+
+#pickup .or {
+    color: #9C9C9C;
+}
+
+#pickup .submit {
+	background-color: #FBEFEA;
+	color: var(--primary-color-orange);
+}
+
+
+/****** NEW CSS ADD 12-09-2020 ******/
+.left-menu, .left-menu .logos .bell span em {
+    background-color: var(--primary-color-orange);
+}
+
+.left-menu .links ul li:hover a em, .left-menu .links ul li.active a em {
+    background: #fff;
+    color: var(--primary-color-orange);
+}
+
+.right-content.account .user .pencil {
+	background-color: var(--primary-color-orange);
+}
+
+.orange_div {
+    background-color: var(--primary-color-orange);
+}
+
+#pickup .btns a {
+	border: 1.5px solid var(--primary-color-orange);
+	color: var(--primary-color-orange);
+}
+
+#pickup .btns a:hover, #pickup .btns a.active {
+	background: var(--primary-color-orange);
+	color: #fff;
+}
+
+.categories-ul ul li a {
+	border: 1px solid var(--primary-color-orange);
+	color: var(--primary-color-orange);
+}
+
+.categories-ul ul li a:hover, .categories-ul ul li a.active {
+	background:var(--primary-color-orange);
+	color:#fff;
+}
+
+#pickup .register .regi {
+    color: var(--primary-color-orange);
+}
+
+.inf.active {
+	background-color: var(--primary-color-orange);
+}
+
+.right-content.p-2 .rt-s .ora .red {
+	color: var(--primary-color-orange);
+}
+
+.right-content.p-2 .free p span.active {
+	background-color: var(--primary-color-orange);
+	color:#fff;
+}
+
+.sun a:hover, .sun a.active {
+	border-color:var(--primary-color-orange);
+}
+
+.sun a:hover:before, .sun a.active:before {
+    background-color: var(--primary-color-orange);
+}
+
+.quantity button:visited  {
+	background: var(--primary-color-orange);
+	border-color: var(--primary-color-orange);
+	color: #fff;
+}
+
+.quantity button:hover, .quantity button.active {
+	background: none;
+	border-color: var(--primary-color-orange);
+	color: var(--primary-color-orange);
+}
+
+.modal.noti .bd.active:before {
+	background-color: var(--primary-color-orange);
+}
+
+
+.modal.getfod .btns a {
+	border: 1.5px solid var(--primary-color-orange);
+	color: var(--primary-color-orange);
+}
+
+.modal.getfod .btns a:hover, .modal.getfod .btns a.active {
+    background: var(--primary-color-orange);
+    color: #fff;
+}
+
+.customForm input:focus, .custsomForm textarea:focus {
+	border-color:var(--primary-color-orange) !important;
+}
+
+.customForm input:focus + .formlabel, .customForm input:valid + .formlabel {
+	color:var(--primary-color-orange);
+}
+
+.right-content .dele .btn-primary .fa {
+	color:var(--primary-color-orange);
+}
+
+#pickup .btn_submit_new {
+    background-color:var(--primary-color-orange);
+    color: #fff !important;
+}
+
+/******************************* Changes CSS ***********************************/
+.color_red {
+	color:red !important;
+}
+.color_green {
+	color:var(--primary-color-orange) !important;
+}
+
+.bg_green {
+	background:var(--primary-color-orange) !important;
+}
+
+.color_white {
+	color:#fff !important;
+}
+
+.right-content .cart em {
+    background-color: var(--primary-color-orange);
+}
+
+.orange_btn.remove-hover:hover {
+    background-color: #FBEFEA;
+    color: var(--primary-color-orange);
+}
+
+.pickupBtn, .pickupBtn:hover, .orderPriceBtn {
+    background:transparent !important;
+    color:var(--primary-color-orange) !important;
+}
+
+.orderPriceBtn {
+    border:0px;
+}
+
+.remove-bg {
+    background:transparent !important;
+}
+
+.modal-body {
+    border-color: var(--primary-color-orange);
+}
