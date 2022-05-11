@@ -13,7 +13,7 @@ import NewMenuItemOptionsParameter from '../../../../components/new-menu-item-de
 import { addFavorite, deleteFavorite, removeMenuItemForFavorite, selectedMenuItem } from '../../../../redux/menu-item/menu-item.action'
 // import 'public\css\style.css'
 
-function index() {
+function Index() {
     const dispatch = useDispatch();
     const [amount, setamount] = useState(0.00);
     const [point, setpoint] = useState(0);
@@ -184,4 +184,4 @@ function index() {
     )
 }
 
-export default index
+export default Index
