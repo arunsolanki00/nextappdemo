@@ -85,7 +85,7 @@ function LocationSearchInput(props) {
   );
 }
 export default GoogleApiWrapper({
-  apiKey: "AIzaSyB0IdLmv-_FP5qQeEaO2w2m0ReAagdbBBY",
+  apiKey: "testapi",
   libraries: ["places"],
 })(LocationSearchInput);
 // export default LocationSearchInput

@@ -78,7 +78,7 @@ const GoogleAddress = () => {
     
     useEffect(() => {
         loadScript(
-            `https://maps.googleapis.com/maps/api/js?key=${"AIzaSyB0IdLmv-_FP5qQeEaO2w2m0ReAagdbBBY"}&libraries=places`,
+            `https://maps.googleapis.com/maps/api/js?key=${"testapi"}&libraries=places`,
             () => handleScriptLoad(setQuery, autoCompleteRef)
         );
     }, []);
