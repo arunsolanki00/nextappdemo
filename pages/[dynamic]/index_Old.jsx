@@ -123,24 +123,24 @@ const IndexOld = () => {
     }
 
     //call from child to parent for set selected time
-    function checktimeselected(selecetdtime) {
-        console.log("selecetdtime :" + selecetdtime)
+    // function checktimeselected(selecetdtime) {
+    //     console.log("selecetdtime :" + selecetdtime)
         
-        if (selecetdtime) {
-            let ordertimeArray = selecetdtime && selecetdtime.split(":");
-            if (ordertimeArray.length > 1) {
-                setDisplayASAPTime(true);
-                setOrderTime(selecetdtime);
-                dispatch(setordertime(selecetdtime))
-                setisDisabled(false);
-            } else {
-                setTimeOrErrorMessage(selecetdtime);
-                settimestate(false);
-                setDisplayASAPTime(false);
-                setisDisabled(false);
-            }
-        }
-    }
+    //     if (selecetdtime) {
+    //         let ordertimeArray = selecetdtime && selecetdtime.split(":");
+    //         if (ordertimeArray.length > 1) {
+    //             setDisplayASAPTime(true);
+    //             setOrderTime(selecetdtime);
+    //             dispatch(setordertime(selecetdtime))
+    //             setisDisabled(false);
+    //         } else {
+    //             setTimeOrErrorMessage(selecetdtime);
+    //             settimestate(false);
+    //             setDisplayASAPTime(false);
+    //             setisDisabled(false);
+    //         }
+    //     }
+    // }
 
     //call from child to parent for set selected time
     function checktimeselected(selecetdtime, errorMessage) {

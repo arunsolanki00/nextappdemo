@@ -2,12 +2,16 @@ require('dotenv').config()
 const withImages = require('next-images')
 module.exports = {
   compress: false,
+  
   env: {
     MYLOCAL_VAR1: 'nilesh',
     MYLOCAL_VAR2: process.env.MYLOCAL_VAR2,
     NEXT_API_URL: process.env.NEXT_API_URL,
     STRIPE_LIVE_PUBLISH_API_KEY: process.env.STRIPE_LIVE_PUBLISH_API_KEY,
     STRIPE_SANDBOX_PUBLISH_API_KEY: process.env.STRIPE_SANDBOX_PUBLISH_API_KEY,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
   },
   //   env.local:{
   //     MYLOCAL_VAR1:'nilesh',
