@@ -18,7 +18,11 @@
 // import { updaterestaurantsdetail } from "../../../../../redux/restaurants/restaurants.action";
 // //import MenuItemToppingType1 from "../../../../components/menu-item-details/menu-item-topping-type/menu-item-topping-type1";
 
-// function MenuItemDetail() {
+ const MenuItemDetail =() => {
+     return(
+         <div>dummy</div>
+     )
+ }
 //     const router = useRouter();
 //     const dispatch = useDispatch();
 //     const {
@@ -209,4 +213,4 @@
 //     )
 // }
 
-// export default MenuItemDetail
+ export default MenuItemDetail;
