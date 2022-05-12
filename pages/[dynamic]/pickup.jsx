@@ -73,6 +73,7 @@ const Index = () => {
         setShowLogin(true);
     } 
     useEffect(() => {
+        
         // if(sessionid === null){
         //     let id=uuidv4()
         //     dispatch(createSessionId(id));
@@ -183,40 +184,39 @@ const Index = () => {
 
         if ((isTakeOutAsap === false && isTakeOutPickupTime === false) && (isDeliveryPickupTime || isDeliveryAsap))
             router.push("/" + restaurantinfo.restaurantURL + "/delivery");
-
+        
     }, []);
 
     useEffect(() => {
-        setloadingState(true);
-        const fetchData = async () => {
-            const getResponse = await restaurantsLocation(restaurantinfo && restaurantinfo.restaurantId, "0", "0");
-            dispatch(setpickupordelivery('Pickup'));
-            dispatch(selecteddeliveryaddress(null));// as we do not need delivery address selected            
-
-            dispatch(restaurantstiming(restaurantinfo && restaurantinfo.defaultlocationId, restaurantinfo && restaurantinfo.restaurantId));
-            // dispatch(getAddress(userinfo ? userinfo.customerId : 0, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
-            dispatch({
-                type: RestaurantsTypes.RESTAURANT_LOCATION_LIST,
-                payload: getResponse
-            })
-            dispatch(getSelectedRestaurantTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
-
-            setapiResponse(getResponse);
-            setLoadPickupComplete(true);
-            dispatch(emptyordertime());
-        };
-        const timer = setTimeout(() => {
-            fetchData();
-        }, 1000);
-        setloadingState(false);
-
-        setOrderTime("")
-        setTimeOrErrorMessage("")
-        setActiveButtonClass("")
-
-        setrestauranttimingList(restauranttiming);
-        return () => clearTimeout(timer);
-
+            setloadingState(true);
+            const fetchData = async () => {
+                const getResponse = await restaurantsLocation(restaurantinfo && restaurantinfo.restaurantId, "0", "0");
+                dispatch(setpickupordelivery('Pickup'));
+                dispatch(selecteddeliveryaddress(null));// as we do not need delivery address selected            
+    
+                dispatch(restaurantstiming(restaurantinfo && restaurantinfo.defaultlocationId, restaurantinfo && restaurantinfo.restaurantId));
+                // dispatch(getAddress(userinfo ? userinfo.customerId : 0, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
+                dispatch({
+                    type: RestaurantsTypes.RESTAURANT_LOCATION_LIST,
+                    payload: getResponse
+                })
+                dispatch(getSelectedRestaurantTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
+    
+                setapiResponse(getResponse);
+                setLoadPickupComplete(true);
+                dispatch(emptyordertime());
+            };
+            const timer = setTimeout(() => {
+                fetchData();
+            }, 1000);
+            setloadingState(false);
+    
+            setOrderTime("")
+            setTimeOrErrorMessage("")
+            setActiveButtonClass("")
+    
+            setrestauranttimingList(restauranttiming);
+        
     }, [restaurantinfo.defaultLocation?.locationId])
 
     const handleLocationPopup = () => {

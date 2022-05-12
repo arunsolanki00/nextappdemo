@@ -13,7 +13,6 @@ import { MenuItemTypes } from "../../../redux/menu-item/menu-item.types";
 import { IsOrderDisable } from "../../Common/custom/isorderdisable.component";
 
 const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
-	debugger
 	const [count, setcount] = useState(Math.random)
 	const dispatch = useDispatch();
 	const [lstcarttopping, setlstcarttopping] = useState([]);
@@ -36,9 +35,8 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 	let quantity = useSelector(({ menuitem }) => menuitem.selecteditemquantity);
 	const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
 	const location = restaurantinfo.defaultLocation;
-     debugger
+	
 	useEffect(() => {
-		debugger
 		let ctop = [];
 		selectedtopping != undefined && selectedtopping.length > 0 && selectedtopping[0].list != undefined && selectedtopping[0].list.length > 0 &&
 			selectedtopping[0].list.map((lsttop) => {

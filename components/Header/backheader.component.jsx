@@ -6,18 +6,10 @@ import { useState } from "react";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router"
 
-const BackHeaderComponent =({ restaurantinfo }) =>{
-    const [restaurant, setRestaurant] = useState();
-
-    const restaurantinfodetail = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
-
-    if (!restaurantinfo) {
-        setRestaurant(restaurantinfodetail);
-    }
-    const { logo, restaurantURL } = restaurantinfo ==null|| restaurantinfo==undefined ? restaurant : restaurantinfo;
+const BackHeaderComponent =() =>{
 
     const router = useRouter();
-    const dispatch = useDispatch();
+    //const dispatch = useDispatch();
     const { query: { dynamic, category },} = router
 
     return (

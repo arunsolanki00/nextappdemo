@@ -7,18 +7,9 @@ import { shallowEqual, useSelector } from "react-redux";
 
 
 const HeaderLogoComponent =({ restaurantinfo }) =>{
-
-    //const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
     // const [restaurant, setRestaurant] = useState(!restaurantinfo ? useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual) : restaurantinfo);
-    const [restaurant, setRestaurant] = useState();
-
     const restaurantinfodetail = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
-    if (!restaurantinfo) {
-        // const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
-        // setRestaurant(restaurantinfo);
-        
-        setRestaurant(restaurantinfodetail);
-    }
+  
     const { logo, restaurantURL } = !restaurantinfo ? restaurantinfodetail:restaurantinfo;
 
     return (

@@ -6,7 +6,7 @@ import { removeMenuItem, selectedItemSize } from '../../../redux/menu-item/menu-
 import NewMenuItemSubOptionsParameter from './new-menu-item-sub-options-parameter/new-menu-item-sub-options-parameter.component';
 
 const NewMenuItemOptionsParameter = (props) => {
-    debugger
+    
     const dispatch = useDispatch();
 const [count, setCount] = useState(Math.random);
 const [Count, setcount] = useState(0)
@@ -79,8 +79,6 @@ const [Count, setcount] = useState(0)
 
     const selectedToppingClick = (item) => {
         
-        debugger
-      
         // setCount(Count++);
        
             let lstoptiondata = [];
@@ -91,7 +89,6 @@ const [Count, setcount] = useState(0)
     
                 lstoptiondata.push(data);
             })
-            debugger
             let lsttopdata = [];
             let updatedata = menuItemDetail.topping.map((data) => {
                 if (data.subparameterId == item.subparameterId) {

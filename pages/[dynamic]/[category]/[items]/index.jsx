@@ -59,8 +59,6 @@ const Index = () => {
     }
 
     useEffect(() => {
-        debugger
-
         if(selectedtopping && selectedtopping?.list){
             selectedtopping.list != undefined && selectedtopping.list.length > 0 &&
             selectedtopping.list.map((lsttop) => {
