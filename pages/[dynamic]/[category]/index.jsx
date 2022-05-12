@@ -12,7 +12,7 @@ import { shallowEqual, useSelector } from 'react-redux';
 import MenuItemIntroComponentNew from '../../../components/MenucategoryNew/menuitemintro-new.component';
 import MenuCategoryCart from '../../../components/MenucategoryNew/menucategory-cart';
 
-function DynamicCategoryNew() {
+const DynamicCategoryNew = () => {
     const router = useRouter();
     const {
         query: { dynamic, id, category, index },

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getCurrency } from "../helpers/utility";
+import { GetCurrency } from "../helpers/utility";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { Router } from "next/router";
@@ -19,7 +19,7 @@ import Link from "next/link";
 import { FavouritesServices } from "../../redux/favourites/favourites.services";
 
 const FavouritesComponent = (props) => {
-  const [currency, setcurrency] = useState(getCurrency());
+  const [currency, setcurrency] = useState(GetCurrency());
   const router = useRouter();
   const dispatch = useDispatch();
   const {

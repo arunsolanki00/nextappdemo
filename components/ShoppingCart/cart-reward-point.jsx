@@ -3,7 +3,7 @@ import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { carttotaldata, getCartItem, getCartItemCount, setrewardpoint, updateCartItem, updateCartItemCount } from "../../redux/cart/cart.action";
 import { CartServices } from "../../redux/cart/cart.services";
 // import { getSessionKey } from "../Common/auth";
-import { getCurrency } from "../helpers/utility";
+import { GetCurrency } from "../helpers/utility";
 import { decimalValidate, numberValidate } from "../helpers/validate";
 
 const CartRewardPoint = () => {
@@ -40,7 +40,7 @@ const CartRewardPoint = () => {
   const [redeemamount, setredeemamount] = useState();
   const [redeempoint, setredeempoint] = useState();
 
-  const [currency, setcurrency] = useState(getCurrency());
+  const [currency, setcurrency] = useState(GetCurrency());
   const [disabledText,setDisabledText] = useState(false);
 
   const inputRP = useRef(null);

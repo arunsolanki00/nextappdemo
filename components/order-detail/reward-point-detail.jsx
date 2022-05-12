@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { getCurrency } from '../helpers/utility';
+import { GetCurrency } from '../helpers/utility';
 const RewardPointDetail = () => {
 
   let rewardpoints = useSelector(({ cart }) => cart.rewardpoints);
   let rewardvalue = rewardpoints?.rewardvalue;
   const [point, setpoint] = useState(rewardpoints?.rewardPoint);
   const [amount, setamount] = useState(parseFloat(rewardpoints?.rewardamount) > 0 ? parseFloat(rewardpoints?.rewardamount).toFixed(2) : 0);
-  const [currency, setcurrency] = useState(getCurrency());
+  const [currency, setcurrency] = useState(GetCurrency());
 
   return (
         <div className="col-lg-12 col-sm-12 col-xs-12">

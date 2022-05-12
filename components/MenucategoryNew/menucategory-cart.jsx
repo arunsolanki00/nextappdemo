@@ -623,7 +623,7 @@ function MenuCategoryCart({ sendDataToParent }) {
                           .filter((x) => x.cartid === data.cartid)
                           .map((option, index) => {
                             return (
-                              <small>
+                              <small key={index}>
                                 {index === 0 && `(`}
                                 {option.title}
                                 {cartdata.cartDetails.cartOptionParams.filter(

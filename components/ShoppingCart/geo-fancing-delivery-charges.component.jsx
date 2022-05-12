@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { CartServices } from '../../redux/cart/cart.services';
-import { getCurrency } from '../helpers/utility';
+import { GetCurrency } from '../helpers/utility';
 
 const GeoFancingDeliveryCharges = () => {
-    const [currency,setcurrency]=useState(getCurrency())
+    const [currency,setcurrency]=useState(GetCurrency())
     let deliverydata = useSelector(({ cart }) => cart.deliverycharges);
 
     if (deliverydata != undefined)
@@ -26,9 +26,9 @@ const GeoFancingDeliveryCharges = () => {
                                     </tr>
                                     {deliverydata != undefined &&
                                         deliverydata.DeliveryCharges != undefined &&
-                                        deliverydata.DeliveryCharges.map((item) => {
+                                        deliverydata.DeliveryCharges.map((item,index) => {
                                             return (
-                                                <tr>
+                                                <tr key={index}>
                                                     <td>{item.zone}</td>
                                                     <td>{currency}{item.amount}</td>
                                                     <td>{currency}{item.charges}</td>

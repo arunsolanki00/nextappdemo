@@ -6,7 +6,7 @@ import { MemoizedHeaderLogoComponent } from '../../components/Header/headerlogo.
 import handleNotify from '../../components/helpers/toaster/toaster-notify';
 import { ToasterPositions } from '../../components/helpers/toaster/toaster-positions';
 import { ToasterTypes } from '../../components/helpers/toaster/toaster-types';
-import { getCurrency, MonthList } from '../../components/helpers/utility';
+import { GetCurrency, MonthList } from '../../components/helpers/utility';
 import { emptycart, updateCartItemCount } from '../../redux/cart/cart.action';
 import { CartTypes } from '../../redux/cart/cart.types';
 import { addCalculatedTotal, emptyorder, isRedirectToCheckout, setorderId, setordertime } from '../../redux/order/order.action';
@@ -41,7 +41,7 @@ const Choosepayment = () => {
     let carttotal = cart?.carttotal && cart.carttotal;
     const [grandtotal, setgrandtotal] = useState(carttotal?.grandTotal != undefined ? parseFloat(carttotal.grandTotal) : 0);
     
-    let currencySymbol = getCurrency();
+    let currencySymbol = GetCurrency();
     let subtotal = carttotal?.subTotal && carttotal.subTotal;
 
     const handleCardPayment = () => {

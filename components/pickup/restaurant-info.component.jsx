@@ -74,7 +74,7 @@ const RestaurantInfoComponent = (props) => {
           <br /> */}
             {pickupTime &&
               pickupTime.map((ptime, index) => (
-                <span className="size_20 color_grey" id={index}>
+                <span className="size_20 color_grey" id={index} key={index}>
                   {ptime}
                   <br />
                 </span>
@@ -89,7 +89,7 @@ const RestaurantInfoComponent = (props) => {
           <br /> */}
             {deliverTime &&
               deliverTime.map((dtime, index) => (
-                <span className="size_20 color_grey" id={index}>
+                <span className="size_20 color_grey" id={index} key={index}>
                   {dtime}
                   <br />
                 </span>

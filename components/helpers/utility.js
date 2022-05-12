@@ -20,7 +20,7 @@ export const resizeImageFn = async (file) => {
     //return null;
 }
 
-export const getCurrency =() => {
+export const GetCurrency =() => {
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const location = restaurantinfo.defaultLocation;
     

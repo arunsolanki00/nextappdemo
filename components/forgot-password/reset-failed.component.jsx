@@ -29,7 +29,7 @@ function ResetFailedForm() {
                                     <div className="row">
                                         <div className="col-lg-12 col-sm-12 col-xs-12">
                                             <h2>Password Reset Failed</h2>
-                                            <p>We're sorry, but the link you clicked appears to be invalid.</p>
+                                            <p>We&apos;re sorry, but the link you clicked appears to be invalid.</p>
                                         </div>
                                     </div>
                                     <div className="row">

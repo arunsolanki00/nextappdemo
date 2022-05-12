@@ -62,9 +62,9 @@ const RestaurantListComponent = () => {
                 </>
                 ))}
 
-                {oddlocations.map((location) =>
+                {oddlocations.map((location,index) =>
                 (
-                    <div className="col-lg-6">
+                    <div className="col-lg-6" key={index}>
                         <div className="col-lg-2">
                             <img src="/images/pin.png" alt />
                         </div>
@@ -96,7 +96,7 @@ const RestaurantListComponent = () => {
                                 {oddItem.website &&
                                     (<h5 className="size_22 color_black weight_300 margin_top_20 margin_bottom_20">
                                         <i className="fa fa-globe" />{" "}
-                                        <span className="size_20 color_grey"> <a href={oddItem.website} target="_blank" style={{ color: 'mediumblue' }} > {oddItem.website} </a></span>
+                                        <span className="size_20 color_grey"> <a href={oddItem.website} target="_blank" rel="noopener noreferrer" style={{ color: 'mediumblue' }} > {oddItem.website} </a></span>
                                     </h5>)}
 
                                 {oddItem.inquiryemail &&
@@ -123,7 +123,7 @@ const RestaurantListComponent = () => {
                                     </a>
                                 </Link>
 
-                                <a href={oddItem?.restaurantURL} target="_blank"> <button type="button" className="btn btn-warning btn-lg margin_top_20"> Order Now</button> </a>
+                                <a href={oddItem?.restaurantURL} target="_blank"  rel="noopener noreferrer"> <button type="button" className="btn btn-warning btn-lg margin_top_20"> Order Now</button> </a>
                             </div>
                         </div>
                         {/* <div className="col-lg-12">    <h5 className="size_22 color_black weight_300 margin_bottom_20">
@@ -152,7 +152,7 @@ const RestaurantListComponent = () => {
                                 {evenItem.website &&
                                     (<h5 className="size_22 color_black weight_300 margin_top_20 margin_bottom_20">
                                         <i className="fa fa-globe" />{" "}
-                                        <span className="size_20 color_grey"> <a href={evenItem.website} target="_blank" style={{ color: 'mediumblue' }}> {evenItem.website} </a></span>
+                                        <span className="size_20 color_grey"> <a href={evenItem.website} target="_blank" rel="noopener noreferrer" style={{ color: 'mediumblue' }}> {evenItem.website} </a></span>
                                     </h5>)}
                                 {evenItem.inquiryemail && (<h5 className="size_22 color_black weight_300 margin_top_20 margin_bottom_20">
                                     <i className="fa fa-envelope" />{" "}
@@ -177,7 +177,7 @@ const RestaurantListComponent = () => {
                                     </a>
                                 </Link>
 
-                                <a href={evenItem?.restaurantURL} target="_blank"> <button type="button" className="btn btn-warning btn-lg margin_top_20"> Order Now</button> </a>
+                                <a href={evenItem?.restaurantURL} target="_blank"  rel="noopener noreferrer"> <button type="button" className="btn btn-warning btn-lg margin_top_20"> Order Now</button> </a>
                             </div>
                         </div>
                         <div className="col-lg-12">

@@ -6,14 +6,15 @@ import { useState } from "react";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router"
 
-function BackHeaderComponent({ restaurantinfo }) {
-    const [restaurant, setRestaurant] = useState(!restaurantinfo ? useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual) : restaurantinfo);
+const BackHeaderComponent =({ restaurantinfo }) =>{
+    const [restaurant, setRestaurant] = useState();
 
-    if (!restaurant) {
-        const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
-        setRestaurant(restaurantinfo);
+    const restaurantinfodetail = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
+
+    if (!restaurantinfo) {
+        setRestaurant(restaurantinfodetail);
     }
-    const { logo, restaurantURL } = restaurant;
+    const { logo, restaurantURL } = restaurantinfo ==null|| restaurantinfo==undefined ? restaurant : restaurantinfo;
 
     const router = useRouter();
     const dispatch = useDispatch();

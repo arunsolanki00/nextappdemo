@@ -133,7 +133,7 @@ const ChoosetimeNew = () => {
                             <div className="col-lg-6 col-sm-6 col-xs-12">
                                 <h5 className="size_18 color_black weight_300 margin_bottom_20">
                                     <i className="fa fa-clock-o"></i>Delivery Window<br />
-                                    <span class="size_20 color_grey">
+                                    <span className="size_20 color_grey">
                                     </span>
                                 </h5>
                             </div>

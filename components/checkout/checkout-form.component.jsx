@@ -62,13 +62,13 @@ const Field = ({
     </div>
 );
 
-const SubmitButton = ({ processing, error, children, disabled }) => (
+const SubmitButton = ({ processing, error, paynowtext, disabled }) => (
     <button
         className={`blue_btn blue_btn_porder size_32`}
         type="submit"
     //disabled={processing || disabled}
     >
-        {processing ? 'Processing...' : children}
+        {processing ? 'Processing...' : paynowtext}
     </button>
 );
 
@@ -262,7 +262,7 @@ const CheckoutForm = () => {
                         <div className="col-lg-6 flush-left right-input-style col-sm-6 col-xs-6">
                             <input className="" type="text" placeholder="CVC" required />
                             <div className="card-imgs">
-                                <a href="#"><img class="cvc" src="/images/cvc.svg" /></a>
+                                <a href="#"><img className="cvc" src="/images/cvc.svg" /></a>
                             </div>
                         </div>
                         <div className="col-lg-12 normal-input-style col-sm-12 col-xs-12">
@@ -375,7 +375,7 @@ const CheckoutForm = () => {
                                 processing={processing}
                                 error={error}
                                 //disabled={!stripe}
-                                children={"Pay Now"}
+                                paynowtext={"Pay Now"}
                             >
                                 {/* <NumberFormat value={cartitems ? cartitems.OrderTotal : 0} displayType={'text'} thousandSeparator={true} prefix={'Pay $'} decimalScale={2} fixedDecimalScale={true} /> */}
                                 {/* ${cartitems ? cartitems.OrderTotal : 0} */}

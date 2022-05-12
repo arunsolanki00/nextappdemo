@@ -14,11 +14,12 @@ import { restaurantsdetail } from '../../redux/restaurants/restaurants.action';
 import { cartcheckout, carttotaldata, deliverycharges, getCartItem, getCartItemCount, orderinstruction, setcartgrandtotal } from '../../redux/cart/cart.action';
 import { v4 as uuidv4 } from 'uuid';
 import { createSessionId } from '../../redux/session/session.action';
-import { getCurrency } from '../helpers/utility';
+import { GetCurrency } from '../helpers/utility';
 import { CartTypes } from '../../redux/cart/cart.types';
 import ShoppingCartItem from '../ShoppingCart/shopping-cart-item';
 import CartRewardPoint from '../ShoppingCart/cart-reward-point';
 import NoItemsCartComponent from '../ShoppingCart/no-items-cart.component';
+import SmallLoader from '../Common/small-loader.component';
 // import { MemoizedCartCounterComponent } from "../Header/cart-counter.component";
  export const CartloginComponent = () => {
     
@@ -79,7 +80,7 @@ import NoItemsCartComponent from '../ShoppingCart/no-items-cart.component';
   
     const [errorMessage, setErrorMessage] = useState("");
   
-    const [currency, setcurrency] = useState(getCurrency());
+    const [currency, setcurrency] = useState(GetCurrency());
   
     const [isOrdering, setIsOrdering] = useState(false);
   

@@ -23,7 +23,7 @@ import Link from "next/link";
 import SmallLoader from "../../components/Common/small-loader.component";
 import { MemoizedMenuItemHeaderLogoComponent } from "../../components/Header/menuitemheaderlogo.component";
 import { CartMessage } from "../../components/helpers/static-message/cart-message";
-import { getCurrency } from "../../components/helpers/utility";
+import { GetCurrency } from "../../components/helpers/utility";
 import { restaurantsdetail } from "../../redux/restaurants/restaurants.action";
 import { RestaurantsServices } from "../../redux/restaurants/restaurants.services";
 import { getLocationIdFromStorage } from "../../components/Common/localstore";
@@ -90,7 +90,7 @@ import { CartloginComponent } from "../../components/cart-login/cart-login";
   
     const [errorMessage, setErrorMessage] = useState("");
   
-    const [currency, setcurrency] = useState(getCurrency());
+    const [currency, setcurrency] = useState(GetCurrency());
   
     const [isOrdering, setIsOrdering] = useState(false);
   

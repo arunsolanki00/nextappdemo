@@ -7,7 +7,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { removeCategoryList, setCategoryList } from '../../redux/category/category.action';
 import { useEffect, useState } from 'react';
 import LoginMainComponent from '../login/login.component';
-import { getCurrency } from '../helpers/utility';
+import { GetCurrency } from '../helpers/utility';
 import CartQuantityArea from './menucategory-cart-quantityarea.component';
 
 function MenuItemIntroComponentNew() {
@@ -16,7 +16,7 @@ function MenuItemIntroComponentNew() {
     const {
         query: { dynamic, id, index },
     } = router
-    const [currency, setcurrency] = useState(getCurrency())
+    const [currency, setcurrency] = useState(GetCurrency())
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const [showLogin, setShowLogin] = useState(false);

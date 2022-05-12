@@ -1,7 +1,7 @@
 import React, { Component, useState } from "react";
 import RestaurantCloseComponent from "../../components/restaurant-close/restaurant-close.component";
 
-function RestaurantClose() {
+const RestaurantClose =() => {
     return (
         <>
             <RestaurantCloseComponent />

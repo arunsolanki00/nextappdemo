@@ -16,8 +16,11 @@ const OrderDetailSummary = (props) => {
   const router = useRouter();
   const { query: { dynamic, id, category, index } } = router;
   const [isProcessing, setIsProcessing] = useState(false)
-  const handleFullOrderClick = (orderId) => {
+
+  
+  const HandleFullOrderClick = (orderId) => {
     let sessionid = useSelector(({ session }) => session?.sessionid);
+
     setIsProcessing(true);
     OrderServices.repeatOrder(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, 0, true, userinfo.customerId,sessionid).then((response) => {
       if (response.status === 1) {
@@ -135,9 +138,9 @@ const OrderDetailSummary = (props) => {
                 </div>
               )}
 
-              {orderSummary.cartTaxList && orderSummary.cartTaxList.map((taxes) => {
+              {orderSummary.cartTaxList && orderSummary.cartTaxList.map((taxes,index) => {
                 return (
-                  <div className="row">
+                  <div className="row" key={index}>
                     <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
                       <p className="margin_0 margin_top_15 size_19">
                         {taxes?.TaxesName}:
@@ -185,7 +188,7 @@ const OrderDetailSummary = (props) => {
               </h3>
             </div>
             <div className="col-lg-12 text-center col-sm-12 col-xs-12">
-              <a className="blue_btn padding_right_20 padding_left_20" onClick={() => handleFullOrderClick(props.orderId)}>
+              <a className="blue_btn padding_right_20 padding_left_20" onClick={() => HandleFullOrderClick(props.orderId)}>
                 {isProcessing === false ? ("Repeat Entire Order") : ("Processing")}
               </a>
             </div>

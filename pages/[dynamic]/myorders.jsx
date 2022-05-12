@@ -8,7 +8,7 @@ import DeliveryDropdownComponent from "../../components/Header/delivery-dropdown
 import { MemoizedHeaderLogoComponent } from "../../components/Header/headerlogo.component";
 import MyOrdersComponent from "../../components/myorders/myorders.component";
 
-const myorders = () => {
+const MyOrders = () => {
   const restaurant = useSelector(
     ({ restaurant }) => restaurant.restaurantdetail,
     shallowEqual
@@ -43,4 +43,4 @@ const myorders = () => {
   );
 };
 
-export default myorders;
+export default MyOrders;

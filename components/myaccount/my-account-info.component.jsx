@@ -378,7 +378,7 @@ const MyAccountInfoComponent = () => {
 
               {IsChangetext?
                <h4
-                class="size_24 color_orange weight_500 margin_bottom_15"
+               className="size_24 color_orange weight_500 margin_bottom_15"
                 onClick={handleImageUpload}
 
               >
@@ -386,7 +386,7 @@ const MyAccountInfoComponent = () => {
                 Upload{"   "}
               </h4>
               :<h4
-                class="size_24 color_orange weight_500 margin_bottom_15"
+              className="size_24 color_orange weight_500 margin_bottom_15"
                 onClick={handleImageUpload}
               >
                 {" "}

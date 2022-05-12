@@ -9,11 +9,11 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { shallowEqual, useSelector, useDispatch } from 'react-redux';
 import { getAddress } from '../../redux/delivery-address/delivery-address.action'
-import { getCurrency } from '../../components/helpers/utility'
+import { GetCurrency } from '../../components/helpers/utility'
 import { refreshCategoryList } from '../../redux/main/main.action'
 
-function MainPage({ restaurant }) {
-    const [currency, setcurrency] = useState(getCurrency())
+const MainPage =({ restaurant }) => {
+    const [currency, setcurrency] = useState(GetCurrency())
     const router = useRouter();
     const { query: { dynamic }, } = router;
 

@@ -7,7 +7,7 @@ import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getCategoryItemList, removeCategoryList, setCategoryList } from '../../redux/category/category.action';
 import { useState } from 'react';
 import LoginMainComponent from '../login/login.component';
-import { getCurrency } from '../helpers/utility';
+import { GetCurrency } from '../helpers/utility';
 
 function MenuItemIntroComponent({ menuitems }) {
 
@@ -18,7 +18,7 @@ function MenuItemIntroComponent({ menuitems }) {
     } = router
 
     const slides = [];
-    const [currency, setcurrency] = useState(getCurrency())
+    const [currency, setcurrency] = useState(GetCurrency())
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const [showLogin, setShowLogin] = useState(false);
@@ -96,13 +96,13 @@ function MenuItemIntroComponent({ menuitems }) {
                                 <div className="col-lg-12 text-right col-sm-12 col-xs-12" style={{cursor:"pointer !important"}}>
                                     <div className="col-sm-3">
                                         {evenMenuItem.MenuStausList && evenMenuItem.MenuStausList.length > 0 &&
-                                            evenMenuItem.MenuStausList.map((item => {
+                                            evenMenuItem.MenuStausList.map((item,index) => {
                                                 return (
-                                                    <span>
+                                                    <span key={index}>
                                                         <img src={item.iconurl}></img>&nbsp;&nbsp;
                                                     </span>
                                                 )
-                                            }))
+                                            })
                                         }
                                     </div>
                                     {(userinfo != undefined && userinfo != null) &&
@@ -176,13 +176,13 @@ function MenuItemIntroComponent({ menuitems }) {
                                 <div className="col-lg-12 text-right col-sm-12 col-xs-12">
                                     <div className="col-sm-3">
                                         {oddMenuItem.MenuStausList && oddMenuItem.MenuStausList.length > 0 &&
-                                            oddMenuItem.MenuStausList.map((item => {
+                                            oddMenuItem.MenuStausList.map((item,index) => {
                                                 return (
-                                                    <span>
+                                                    <span key={index}>
                                                         <img src={item.iconurl}></img>&nbsp;&nbsp;
                                                     </span>
                                                 )
-                                            }))
+                                            })
                                         }
                                     </div>
                                     {(userinfo != undefined && userinfo != null) &&

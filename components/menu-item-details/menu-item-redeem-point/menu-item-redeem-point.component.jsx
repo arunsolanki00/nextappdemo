@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
-import { getCurrency } from "../../helpers/utility";
+import { GetCurrency } from "../../helpers/utility";
 import { MenuItemRedeemPointData } from "./menu-item-redeem-point.data";
 
 
@@ -17,7 +17,7 @@ const MenuItemRedeemPoint = () => {
                 <span className="ora">You have <em>{point}</em> reward<br />
                     points, worth <em>${amount}.</em><br />
                     <em className="sm">You can redeem {point} points or
-                        {getCurrency}{amount}</em>
+                        {GetCurrency}{amount}</em>
                     <a className="red" href="#">Redeem points</a>
                 </span>
             </div>

@@ -12,7 +12,7 @@ import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import FavouritesComponent from "../../components/favourites/favourites.component";
 import { FavouritesSkeleton } from "../../components/Common/Skeleton/favourites-skeleton.component";
 
-function Favourites() {
+const Favourites=()=> {
   const restaurantinfo = useSelector(
     ({ restaurant }) => restaurant.restaurantdetail,
     shallowEqual

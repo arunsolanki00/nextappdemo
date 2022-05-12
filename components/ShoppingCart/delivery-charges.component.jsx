@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { CartServices } from '../../redux/cart/cart.services';
-import { getCurrency } from '../helpers/utility';
+import { GetCurrency } from '../helpers/utility';
 
 const DeliveryCharges = () => {
-    const [currency,setcurrency]=useState(getCurrency())
+    const [currency,setcurrency]=useState(GetCurrency())
     let deliverydata = useSelector(({ cart }) => cart.deliverycharges);
  
  

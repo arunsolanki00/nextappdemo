@@ -420,7 +420,7 @@ const IndexOld = () => {
                                                 <div className="col-lg-1 text-center flush col-sm-1 col-xs-12">
                                                     <div className="numbers">2</div>
                                                 </div>
-                                                <h5 class="size_22 color_black weight_300 margin_bottom_20">
+                                                <h5 className="size_22 color_black weight_300 margin_bottom_20">
                                                     {PickUpConfirmationMessage.CLOSE_TODAY}
                                                 </h5>
                                             </div>

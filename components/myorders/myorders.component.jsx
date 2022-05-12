@@ -131,6 +131,7 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
                                   <h3
                                     className="margin_top_0 margin_bottom_10 weight_500 size_22"
                                     id={Math.random()}
+                                    key={index}
                                   >
                                     {history.itemname}
                                   </h3>
@@ -207,6 +208,7 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
                                   <h3
                                     className="margin_top_0 margin_bottom_10 weight_500 size_22"
                                     id={Math.random()}
+                                    key={index}
                                   >
                                     {history.itemname}
                                   </h3>

@@ -305,7 +305,7 @@ function IndexWithLogin() {
                                                         }
 
                                                         {/* {businessAddresses && businessAddresses.map((baddress) => {
-                                                    <span class="size_20 color_grey">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{baddress.address1.replace(",", " ")}{","}
+                                                    <span className="size_20 color_grey">&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{baddress.address1.replace(",", " ")}{","}
                                                         <br></br> &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;{baddress.address2.replace(",", " ")}{","}
                                                         <br></br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {baddress.landmark.replace(",", " ")}{","}
                                                         <br></br>&nbsp;&nbsp;&nbsp;&nbsp; &nbsp; {baddress.city.replace(",", " ")}{","}
@@ -444,7 +444,7 @@ function IndexWithLogin() {
                                                                 >
                                                                     <div className="col-lg-12 col-sm-12">
                                                                         <div className="col-lg-2 col-sm-2 margin_top_55">
-                                                                            <a href={gmaplink} target="_blank">
+                                                                            <a href={gmaplink} target="_blank" rel="noreferrer">
                                                                                 <img src="/images/pinnew.png" alt="" />
                                                                             </a>
 

@@ -86,13 +86,13 @@ const RestaurantLocationsComponent = (props) => {
                   </div>
                   <div className="col-lg-12 col-sm-12 col-xs-12">
 
-                    {addressList && addressList.map((address) => {
+                    {addressList && addressList.map((address,index) => {
 
                       let locationFullAddress = address.locationName + "," + address.address1 + "," + address.cityName + "," + address.zipcode;
                       let gmaplink = ENDPOINTS.GOOGLE_MAP_LINK + locationFullAddress;
 
                       return (
-                        <div>
+                        <div key={index}>
                           <a value={address.locationId}
                             onClick={() => handleClick(address.locationId)}
                           >
@@ -105,7 +105,7 @@ const RestaurantLocationsComponent = (props) => {
                             </div>
                             <div className="row">
                               <div className="col-lg-1">
-                              <a href={gmaplink} target="_blank">
+                              <a href={gmaplink} target="_blank" rel="noreferrer">
                               <img src="/images/pinnew.png" alt="" />
                               </a>
                               </div>

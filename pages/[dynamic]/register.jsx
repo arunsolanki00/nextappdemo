@@ -6,7 +6,7 @@
 // // import Image from "next/image";
 // import { useDispatch, useSelector } from "react-redux";
 
- function RegisterPage() {
+ const RegisterPage =()=> {
 //   const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
 
    return (

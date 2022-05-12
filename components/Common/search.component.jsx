@@ -59,7 +59,7 @@ function LocationSearchInput(props) {
           />
           <div className="autocomplete-dropdown-container">
             {loading && <div>Loading...</div>}
-            {suggestions.map((suggestion) => {
+            {suggestions.map((suggestion,index) => {
               const className = suggestion.active
                 ? "suggestion-item--active"
                 : "suggestion-item";
@@ -68,7 +68,7 @@ function LocationSearchInput(props) {
                 ? { backgroundColor: "#fafafa", cursor: "pointer" }
                 : { backgroundColor: "#ffffff", cursor: "pointer" };
               return (
-                <div
+                <div key={index}
                   {...getSuggestionItemProps(suggestion, {
                     className,
                     style,
