@@ -178,6 +178,8 @@ function Restaurant({ children }) {
         }
     }, [dynamic]);
 
+    console.log(router.pathname)
+
     if (loadrestaurant && selectedRestaurant) {
         return (
             <>
@@ -191,7 +193,8 @@ function Restaurant({ children }) {
             </>
         )
     }
-    else if (router.pathname === '/home') {
+    else if (router.pathname === '/home' || router.pathname === '/' || router.pathname === '') {
+        console.log(router.pathname)
         return (
             <>
                 {children}
@@ -212,8 +215,6 @@ function Restaurant({ children }) {
             </>
         );
     }
-
-
 }
 
 // Restaurant.getInitialProps = async (ctx) => {
