@@ -54,7 +54,7 @@ const RestaurantTimmingComponent = (props) => {
                           takeawaytime
                             .map((t, index) => (
                               t.isactive === false ?
-                                <span className="color_red"> Closed </span>
+                                <span className="color_red" key={index}> Closed </span>
                                 :
                                 <div key={Math.random()} id={index}>
                                   {t.openingtime +
@@ -77,7 +77,7 @@ const RestaurantTimmingComponent = (props) => {
 
                 {!isDeliveryClosed &&
 
-                  <td style={{ paddingTop: "0px !important", }}>
+                  <td style={{ paddingTop: "0px !important" }}>
                     <h5>
                       {isTakeoutClosed &&
                         <>{deliverytimenew[0].weekname} <br /></>
@@ -87,9 +87,9 @@ const RestaurantTimmingComponent = (props) => {
                         {deliverytimenew !== null &&
                           deliverytimenew.map((d, index) => (
                             d.isactive === false ?
-                              <span className="color_red"> Closed </span>
+                              <span className="color_red" key={index}> Closed </span>
                               :
-                              <div key={Math.random()} id={index}>
+                              <div key={index} id={index}>
                                 {d.openingtime +
                                   " " +
                                   d.openingtimemeridian +
@@ -133,13 +133,13 @@ const RestaurantTimmingComponent = (props) => {
               <div className="col-lg-12 col-sm-12 col-xs-12">
                 {!isTakeoutClosed &&
                   <div className="col-lg-6 col-sm-6 col-xs-6">
-                    <h5  style={{ fontSize: "22px", color: "#0D191B;" }}> Pickup Window</h5>
+                    <h5  style={{ fontSize: "22px", color: "#0D191B" }}> Pickup Window</h5>
                     <span className="color_grey"> Last order {takeawayExtraTime} min before close </span>
                   </div>
                 }
                 {!isDeliveryClosed  &&
                   <div className="col-lg-6 col-sm-6 col-xs-6">
-                    <h5 style={{ fontSize: "22px", color: "#0D191B;" }}>Delivery Window </h5>
+                    <h5 style={{ fontSize: "22px", color: "#0D191B" }}>Delivery Window </h5>
                     <span className="color_grey"> Last order {deliveryExtraTime} min before close </span>
                   </div>
                 }
