@@ -45,12 +45,12 @@ class MyDocument extends Document {
           <NextScript />
           {/* <!-- jQuery (necessary for Bootstrap's JavaScript plugins) --> */}
           {/* <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> */}
-          <Script src="https://code.jquery.com/jquery-1.12.4.min.js"           
-          crossOrigin="anonymous"></Script>
+
           {/* <!-- Include all compiled plugins (below), or include individual files as needed --> */}
           {/* <script src="/js/bootstrap.min.js"></script> */}
-          <Script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"           
-          crossOrigin="anonymous"></Script>
+   
+          {/* <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"           
+          crossOrigin="anonymous" ></script> */}
         </body>
       </Html>
     );

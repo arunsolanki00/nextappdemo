@@ -5,6 +5,7 @@ import { store, persistor } from "../redux/store";
 import Restaurant from '../components/Common/restaurant.component';
 import Head from 'next/head';
 import ToastNotify from '../components/toastnotify/toast-notify.component';
+import Script from 'next/script';
 
 function MyApp({ Component, pageProps }) {
   
@@ -18,8 +19,14 @@ function MyApp({ Component, pageProps }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Online description" />
       </Head>
+
+         {/* https://medium.com/nextjs/the-script-component-in-next-js-ee6ee6cd705a */}
+         <Script src="https://code.jquery.com/jquery-1.12.4.min.js"  crossOrigin="anonymous"></Script>
+      <Script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossOrigin="anonymous" strategy="lazyOnload" />
+   
       <Component {...pageProps} />
       <ToastNotify position={"bottom-right"}/>
+
    </Restaurant>
    </PersistGate>
   </Provider>

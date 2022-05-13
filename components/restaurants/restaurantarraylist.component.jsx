@@ -6,11 +6,11 @@ import Image from 'next/image';
 
 const RestaurantArrayListNew = (props) => {
     const [restaurantList, setrestaurantList] = useState(props.restaurantList)
-    debugger
+    
     const router = useRouter();
 
     const handleClick = (restaurantUrl) => {
-        debugger
+        
         // router.push(`/[dynamic]/${restaurantUrl}/`)
         // router.push(`/${restaurantUrl}/`)
     }

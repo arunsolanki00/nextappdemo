@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
-// import { RegisterModel, AddressModel } from "../../models/register.model";
-// import LoginPage from "../../pages/login/login.pages";
-import AddressComponent from "../address/address.component";
 import { RegisterServices } from "../../redux/register/register.services";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -16,7 +13,7 @@ import handleNotify from "../helpers/toaster/toaster-notify";
 import AddAddress from "../Common/Register-Address/add-address.component";
 import AddressesListComponent from "./addressesList.component";
 import { registerAddress } from "../../redux/delivery-address/delivery-address.action";
-import * as firebase from 'firebase';
+import * as firebase from 'firebase/app';
 import { UserDetailsErrormessage } from "../helpers/static-message/userdetails-message";
 import { OrderServices } from "../../redux/order/order.services";
 import { LoginServices } from "../../redux/login/login.services";
