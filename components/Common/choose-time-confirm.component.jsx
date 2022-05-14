@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
         // paddingTop: '0px !important',
         paddingRight: '0px !important',
         // paddingBottom: '0px !important',
-        paddingLeft: '12px !important',
+        paddingLeft: '8px !important',
         border: '0px none !important',
         width:'75px !important',
     },
@@ -244,19 +244,19 @@ const ChooseTimeConfirm = (props) => {
                                             <div className="col-md-3">
                                             </div>
                                             <div className="col-md-2" onClick={handleIncreaseHour}>
-                                                <img src="/images/arrow-up.png" />
+                                                <img src="/images/arrow-up.png" height={16} width={30}/>
                                             </div>
                                             <div className="col-md-2" onClick={handleIncreaseMinute}>
-                                                <img src="/images/arrow-up.png" />
+                                                <img src="/images/arrow-up.png" height={16} width={30}/>
                                             </div>
                                             <div className="col-md-2" onClick={handleMeridiem}>
-                                                <img src="/images/arrow-up.png" />
+                                                <img src="/images/arrow-up.png" height={16} width={30}/>
                                             </div>
                                             <div className="col-md-3">
                                             </div>
                                         </div>
 
-                                        <div className="col-md-12">
+                                        <div className="col-md-12" style={{height:"48px"}}>
                                             <div className="col-md-3">
                                             </div>
                                          
@@ -279,13 +279,13 @@ const ChooseTimeConfirm = (props) => {
                                             <div className="col-md-3">
                                             </div>
                                             <div className="col-md-2" onClick={handleDecreaseHour}>
-                                                <img src="/images/arrow-down.svg" />
+                                                <img src="/images/arrow-down.svg"  height={18}/>
                                             </div>
                                             <div className="col-md-2" onClick={handleDecreaseMinute} >
-                                                <img src="/images/arrow-down.svg" />
+                                                <img src="/images/arrow-down.svg"  height={18}/>
                                             </div>
                                             <div className="col-md-2" onClick={handleMeridiem} >
-                                                <img src="/images/arrow-down.svg" />
+                                                <img src="/images/arrow-down.svg"  height={18}/>
                                             </div>
                                             <div className="col-md-3">
                                             </div>
