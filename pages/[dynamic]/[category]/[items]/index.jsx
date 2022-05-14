@@ -14,7 +14,6 @@ import { addFavorite, deleteFavorite, removeMenuItemForFavorite, selectedMenuIte
 // import 'public\css\style.css'
 
 const Index=()=> {
-    debugger
     const dispatch = useDispatch();
     const [amount, setamount] = useState(0.00);
     const [point, setpoint] = useState(0);
@@ -32,7 +31,6 @@ const Index=()=> {
     let selectedtopping = menuItemDetail != undefined && menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && menuItemDetail.topping.find(x => x.subparameterId == selectedsize.subparameterId);
     let selectedmenuitemdetail = useSelector(({ menuitem }) => menuitem?.selectedmenuitemdetail);
     const [count, setcount] = useState(0);
-    const [Count, setCount] = useState(0);    
     useEffect(() => {
         setTimeout(() => {
             if (rewardpoints !== undefined && rewardpoints !== null) {

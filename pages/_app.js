@@ -13,16 +13,21 @@ function MyApp({ Component, pageProps }) {
   return(
   <Provider store={store}>
     <PersistGate persistor={persistor}>
-    <Restaurant>
-      <Head>
+    <Head>
         {/* <title>{restaurantinfo.restaurantname}: Online Ordering</title> */}
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="description" content="Online description" />
       </Head>
 
-         {/* https://medium.com/nextjs/the-script-component-in-next-js-ee6ee6cd705a */}
-         <Script src="https://code.jquery.com/jquery-1.12.4.min.js"  crossOrigin="anonymous"></Script>
-      <Script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossOrigin="anonymous" strategy="lazyOnload" />
+      {/* https://medium.com/nextjs/the-script-component-in-next-js-ee6ee6cd705a */}
+      <Script src="https://code.jquery.com/jquery-3.6.0.min.js"></Script>
+          <Script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossOrigin="anonymous" 
+           strategy="lazyOnload" 
+          />
+    <Restaurant>
+      
+
+         
    
       <Component {...pageProps} />
       <ToastNotify position={"bottom-right"}/>
