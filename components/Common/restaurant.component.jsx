@@ -18,7 +18,7 @@ import { getLocationIdFromStorage, getRestaurantIdFromStorage, setLocationIdInSt
 import { v4 as uuidv4 } from 'uuid';
 
 const Restaurant =({ children }) => {
-
+   console.log("Restaurant compo call");
     const router = useRouter();
     const dispatch = useDispatch();
     let newselectedRestaurant = null;
