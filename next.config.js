@@ -35,7 +35,7 @@ module.exports = {
     return [{
       source: '/',
       destination: '/home',
-      permanent: false,
+      permanent: true,
     },]
   },
   //basePath:'/home'
