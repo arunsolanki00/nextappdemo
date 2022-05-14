@@ -1,6 +1,6 @@
 import React from 'react'
 import RestaurantListComponent from '../components/restaurants/restaurantlist.component';
-function home() {
+const Home =()=> {
     return (
         <>
             <RestaurantListComponent />
@@ -8,4 +8,4 @@ function home() {
     )
 }
 
-export default home
+export default Home

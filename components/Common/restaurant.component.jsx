@@ -17,7 +17,7 @@ import { ENDPOINTS } from "../config";
 import { getLocationIdFromStorage, getRestaurantIdFromStorage, setLocationIdInStorage, setRestaurantIdInStorage } from './localstore';
 import { v4 as uuidv4 } from 'uuid';
 
-function Restaurant({ children }) {
+const Restaurant =({ children }) => {
 
     const router = useRouter();
     const dispatch = useDispatch();
