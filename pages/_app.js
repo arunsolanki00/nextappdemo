@@ -6,7 +6,7 @@ import Restaurant from '../components/Common/restaurant.component';
 import Head from 'next/head';
 import ToastNotify from '../components/toastnotify/toast-notify.component';
 import Script from 'next/script';
-
+import ErrorBoundry from "../components/Common/errorboundary";
 function MyApp({ Component, pageProps }) {
   
   
@@ -24,7 +24,10 @@ function MyApp({ Component, pageProps }) {
           <Script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" crossOrigin="anonymous" 
            strategy="lazyOnload" 
           />
-    <Restaurant>
+          <ErrorBoundry>
+          <Restaurant>
+         
+    
       
 
          
@@ -33,6 +36,7 @@ function MyApp({ Component, pageProps }) {
       <ToastNotify position={"bottom-right"}/>
 
    </Restaurant>
+   </ErrorBoundry>
    </PersistGate>
   </Provider>
   );
