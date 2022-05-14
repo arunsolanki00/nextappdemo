@@ -4,7 +4,7 @@ import BackHeaderComponent from '../../../../components/Header/backheader.compon
 import { MemoizedCartCounterComponent } from '../../../../components/Header/cart-counter.component'
 import DeliveryDropdownComponent from '../../../../components/Header/delivery-dropdown.component'
 import { MemoizedMenuItemHeaderLogoComponent } from '../../../../components/Header/menuitemheaderlogo.component'
-import { getCurrency } from '../../../../components/helpers/utility'
+import { GetCurrency } from '../../../../components/helpers/utility'
 import LeftMenuComponent from '../../../../components/LeftMenu/leftmenu.component'
 import LoginMainComponent from '../../../../components/login/login.component'
 import MenuItemAddToCartComponent from '../../../../components/menu-item-details/menu-item-add-to-cart/menu-item-add-to-cart.component'
@@ -21,7 +21,7 @@ const Index=()=> {
     let rewardpoints = useSelector(({ cart }) => cart?.rewardpoints);
     const userinfo = useSelector(({ userdetail }) => userdetail?.loggedinuser, shallowEqual);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant?.restaurantdetail, shallowEqual);
-    const [currency, setcurrency] = useState(getCurrency());
+    const [currency, setcurrency] = useState(GetCurrency());
     const [showLogin, setShowLogin] = useState(false);
     //let lstcarttopping = [];
     const [lstcarttopping,setlstcarttopping]=useState([]);
