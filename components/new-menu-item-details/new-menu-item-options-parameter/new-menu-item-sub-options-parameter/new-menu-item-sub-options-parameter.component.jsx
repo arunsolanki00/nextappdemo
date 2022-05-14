@@ -65,9 +65,9 @@ props.updateCount();
   const [minQty, setminQty] = useState(0);
   const [toppingremaining, settoppingremaining] = useState(0);
 
-  useEffect(() => {
-    // setcount(Math.random);
-  },[props.count,count])
+  // useEffect(() => {
+  //   // setcount(Math.random);
+  // },[props.count,count])
 
 
   useEffect(() => {
@@ -371,6 +371,7 @@ props.updateCount();
 
   // }
   const selectedOptionClick = (item, selection) => {
+    props.updateCount()
     setcount(count+1);
     let lstdefault = [];
     let tdata = selectedoption[0].type;

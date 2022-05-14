@@ -4,7 +4,7 @@ import BackHeaderComponent from '../../../../components/Header/backheader.compon
 import { MemoizedCartCounterComponent } from '../../../../components/Header/cart-counter.component'
 import DeliveryDropdownComponent from '../../../../components/Header/delivery-dropdown.component'
 import { MemoizedMenuItemHeaderLogoComponent } from '../../../../components/Header/menuitemheaderlogo.component'
-import { GetCurrency } from '../../../../components/helpers/utility'
+import { getCurrency } from '../../../../components/helpers/utility'
 import LeftMenuComponent from '../../../../components/LeftMenu/leftmenu.component'
 import LoginMainComponent from '../../../../components/login/login.component'
 import MenuItemAddToCartComponent from '../../../../components/menu-item-details/menu-item-add-to-cart/menu-item-add-to-cart.component'
@@ -13,22 +13,26 @@ import NewMenuItemOptionsParameter from '../../../../components/new-menu-item-de
 import { addFavorite, deleteFavorite, removeMenuItemForFavorite, selectedMenuItem } from '../../../../redux/menu-item/menu-item.action'
 // import 'public\css\style.css'
 
-const Index = () => {
+const Index=()=> {
+    debugger
     const dispatch = useDispatch();
     const [amount, setamount] = useState(0.00);
     const [point, setpoint] = useState(0);
     let rewardpoints = useSelector(({ cart }) => cart?.rewardpoints);
     const userinfo = useSelector(({ userdetail }) => userdetail?.loggedinuser, shallowEqual);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant?.restaurantdetail, shallowEqual);
-    const [currency, setcurrency] = useState(GetCurrency());
+    const [currency, setcurrency] = useState(getCurrency());
     const [showLogin, setShowLogin] = useState(false);
-    let lstcarttopping = [];
+    //let lstcarttopping = [];
+    const [lstcarttopping,setlstcarttopping]=useState([]);
+
     let menuItemDetail = useSelector(({ menuitem }) => menuitem?.menuitemdetaillist);
     console.log(menuItemDetail);
     let selectedsize = menuItemDetail != undefined && menuItemDetail.size != undefined && menuItemDetail.size.length > 0 && menuItemDetail.size.find(x => x.sizeselected === true);
     let selectedtopping = menuItemDetail != undefined && menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && menuItemDetail.topping.find(x => x.subparameterId == selectedsize.subparameterId);
     let selectedmenuitemdetail = useSelector(({ menuitem }) => menuitem?.selectedmenuitemdetail);
     const [count, setcount] = useState(0);
+    const [Count, setCount] = useState(0);    
     useEffect(() => {
         setTimeout(() => {
             if (rewardpoints !== undefined && rewardpoints !== null) {
@@ -39,8 +43,39 @@ const Index = () => {
                 setpoint(userinfo.totalRewardPoints);
             } 
         }, 500);
-       
     }, [userinfo]);
+  
+    // const updatecount1=(count1)=>{
+    //     if(selectedtopping && selectedtopping?.list){
+    //         selectedtopping.list != undefined && selectedtopping.list.length > 0 &&
+    //         selectedtopping.list.map((lsttop) => {
+    //             lsttop.type != undefined && lsttop.type.length > 0 &&
+    //                 lsttop.type.map((type) => {
+    //                     if (type.subOptionselected === true) {
+    //                         lstcarttopping.push(type);
+    //                     }
+    //                 })
+    //         })
+    //     }
+    //     setCount(count1)
+    // }
+    useEffect(() => {
+        debugger
+        if(selectedtopping && selectedtopping?.list){
+            let lstcarttoppingNew= lstcarttopping;
+            selectedtopping.list != undefined && selectedtopping.list.length > 0 &&
+            selectedtopping.list.map((lsttop) => {
+                lsttop.type != undefined && lsttop.type.length > 0 &&
+                    lsttop.type.map((type) => {
+                        if (type.subOptionselected === true) {
+                            //lstcarttopping.push(type);
+                            lstcarttoppingNew.push(type)
+                            setlstcarttopping(lstcarttoppingNew);
+                        }
+                    })
+            })      
+        }
+    }, [count]);
     const sendDataToParent = (index) => {
         if (index === true && (userinfo === undefined || userinfo === null)) {
             setShowLogin(true);
@@ -58,25 +93,14 @@ const Index = () => {
         }
     }
 
-    useEffect(() => {
-        if(selectedtopping && selectedtopping?.list){
-            selectedtopping.list != undefined && selectedtopping.list.length > 0 &&
-            selectedtopping.list.map((lsttop) => {
-                lsttop.type != undefined && lsttop.type.length > 0 &&
-                    lsttop.type.map((type) => {
-                        if (type.subOptionselected === true) {
-                            lstcarttopping.push(type);
-                        }
-                    })
-            })
-        }
-    }, []);
+
     const LoadingComponent = () => {
         return(
           <div>Loading...</div>
         )
       }
     const selectedFavoriteClick = (item) => {
+        setcount(count+1)
         let objdata = selectedmenuitemdetail;
         objdata.isFavoriteMenu = item;
         dispatch(removeMenuItemForFavorite());
@@ -92,7 +116,11 @@ const Index = () => {
     }
     const updateCount=()=>{
         setcount(count+1);
+        
     }
+
+
+
     return (
 
         <div>
@@ -111,7 +139,6 @@ const Index = () => {
 
                             </div>
                         </div>
-                        <Suspense fallback={<LoadingComponent />}>
 
                         <div className='prod-details'>
                             <div className="row">
@@ -165,7 +192,7 @@ const Index = () => {
                                                 </div>
                                             </div>
                                         
-                                            <MenuItemAddToCartComponent 
+                                            <MenuItemAddToCartComponent     
                                             ctopping={lstcarttopping} 
                                             sendDataToParent={sendDataToParent} />
                                         </div>
@@ -173,7 +200,6 @@ const Index = () => {
                                 </div>
                             </div>
                         </div>
-                        </Suspense>
                     </div>
                 </div>
             </div>
