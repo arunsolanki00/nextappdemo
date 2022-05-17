@@ -3,7 +3,8 @@ import { MenuItemTypes } from "./menu-item.types";
 const MENUITEM_INITIAL_STATE = {
     selectedmenuitemdetail: {},
     menuitemdetaillist: {},
-    selecteditemquantity: 0
+    selecteditemquantity: 0,
+    updateitemoptionincart:0
 };
 
 const menuItemReducer = (state = MENUITEM_INITIAL_STATE, action) => {
@@ -56,6 +57,12 @@ const menuItemReducer = (state = MENUITEM_INITIAL_STATE, action) => {
                 ...state,
                 selecteditemquantity: action.payload,
             };
+            case MenuItemTypes.UPDATE_ITEM_OPTION_CART:
+                return {
+                    ...state,
+                    // updateitemtest: action.payload,
+                    updateitemoptionincart: action.payload,
+                };
         default:
             return state;
     }

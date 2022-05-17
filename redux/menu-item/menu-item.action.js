@@ -98,3 +98,13 @@ export const selecteditemquantity = (quantity) => {
         })                
     }                            
 }
+
+export const updateitemoption = () => {     
+debugger
+    return (dispatch) => {                                                     
+        dispatch({
+            type: MenuItemTypes.UPDATE_ITEM_OPTION_CART,
+            payload: Math.random()
+        })                
+    }                            
+}

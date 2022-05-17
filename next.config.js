@@ -2,7 +2,7 @@ require('dotenv').config()
 const withImages = require('next-images')
 module.exports = {
   compress: false,
-  reactStrictMode: true,
+  // reactStrictMode: true,
 
   env: {
     MYLOCAL_VAR1: 'nilesh',
