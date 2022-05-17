@@ -3,6 +3,7 @@ import { Modal, Button, Form } from "react-bootstrap";
 import { RegisterServices } from "../../redux/register/register.services";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { getAuth, RecaptchaVerifier ,signInWithPhoneNumber} from "firebase/auth";
 import Image from "next/image";
 import LoginMainComponent from "../login/login.component";
 import { Custombutton } from "../Common/button/custombutton";
@@ -21,8 +22,8 @@ import { LoginTypes } from "../../redux/login/login.types";
 import { initialrewardpoint } from "../../redux/cart/cart.action";
 import IntlTelInput from 'react-intl-tel-input';
 import 'react-intl-tel-input/dist/main.css';
-
-export function RegisterComponent(props) {
+import $ from "jquery";
+export const RegisterComponent=(props)=> {
   const restaurantinfo = useSelector(
     ({ restaurant }) => restaurant.restaurantdetail
   );
@@ -209,12 +210,10 @@ export function RegisterComponent(props) {
     }
   };
    const handlePaste=(e)=>{
-    let { name, value, selectionStart, selectionEnd } = e.target
+    e.preventDefault();
+    let { name} = e.target
     let pastedValue = e.clipboardData.getData("text")
     if(Number(pastedValue)){
-    let pre = value.substring(0, selectionStart)
-    let post = value.substring(selectionEnd, value.length)
-     console.log("onpaste event call")
      if(pastedValue.length>8){
       console.log(e.target.value) 
        e.target.value=pastedValue;
@@ -332,6 +331,7 @@ else{
   };
 
   useEffect(() => {
+    debugger
     if (restaurantinfo.smsapigateway === 1) {
       RegisterServices.getOTPVerificationSetting(
         restaurantinfo.restaurantId,
@@ -346,22 +346,41 @@ else{
   }, []);
 
   useEffect(() => {
+    debugger
     if (OTPDetail && OTPDetail !== undefined && OTPDetail !== null) {
-      if (!firebase.apps.length) {
+      if (!firebase.getApps().length) {
         const app = firebase.initializeApp({
-          apiKey: "AIzaSyBccyPYUu1uQHKtoJpMTouyyz82E8_Lmhc"
+          apiKey: "AIzaSyBccyPYUu1uQHKtoJpMTouyyz82E8_Lmhc", // OTPDetail?.apikey,
+          authDomain: "testfudme.firebaseapp.com",
         });
       } else {
-        firebase.app()
+        firebase.getApps()
       }
+      const auth = getAuth();
+// debugger
+      window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
+        'size': 'normal',
+        'callback': (response) => {
+          // reCAPTCHA solved, allow signInWithPhoneNumber.
+          // ...
+        },
+        'expired-callback': () => {
+          // Response expired. Ask user to solve reCAPTCHA again.
+          // ...
+        }
+      },auth);
+      setTimeout(() => {
+        recaptchaVerifier.render().then((widgetId) => {
+          window.recaptchaWidgetId = widgetId;
+        });
+        
+        $("#recaptcha-container").css('transform', 'scale(' + 0.77 + ')');
+        $("#recaptcha-container").css('-webkit-transform', 'scale(' + 0.77 + ')');
+        $("#recaptcha-container").css('transform-origin', '0 0');
+        $("#recaptcha-container").css('-webkit-transform-origin', '0 0');
+        $("#recaptcha-container #rc-anchor-container").css('width', '250px');
+      }, 500);
 
-      window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
-      window.recaptchaVerifier.render();
-      $("#recaptcha-container").css('transform', 'scale(' + 0.77 + ')');
-      $("#recaptcha-container").css('-webkit-transform', 'scale(' + 0.77 + ')');
-      $("#recaptcha-container").css('transform-origin', '0 0');
-      $("#recaptcha-container").css('-webkit-transform-origin', '0 0');
-      $("#recaptcha-container #rc-anchor-container").css('width', '250px');
     }
   }, [OTPDetail]);
 
@@ -376,15 +395,28 @@ else{
   //   measurementId: "G-T3E1EP58C9"
   // }
 
-  const handleSendOTP = () => {
+  const handleSendOTP = (e) => {
+    e.preventDefault();
     if (restaurantinfo.smsapigateway === 1) {
-      const vphone = firebase.auth().signInWithPhoneNumber(dialCode.toString() + values.phone, window.recaptchaVerifier).then(function (confirmationResult) {
-        window.confirmationResult = confirmationResult;
-        setIsShowReSend(true);
-        handleNotify("OTP sent Successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
-      }).catch(function (error) {
-        handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
-      });
+      // const vphone = firebase.auth().signInWithPhoneNumber(dialCode.toString() + values.phone, window.recaptchaVerifier).then(function (confirmationResult) {
+      //   window.confirmationResult = confirmationResult;
+        // setIsShowReSend(true);
+        // handleNotify("OTP sent Successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+      // }).catch(function (error) {
+        // handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+      // });
+      const auth = getAuth();
+     signInWithPhoneNumber(auth, dialCode.toString() + values.phone, window.recaptchaVerifier)
+    .then((confirmationResult) => {
+      // SMS sent. Prompt user to type the code from the message, then sign the
+      // user in with confirmationResult.confirm(code).
+      window.confirmationResult = confirmationResult;
+      setIsShowReSend(true);
+      handleNotify("OTP sent Successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+    }).catch((error) => {
+      // Error; SMS not sent
+      handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+    });
     }
     if (restaurantinfo.smsapigateway === 2) {
       RegisterServices.twilioSendCode(
@@ -401,11 +433,27 @@ else{
     }
   }
 
-  const handleValidateOTP = () => {
+  const handleValidateOTP = (e) => {
+    e.preventDefault();
     var code = values.otp;
     if (restaurantinfo.smsapigateway === 1) {
-      var credential = firebase.auth.PhoneAuthProvider.credential(window.confirmationResult.verificationId, code);
-      window.confirmationResult.confirm(code).then(function (result) {
+      // var credential = firebase.auth.PhoneAuthProvider.credential(window.confirmationResult.verificationId, code);
+      // window.confirmationResult.confirm(code).then(function (result) {
+        // setValues({
+        //   ...values,
+        //   ["isVerifiedPhone"]: "true"
+        // });
+        // values.isVerifiedPhone="true";
+
+        // setIsShowReSend(false);
+        // handleNotify("Successfully verified", ToasterPositions.BottomRight, ToasterTypes.Success);
+      // }).catch(function (error) {
+        // handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+      // });
+      // *******NEW**********
+      confirmationResult.confirm(code).then((result) => {
+        // User signed in successfully.
+        // const user = result.user;
         setValues({
           ...values,
           ["isVerifiedPhone"]: "true"
@@ -414,7 +462,9 @@ else{
 
         setIsShowReSend(false);
         handleNotify("Successfully verified", ToasterPositions.BottomRight, ToasterTypes.Success);
-      }).catch(function (error) {
+        // ...
+      }).catch((error) => {
+        // User couldn't sign in (bad verification code?)
         handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
       });
     }
@@ -721,11 +771,11 @@ else{
                         </span>
                       )}
                     </div>}
-                  {restaurantinfo.smsapigateway === 1 &&
+                  {restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true &&
                     <div className="col-lg-4 col-sm-4 col-xs-12">
                       <div className="login-text" style={{ width: "32% !important", border: "none !important" }} id="recaptcha-container"></div>
                     </div>}
-                  {restaurantinfo.smsapigateway === 1 &&
+                  {restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true &&
                     <div className="col-lg-2 col-sm-2 col-xs-12">
                       <a
                         className="blue_btn orange_submit"
@@ -735,7 +785,7 @@ else{
                         {!IsShowReSend ? "Send OTP" : "ReSend OTP"}
                       </a>
                     </div>}
-                  {restaurantinfo.smsapigateway === 2 &&
+                  {restaurantinfo.smsapigateway === 2 &&  restaurantinfo.enableotpauthentication === true &&
                     <div className="col-lg-6 col-sm-6 col-xs-12">
                       <a
                         className="blue_btn font_18px blue_btn_porder orange_submit"
@@ -867,7 +917,6 @@ else{
                           isDisable={isdisable}
                           disabledClass="blue_btn font_18px blue_btn_porder orange_submit_disabled"
                         />
-
                       </div>
                       <div
                         className="col-lg-5 column-centered col-sm-5 col-xs-12"
