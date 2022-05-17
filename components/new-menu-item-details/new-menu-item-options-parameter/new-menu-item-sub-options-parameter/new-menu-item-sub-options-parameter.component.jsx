@@ -3,15 +3,15 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   removeMenuItem,
   selectedItemSize,
+  updateitemoption,
 } from "../../../../redux/menu-item/menu-item.action";
 import handleNotify from "../../../helpers/toaster/toaster-notify";
 import { ToasterPositions } from "../../../helpers/toaster/toaster-positions";
 import { ToasterTypes } from "../../../helpers/toaster/toaster-types";
 import { resizeImageFn } from "../../../helpers/utility";
 
-const NewMenuItemSubOptionsParameter = (props) => {
-  const [count, setcount] = useState(0)
-props.updateCount();
+const NewMenuItemSubOptionsParameter = () => {
+
   let menuItemDetail = useSelector(
     ({ menuitem }) => menuitem.menuitemdetaillist
   );
@@ -64,14 +64,9 @@ props.updateCount();
   const dispatch = useDispatch();
   const [minQty, setminQty] = useState(0);
   const [toppingremaining, settoppingremaining] = useState(0);
-
-  // useEffect(() => {
-  //   // setcount(Math.random);
-  // },[props.count,count])
-
+	let updateitemoptionincart = useSelector(({ menuitem }) => menuitem.updateitemoptionincart);
 
   useEffect(() => {
-    console.log("useefeect called")
     let finalcount = 0;
     var toppingcount =
       lstcategory && lstcategory.filter((x) => x.subOptionselected === true);
@@ -128,11 +123,9 @@ props.updateCount();
     selectedoption[0] &&
       selectedoption[0].maxSelection &&
       selectedoption[0].maxSelection,
-    lstcategory,
+    lstcategory,updateitemoptionincart
   ]);
-  // const updateCount=()=>{
-  //   setcount(count+1)
-  // }
+
   const selectedquantityClick = (quantity, suboptionId) => {
     let lstdefault = [];
     let tdata = selectedoption[0].type;
@@ -192,6 +185,7 @@ props.updateCount();
       });
       dispatch(removeMenuItem());
       dispatch(selectedItemSize(menuItemDetail));
+      dispatch(updateitemoption());
     } else {
       let lstobj = {
         optionselected: selectedoption[0].optionselected,
@@ -232,7 +226,7 @@ props.updateCount();
   };
 
   const halfpizzaclick = (item, side, clickidenty) => {
-     ;
+
     selectedOptionClick(item, clickidenty);
 
     let lstdefault = [];
@@ -291,6 +285,8 @@ props.updateCount();
       });
       dispatch(removeMenuItem());
       dispatch(selectedItemSize(menuItemDetail));
+      dispatch(updateitemoption());
+
     } else {
       let lstobj = {
         optionselected: selectedoption[0].optionselected,
@@ -371,8 +367,6 @@ props.updateCount();
 
   // }
   const selectedOptionClick = (item, selection) => {
-    props.updateCount()
-    setcount(count+1);
     let lstdefault = [];
     let tdata = selectedoption[0].type;
 
@@ -484,6 +478,7 @@ props.updateCount();
       });
       dispatch(removeMenuItem());
       dispatch(selectedItemSize(menuItemDetail));
+      dispatch(updateitemoption());
     } else {
       let lstobj = {
         optionselected: selectedoption[0].optionselected,

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { getCartItem, getCartItemCount, updateCartItemCount } from "../../../redux/cart/cart.action";
-import { removeMenuItem, selectedItemSize } from "../../../redux/menu-item/menu-item.action";
+import { removeMenuItem, selectedItemSize, updateitemoption } from "../../../redux/menu-item/menu-item.action";
 import { getSessionKey } from "../../Common/auth";
 import { FormatOrderObject } from "../../Common/format-order-object";
 import Loader from "../../Common/loader/loader.component";
@@ -35,7 +35,8 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 	let quantity = useSelector(({ menuitem }) => menuitem.selecteditemquantity);
 	const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
 	const location = restaurantinfo.defaultLocation;
-	
+	let updateitemoptionincart = useSelector(({ menuitem }) => menuitem.updateitemoptionincart);
+
 	useEffect(() => {
 		let ctop = [];
 		selectedtopping != undefined && selectedtopping.length > 0 && selectedtopping[0].list != undefined && selectedtopping[0].list.length > 0 &&
@@ -48,7 +49,7 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 					})
 			})
 		setlstcarttopping(ctop);
-	}, [ctopping])
+	}, [ctopping,updateitemoptionincart])
 	// useEffect(()=>{
 
 	// },[ctopping])
@@ -185,6 +186,7 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 			})
 			dispatch(removeMenuItem());
 			dispatch(selectedItemSize(menuItemDetail));
+			dispatch(updateitemoption());
 		}
 	}
 
