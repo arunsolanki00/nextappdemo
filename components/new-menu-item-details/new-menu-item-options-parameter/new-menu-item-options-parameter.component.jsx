@@ -86,7 +86,6 @@ const NewMenuItemOptionsParameter = (props) => {
         menuItemDetail.topping = lsttopdata;
         dispatch(removeMenuItem());
         dispatch(selectedItemSize(menuItemDetail));
-        setCount(count++);
         dispatch(updateitemoption());
     }
 
