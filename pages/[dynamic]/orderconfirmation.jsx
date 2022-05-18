@@ -6,9 +6,12 @@ import Link from 'next/link';
 const OrderConfirmation = () => {
 
     let trid = useSelector(({ cart }) => cart.transactionid);
+    let orderinfo=useSelector(({ order }) => order);
+    let calculatedTotal=orderinfo?.calculatedTotal;
+    let orderId=orderinfo?.orderId;
     let restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
 
-    if (trid != undefined && restaurantinfo != undefined)
+    // if (trid != undefined && restaurantinfo != undefined)
         return (
             <>
                 <section id="pickup" className="checkout">
@@ -34,14 +37,14 @@ const OrderConfirmation = () => {
                                             <img src="/images/check-circle-1.svg" />
                                             <h1 className="margin_bottom_30">Thank you!</h1>
                                             <p className="color_000 size_20">Your order has been placed. Please check your email for confirmation.</p>
-                                            <p className="size_20">Your order # : <span className="color_orange">123456789</span></p>
-                                            <p className="size_20">Your transaction ID : <span className="color_orange">{trid}</span></p>
+                                            <p className="size_20">Your order # : <span className="color_orange">{`${orderId}`}</span></p>
+                                            {/* <p className="size_20">Your transaction ID : <span className="color_orange">{trid}</span></p> */}
                                             <div className="btnsMore margin_top_30">
                                                 <Link href={`/${restaurantinfo.restaurantURL}/pickup`}>
-                                                    <a className="blue_btn margin_right_10">Go to Home</a>
+                                                    <a className="blue_btn margin_right_10" style={{minWidth:"228.5px"}}>Go To Home</a>
                                                 </Link>
-                                                <Link href={`/${restaurantinfo.restaurantURL}/myorders`}>
-                                                    <a className="blue_btn">My Orders</a>
+                                                <Link href={`/${restaurantinfo.restaurantURL}`}>
+                                                    <a className="blue_btn" style={{minWidth:"228.5px"}}>Start Another Order</a>
                                                 </Link>
                                             </div>
                                             <div className="showLove">
@@ -61,7 +64,7 @@ const OrderConfirmation = () => {
                 </section>
             </>
         )
-    return null;
+    // return null;
 }
 
 export default OrderConfirmation;
