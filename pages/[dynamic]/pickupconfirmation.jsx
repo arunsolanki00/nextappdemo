@@ -593,7 +593,7 @@ useEffect(()=>{
                                                             {
                                                                 ordertimeerrormessage !== "" &&
                                                                 <div className="col-lg-12 col-sm-12 col-xs-12">
-                                                                    <h5 className="size_24 color_red weight_500 margin_top_0 margin_bottom_15">{ordertimeerrormessage}</h5>
+                                                                    <h5 className="size_24 color_red text-center weight_500 margin_top_0 margin_bottom_15">{ordertimeerrormessage}</h5>
                                                                 </div>
                                                             }
                                                         </>

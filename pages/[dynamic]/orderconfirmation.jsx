@@ -50,10 +50,10 @@ const OrderConfirmation = () => {
                                             <div className="showLove">
                                                 <i className="fa fa-heart active size_32 color_red"></i>
                                                 <p className="color_000 size_20">Show us some love</p>
-                                                <ul className="socialMedia">
+                                                {/* <ul className="socialMedia">
                                                     <li><a href="#" className="size_32 color_fb"><i className="fa fa-facebook"></i></a></li>
                                                     <li><a href="#" className="size_36 color_000"><i className="fa fa-instagram"></i></a></li>
-                                                </ul>
+                                                </ul> */}
                                             </div>
                                         </div>
                                     </div>
