@@ -1,5 +1,9 @@
 [[redirects]]
   from = "/"
   to = "/home"
-  status = 302
-  force = false
+  status = 200
+
+  [[redirects]]
+  from = "https://fudmewebapp-demo.netlify.app/"
+  to = "https://fudmewebapp-demo.netlify.app//home"
+  status = 200
