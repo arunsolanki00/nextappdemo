@@ -11,7 +11,6 @@ import { ToasterTypes } from "../../../helpers/toaster/toaster-types";
 import { resizeImageFn } from "../../../helpers/utility";
 
 const NewMenuItemSubOptionsParameter = () => {
-
   let menuItemDetail = useSelector(
     ({ menuitem }) => menuitem.menuitemdetaillist
   );
@@ -130,10 +129,15 @@ const NewMenuItemSubOptionsParameter = () => {
     let lstdefault = [];
     let tdata = selectedoption[0].type;
     const newArray = tdata.map((a) => Object.assign({}, a));
-
     tdata.map((data) => {
       if (data.suboptionId === suboptionId) {
-        data.subOptionToppingQuantity = quantity;
+        //TO DO 
+        if(data.subOptionselected === false){
+          data.subOptionToppingQuantity = 0;
+        }else{
+          data.subOptionToppingQuantity = quantity;
+        }
+        
         if (quantity === 0) data.subOptionselected = false;
       }
 
@@ -444,7 +448,7 @@ const NewMenuItemSubOptionsParameter = () => {
         lstdefault.push(data);
       });
     }
-
+//TO DO
     if (
       (item.subOptionselected === true &&
         parseInt(selectedoption[0].maxSelection) === 1) ||
@@ -497,7 +501,6 @@ const NewMenuItemSubOptionsParameter = () => {
         subparameterId: selectedtopping.subparameterId,
         list: selectedtopping.list,
       };
-
       menuItemDetail.topping.map((data) => {
         if (data.subparameterId === selectedsize.subparameterId)
           Object.assign(data, objtopping);
@@ -517,10 +520,10 @@ const NewMenuItemSubOptionsParameter = () => {
 
   // topping increment decrement
   const increment = (data) => {
-    const plusState = data.subOptionToppingQuantity + 1;
-    selectedquantityClick(plusState, data.suboptionId);
+      const plusState = data.subOptionToppingQuantity + 1;
+      selectedquantityClick(plusState, data.suboptionId);
+      if (data.subOptionselected !== true) selectedOptionClick(data);
 
-    if (data.subOptionselected !== true) selectedOptionClick(data);
   };
 
   const decrement = (data) => {

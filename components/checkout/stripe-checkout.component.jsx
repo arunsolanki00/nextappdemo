@@ -151,9 +151,10 @@ const StripeCheckoutComponent = (props) => {
 
         if (addPaymentObj != undefined) {
 
+
             setSubmitting(true);
             await OrderServices.confirmStripePayment(addPaymentObj.cardDetails).then((responsedata) => {
-                 
+     
                 if (responsedata && responsedata.status === 1) {
                     setSubmitting(false);
                     // let rewardpointObj=rewardpoints
@@ -200,7 +201,10 @@ const StripeCheckoutComponent = (props) => {
 
 
                     // dispatch(getCartItemCount(addPaymentObj.cartsessionid, addPaymentObj.defaultlocationId, addPaymentObj.restaurantId, addPaymentObj.customerId));
-                    return router.push("/" + restaurantinfo.restaurantURL + "/myorders");
+                    // return router.push("/" + restaurantinfo.restaurantURL + "/myorders");
+                    
+                    return router.push("/" + restaurantinfo.restaurantURL + "/orderconfirmation");
+                    
                 } else {
                     setischecked(false)
                     setisDisabled(true);
