@@ -331,7 +331,6 @@ else{
   };
 
   useEffect(() => {
-    debugger
     if (restaurantinfo.smsapigateway === 1) {
       RegisterServices.getOTPVerificationSetting(
         restaurantinfo.restaurantId,
@@ -346,7 +345,6 @@ else{
   }, []);
 
   useEffect(() => {
-    debugger
     if (OTPDetail && OTPDetail !== undefined && OTPDetail !== null) {
       if (!firebase.getApps().length) {
         const app = firebase.initializeApp({
@@ -357,7 +355,6 @@ else{
         firebase.getApps()
       }
       const auth = getAuth();
-// debugger
       window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
         'size': 'normal',
         'callback': (response) => {

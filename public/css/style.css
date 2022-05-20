@@ -1466,7 +1466,7 @@ input::-webkit-input-placeholder {
 }
 
 #pickup.checkout .cards {
-	margin-bottom:50px;
+	margin-bottom:10px;
 }
 
 #pickup.checkout .cards a {
@@ -1977,7 +1977,7 @@ input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
 
 /********** **********/
 .tp-pickup {
-	margin-top:50px;
+	/* margin-top:50px; */
 	margin-bottom:0px;
 }
 
@@ -2878,7 +2878,7 @@ html,body {
 
 /********** **********/
 .tp-pickup {
-	margin-top:50px;
+	/* margin-top:50px; */
 	margin-bottom:10px;
 }
 

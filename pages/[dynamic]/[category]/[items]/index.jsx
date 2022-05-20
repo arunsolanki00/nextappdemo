@@ -58,7 +58,6 @@ const Index=()=> {
     //     setCount(count1)
     // }
     useEffect(() => {
-        debugger
         if(selectedtopping && selectedtopping?.list){
             let lstcarttoppingNew= lstcarttopping;
             selectedtopping.list != undefined && selectedtopping.list.length > 0 &&

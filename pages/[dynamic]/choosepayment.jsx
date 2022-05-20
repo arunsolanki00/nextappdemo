@@ -9,7 +9,7 @@ import { ToasterTypes } from '../../components/helpers/toaster/toaster-types';
 import { GetCurrency, MonthList } from '../../components/helpers/utility';
 import { emptycart, updateCartItemCount } from '../../redux/cart/cart.action';
 import { CartTypes } from '../../redux/cart/cart.types';
-import { addCalculatedTotal, emptyorder, isRedirectToCheckout, setorderId, setordertime } from '../../redux/order/order.action';
+import { addCalculatedTotal, addCardShowMessage, emptyorder, isRedirectToCheckout, setorderId, setordertime } from '../../redux/order/order.action';
 import { OrderServices } from '../../redux/order/order.services';
 import { OrderTypes } from '../../redux/order/order.types';
 
@@ -140,7 +140,7 @@ const Choosepayment = () => {
                 if (result != undefined && result.OrderDetailCal !== undefined) {
 
                     dispatch(addCalculatedTotal(result.OrderDetailCal?.calculatedTotal))
-
+                    dispatch(addCardShowMessage(result.OrderDetailCal?.cardShowMessage))
                     dispatch({
                         type: CartTypes.EMPTY_CART_TOTAL,
                         payload: null
