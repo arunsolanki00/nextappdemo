@@ -361,7 +361,7 @@ const StripeCheckoutComponent = (props) => {
                 <form id="paymentform">
                     <div className="customForm" >
                         <div className="col-lg-12 cards text-center col-sm-12 col-xs-12">
-                            <div className="col-lg-12 text-center col-sm-12 col-xs-12" style={{width:"685px", height: "35px"}}>
+                            <div className="col-lg-12 text-center col-sm-12 col-xs-12" style={{ height: "35px"}}>
                                 {cardType === 1 && <span><img src="/images/card-1.png" alt="" /></span>}
                                 {cardType === 2 && <span><img src="/images/card-2.png" alt="" /></span>}
                                 {cardType === 3 && <span><img src="/images/card-3.png" alt="" /></span>}
@@ -371,9 +371,13 @@ const StripeCheckoutComponent = (props) => {
                                 <a href="#"><img src="/images/strip.svg" alt="" /></a>
                             </div>
                         </div>
-                        <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" style={{height:"40px"}}>
-                                {cardShowMessage && <span style={{fontSize:"21px"}} className="error"> {cardShowMessage} </span> }
+
+                        {cardShowMessage ? <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" style={{height:"40px"}}>
+                                 <span style={{fontSize:"21px"}} className="error"> {cardShowMessage} </span> 
                          </div>
+                         :
+                         <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" ></div> }
+
                         <div className="col-lg-12 col-sm-12 col-xs-12 marginbottom_12">
                             <input className="marginbottom_0" type="text" placeholder="Email" required onChange={handlePaymentChange}
                                 value={values.email}
