@@ -36,6 +36,8 @@ const Checkout = () => {
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const order = useSelector(({ order }) => order, shallowEqual);
     const calculatedTotal =order && order?.calculatedTotal;
+    const cardShowMessage =order && order?.cardShowMessage;
+
     const [isenable, setisenable] = useState(false)
     const selecteddelivery = useSelector(({ selecteddelivery }) => selecteddelivery);
     const location = restaurantinfo.defaultLocation;
@@ -118,7 +120,7 @@ const Checkout = () => {
                                                                 {/* <CheckoutForm /> */}
                                                                {
                                                                    ((calculatedTotal && calculatedTotal > 0 ) || isenable=== true) &&
-                                                                   <StripeCheckoutComponent orderId={order.orderId} calculatedTotal={calculatedTotal} changeOnCheckout={changeClickCheckout}/>
+                                                                   <StripeCheckoutComponent orderId={order.orderId} calculatedTotal={calculatedTotal} changeOnCheckout={changeClickCheckout} cardShowMessage={cardShowMessage}/>
                                                                }
                                                                    {/* <StripeCheckoutComponent orderId={order.orderId} calculatedTotal={calculatedTotal}/> */}
 

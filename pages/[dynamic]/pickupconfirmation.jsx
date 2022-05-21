@@ -279,7 +279,6 @@ useEffect(()=>{
         };
 
         OrderServices.addOrder(placeOrder, restaurantinfo.restaurantId).then(response => {
-
             console.log("response " + response)
             if (response.status === 1) {
                 if (response.result.orderId && response.result.orderId > 0) {
@@ -320,10 +319,11 @@ useEffect(()=>{
 
         OrderServices.getOrderInfo(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, customerId).then((response) => {
             if (response) {
-                 
                 const result = response.result.orderDetailInfo;
                 if (result != undefined && result.OrderDetailCal !== undefined) {
-
+                    
+                    console.log("test")
+                    console.log(result.OrderDetailCal.cardShowMessage)
                     // dispatch({
                     //     type: CartTypes.CART_DATA,
                     //     payload: result.OrderDetailCal

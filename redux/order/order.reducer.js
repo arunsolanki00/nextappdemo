@@ -8,6 +8,7 @@ const ORDER_INITIAL_STATE = {
     orderId: 0,
     isRedirectToCheckout: false,
     calculatedTotal: 0,
+    cardShowMessage:''
 };
 
 const orderReducer = (state = ORDER_INITIAL_STATE, action) => {
@@ -85,6 +86,12 @@ const orderReducer = (state = ORDER_INITIAL_STATE, action) => {
                 ...state,
                 calculatedTotal: action.payload
             };
+            case OrderTypes.CARD_SHOW_MESSAGE:
+                return {
+                    ...state,
+                    cardShowMessage: action.payload
+                };
+                
         default:
             return state;
     }

@@ -83,3 +83,11 @@ export const addCalculatedTotal = (item) => {
         })
     }
 }
+export const addCardShowMessage = (item) => {
+    return async dispatch => {
+        dispatch({
+            type: OrderTypes.CARD_SHOW_MESSAGE,
+            payload: item
+        })
+    }
+}
