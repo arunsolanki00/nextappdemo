@@ -76,7 +76,7 @@ function NewMenuItemDescription(props) {
         <>
             <div className="col-lg-3 flush-right text-center col-sm-3 col-xs-12">
                 <div className="col-lg-12 flush text-center col-sm-12 col-xs-12">
-                    <img src={menuItemDetail.image === "" ? "/images/work-in-progress.png" : menuItemDetail.image} alt="" />
+                    <img src={menuItemDetail.image === "" ? "/images/work-in-progress.png" : menuItemDetail.image} className="itemdetailimage" alt="" />
                 </div>
                 <div className="col-lg-12 flush text-center col-sm-12 col-xs-12">
                     <div className="quantity">
