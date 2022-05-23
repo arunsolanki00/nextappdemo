@@ -21,7 +21,8 @@ module.exports = {
   // },
   images: {
     // domains is an array of comma-separated strings
-    domains: ['fudme-web-dev.azurewebsites.net', 'localhost', 'sqlvaq3d2b3xfm24ce.blob.core.windows.net'],
+    domains: ['fudme-web-dev.azurewebsites.net', 'localhost', 'sqlvaq3d2b3xfm24ce.blob.core.windows.net',
+    'fudmeprodstorage.blob.core.windows.net'],
     loader: "imgix",
     path: "/",
     // the sizes define below are the defaults
