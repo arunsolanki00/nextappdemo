@@ -373,7 +373,7 @@ const StripeCheckoutComponent = (props) => {
                         </div>
 
                         {cardShowMessage ? <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" style={{height:"40px"}}>
-                                 <span style={{fontSize:"21px"}} className="error"> {cardShowMessage} </span> 
+                                 <span style={{fontSize:"21px"}} className="error"> Note: {cardShowMessage} </span> 
                          </div>
                          :
                          <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" ></div> }
