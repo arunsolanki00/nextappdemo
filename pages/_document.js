@@ -3,6 +3,7 @@ import Script from "next/script";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx) {
+    console.log("use the local .env",process.env.NEXT_PUBLIC_ENV_LOCAL)
     const initialProps = await Document.getInitialProps(ctx);
     return { ...initialProps };
   }
