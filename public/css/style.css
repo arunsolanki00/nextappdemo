@@ -4631,7 +4631,8 @@ label.label-normal {
 }
 
 #main .s-piza .itemimage {
-	max-width: 160px !important;
+	max-width: 178px !important;
+    max-height: 140px !important;
 }
 
 .orange_btn.fav {
@@ -4834,4 +4835,11 @@ label.label-normal {
 
 .selectedoption {
 	border:3px solid #FF7332 !important;
+}
+
+.itemimage {
+	border-radius:10%
+}
+.itemdetailimage{
+	border-radius:10%
 }
