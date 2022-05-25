@@ -771,12 +771,11 @@ else{
                         </span>
                       )}
                     </div>}
-                  {(restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true) ?
+                  {(restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true) &&
                     <div className="col-lg-4 col-sm-4 col-xs-12">
                       <div className="login-text" style={{ width: "32% !important", border: "none !important" }} id="recaptcha-container"></div>
                     </div>
-                    :
-                    <div className="login-text" id="recaptcha-container" style={{visibility:"hidden"}}></div>
+                    
                     }
 
                     
