@@ -43,10 +43,10 @@ const OrderDetailComponent = (props) => {
     OrderServices.repeatOrder(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, orderDetailId, false, customerId).then((response) => {
 
       if (response.status === 1) {
-        handleNotify("Your Order placed successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify("Your Order placed successfully", ToasterPositions.TopRight, ToasterTypes.Success);
         router.push("/" + restaurantinfo.restaurantURL + "/cart");
       } else {
-        handleNotify("Something went wrong", ToasterPositions.BottomRight, ToasterTypes.Error);
+        handleNotify("Something went wrong", ToasterPositions.TopRight, ToasterTypes.Error);
       }
     });
   }

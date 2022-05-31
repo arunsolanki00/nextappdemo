@@ -190,12 +190,12 @@ export class OrderServices {
       console.log(responseclass.result);
 
       if (responseclass.result != null && responseclass.status === "1") {
-        handleNotify('Order complete successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('Order complete successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
         
 
         return responseclass.result;
       } else {
-        handleNotify(responseclass, ToasterPositions.BottomRight, ToasterTypes.Error);
+        handleNotify(responseclass, ToasterPositions.TopRight, ToasterTypes.Error);
         return responseclass;
       }
     } catch (e) {
@@ -271,13 +271,13 @@ export class OrderServices {
       //return responseclass;
       
       if (responseclass.result != null && responseclass.status === 1) {
-        handleNotify(responseclass.result.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify(responseclass.result.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass;
       } else {
         return responseclass;
       }
     } catch (e) {
-      handleNotify('Something Went wrong!', ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify('Something Went wrong!', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }

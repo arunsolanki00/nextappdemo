@@ -272,7 +272,7 @@ else{
             if (response.message !== null && response.status == 2) {
               handleNotify(
                 response.message,
-                ToasterPositions.BottomRight,
+                ToasterPositions.TopRight,
                 ToasterTypes.Warning
               );
               cleardata();
@@ -280,7 +280,7 @@ else{
             } else if (response.message === null && response.status == 2) {
               handleNotify(
                 "User not created Something went wrong",
-                ToasterPositions.BottomRight,
+                ToasterPositions.TopRight,
                 ToasterTypes.Warning
               );
               cleardata();
@@ -288,7 +288,7 @@ else{
             } else if (response.status == 1) {
               handleNotify(
                 "User created successfully",
-                ToasterPositions.BottomRight,
+                ToasterPositions.TopRight,
                 ToasterTypes.Success
               );
               setErrorMessage("User created successfully");
@@ -323,7 +323,7 @@ else{
       } else {
         handleNotify(
           "Please select address before register !!",
-          ToasterPositions.BottomRight,
+          ToasterPositions.TopRight,
           ToasterTypes.Warning
         );
       }
@@ -401,9 +401,9 @@ else{
       // const vphone = firebase.auth().signInWithPhoneNumber(dialCode.toString() + values.phone, window.recaptchaVerifier).then(function (confirmationResult) {
       //   window.confirmationResult = confirmationResult;
         // setIsShowReSend(true);
-        // handleNotify("OTP sent Successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+        // handleNotify("OTP sent Successfully", ToasterPositions.TopRight, ToasterTypes.Success);
       // }).catch(function (error) {
-        // handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+        // handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
       // });
       const auth = getAuth();
      signInWithPhoneNumber(auth, dialCode.toString() + values.phone, window.recaptchaVerifier)
@@ -412,10 +412,10 @@ else{
       // user in with confirmationResult.confirm(code).
       window.confirmationResult = confirmationResult;
       setIsShowReSend(true);
-      handleNotify("OTP sent Successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+      handleNotify("OTP sent Successfully", ToasterPositions.TopRight, ToasterTypes.Success);
     }).catch((error) => {
       // Error; SMS not sent
-      handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
     });
     }
     if (restaurantinfo.smsapigateway === 2 && restaurantinfo.enableotpauthentication === true) {
@@ -427,7 +427,7 @@ else{
       ).then((response) => {
         if (response && response != null) {
           setIsShowReSend(true);
-          handleNotify("OTP sent Successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+          handleNotify("OTP sent Successfully", ToasterPositions.TopRight, ToasterTypes.Success);
         }
       })
     }
@@ -446,9 +446,9 @@ else{
         // values.isVerifiedPhone="true";
 
         // setIsShowReSend(false);
-        // handleNotify("Successfully verified", ToasterPositions.BottomRight, ToasterTypes.Success);
+        // handleNotify("Successfully verified", ToasterPositions.TopRight, ToasterTypes.Success);
       // }).catch(function (error) {
-        // handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+        // handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
       // });
       // *******NEW**********
       confirmationResult.confirm(code).then((result) => {
@@ -461,11 +461,11 @@ else{
         values.isVerifiedPhone="true";
 
         setIsShowReSend(false);
-        handleNotify("Successfully verified", ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify("Successfully verified", ToasterPositions.TopRight, ToasterTypes.Success);
         // ...
       }).catch((error) => {
         // User couldn't sign in (bad verification code?)
-        handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+        handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
       });
     }
     if (restaurantinfo.smsapigateway === 2 && restaurantinfo.enableotpauthentication === true) {
@@ -486,7 +486,7 @@ else{
             });
             
             values.isVerifiedPhone="true";
-            handleNotify("Successfully verified", ToasterPositions.BottomRight, ToasterTypes.Success);
+            handleNotify("Successfully verified", ToasterPositions.TopRight, ToasterTypes.Success);
           }
           else{
             setValues({
@@ -494,7 +494,7 @@ else{
               ["isVerifiedPhone"]: "false"
             });
             values.isVerifiedPhone="false";
-            handleNotify("otp does not match", ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify("otp does not match", ToasterPositions.TopRight, ToasterTypes.Error);
           }
         }
       })

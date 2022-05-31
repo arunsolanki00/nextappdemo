@@ -102,23 +102,23 @@ function ForgotPasswordForm() {
             const fetchResponse = await fetch(location, settings);
 
             if (fetchResponse.status == 200) {
-                handleNotify('Email sent successfully', ToasterPositions.BottomRight, ToasterTypes.Success);
+                handleNotify('Email sent successfully', ToasterPositions.TopRight, ToasterTypes.Success);
                 return 1;
             }
             else if (fetchResponse.status === 204) {
-                handleNotify(fetchResponse.statusText, ToasterPositions.BottomRight, ToasterTypes.Warning);
+                handleNotify(fetchResponse.statusText, ToasterPositions.TopRight, ToasterTypes.Warning);
                 return 1;
             }
             else if (fetchResponse.status === 400) {
-                handleNotify(fetchResponse.statusText, ToasterPositions.BottomRight, ToasterTypes.Warning);
+                handleNotify(fetchResponse.statusText, ToasterPositions.TopRight, ToasterTypes.Warning);
                 return null;
             }
             else {
-                handleNotify('Error while sending request', ToasterPositions.BottomRight, ToasterTypes.Error);
+                handleNotify('Error while sending request', ToasterPositions.TopRight, ToasterTypes.Error);
                 return null;
             }
         } catch (e) {
-            handleNotify('Error while sending request', ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify('Error while sending request', ToasterPositions.TopRight, ToasterTypes.Error);
             return null;
         }
     }

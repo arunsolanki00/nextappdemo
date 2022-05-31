@@ -43,6 +43,8 @@ const PickupConfirmation = () => {
     const deliveryWindow = (restaurantWindowTime && restaurantWindowTime.deliveryTime) && restaurantWindowTime.deliveryTime;
     const pickupWindow = (restaurantWindowTime && restaurantWindowTime.pickupTime) && restaurantWindowTime.pickupTime;
     const isDeliveryAsap = defaultLocation.isDeliveryAsap;
+    const isDeliveryPickupTime = defaultLocation.isDeliveryPickupTime;
+
     const dispatch = useDispatch();
     const router = useRouter();
     const { query: { dynamic }, } = router
@@ -283,7 +285,7 @@ useEffect(()=>{
             if (response.status === 1) {
                 if (response.result.orderId && response.result.orderId > 0) {
                     dispatch(setorderId(response.result.orderId));
-                    handleNotify('Order complete successfully! with OrderId: ' + response.result.orderId, ToasterPositions.BottomRight, ToasterTypes.Success);
+                    handleNotify('Order complete successfully! with OrderId: ' + response.result.orderId, ToasterPositions.TopRight, ToasterTypes.Success);
 
                     if (paymentType === paymenttype.CASH) {
                         dispatch(emptycart());
@@ -300,7 +302,7 @@ useEffect(()=>{
                     }
                 }
             } else if (response.status == 2) {
-                handleNotify(response.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+                handleNotify(response.message, ToasterPositions.TopRight, ToasterTypes.Error);
                 setisdisable(false);
             }
         });

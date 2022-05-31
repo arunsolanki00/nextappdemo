@@ -365,7 +365,7 @@ function MenuCategoryCart({ sendDataToParent }) {
           ) {
             handleNotify(
               "Please select atleast one item in " + selectedoption[i].name,
-              ToasterPositions.BottomRight,
+              ToasterPositions.TopRight,
               ToasterTypes.Error
             );
             result.push({ value: i, text: false });
@@ -451,7 +451,7 @@ function MenuCategoryCart({ sendDataToParent }) {
       
       handleNotify(
         "Please choose delivery address",
-        ToasterPositions.BottomRight,
+        ToasterPositions.TopRight,
         ToasterTypes.Error
       );
     }

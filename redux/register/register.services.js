@@ -89,7 +89,7 @@ export class RegisterServices {
       }
     }
     catch (e) {
-      handleNotify('Error', ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify('Error', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -120,7 +120,7 @@ export class RegisterServices {
       }
     }
     catch (e) {
-      handleNotify('Error', ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify('Error', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -152,7 +152,7 @@ export class RegisterServices {
       }
     }
     catch (e) {
-      handleNotify('Error', ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify('Error', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }

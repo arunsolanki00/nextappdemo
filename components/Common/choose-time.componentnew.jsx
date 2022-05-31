@@ -85,7 +85,7 @@ const ChoosetimeNew = () => {
 
     const handlesave = () => {
         dispatch(savechoosetime(selectedtime));
-        handleNotify('Delivery time is save succeessfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('Delivery time is save succeessfully!', ToasterPositions.TopRight, ToasterTypes.Success);
     }
   
 
