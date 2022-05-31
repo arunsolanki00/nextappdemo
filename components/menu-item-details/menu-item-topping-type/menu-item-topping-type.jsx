@@ -151,7 +151,7 @@ const MenuItemToppingType = () => {
             dispatch(removeMenuItem());
             dispatch(selectedItemSize(menuItemDetail));
 
-            handleNotify('Topping value is exceed ' + selectedoption[0].maxSelection + ' toppings', ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify('Topping value is exceed ' + selectedoption[0].maxSelection + ' toppings', ToasterPositions.TopRight, ToasterTypes.Error);
         }
     }
 
@@ -255,7 +255,7 @@ const MenuItemToppingType = () => {
             dispatch(removeMenuItem());
             dispatch(selectedItemSize(menuItemDetail));
 
-            handleNotify('Please choose only ' + selectedoption[0].maxSelection + ' toppings', ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify('Please choose only ' + selectedoption[0].maxSelection + ' toppings', ToasterPositions.TopRight, ToasterTypes.Error);
         }
     }
 
@@ -329,7 +329,7 @@ const MenuItemToppingType = () => {
             dispatch(removeMenuItem());
             dispatch(selectedItemSize(menuItemDetail));
 
-            handleNotify('Topping value is exceed ' + selectedoption[0].maxSelection + ' toppings', ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify('Topping value is exceed ' + selectedoption[0].maxSelection + ' toppings', ToasterPositions.TopRight, ToasterTypes.Error);
         }
     }
 

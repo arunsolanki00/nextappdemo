@@ -74,8 +74,8 @@ const ShoppingCart=()=> {
   const ordertype = selecteddelivery.pickupordelivery === "Pickup" ? 1 : 2;
   const [tipdata, settipdata] = useState([
     { id: 1, value: false, text: "10" },
-    { id: 2, value: false, text: "20" },
-    { id: 3, value: false, text: "30" },
+    { id: 2, value: false, text: "15" },
+    { id: 3, value: false, text: "20" },
   ]);
   const [tipdatanew, settipdatanew] = useState([]);
 
@@ -210,7 +210,8 @@ if(sessionid !== null){
             settipdatanew(data);
             let tipamountcal = calculateTip(
               element.text,
-              carttotal.subTotalWithDiscount
+              // carttotal.subTotalWithDiscount
+              carttotal.subTotal
             );
             settipamount(tipamountcal);
           } else {
@@ -252,7 +253,7 @@ if(sessionid !== null){
       //tip update on grand total update
       let tamount = 0;
       if (tipPercent) {
-        tamount = calculateTip(tipPercent, carttotal.subTotalWithDiscount);
+        tamount = calculateTip(tipPercent, carttotal.subTotal);
         settipamount(tamount);
         settipvalue(tamount);
       }
@@ -278,7 +279,8 @@ if(sessionid !== null){
       if (selectedtip != undefined && parseInt(selectedtip.text) > 0) {
         let tipamount = calculateTip(
           selectedtip.text,
-          carttotal.subTotalWithDiscount
+          // carttotal.subTotalWithDiscount
+          carttotal.subTotal
         ); //parseInt(selectedtip.text) * parseFloat(carttotal.subTotalWithDiscount) / 100;
         settipamount(tipamount);
         settipvalue(parseFloat(tipamount));
@@ -295,7 +297,7 @@ if(sessionid !== null){
       }
     }
   };
-
+//CALCULATE THE TIP AMOUNT
   function calculateTip(selectedtip, subtotal) {
     let tipamount = 0;
     if (selectedtip > 0 && subtotal > 0) {

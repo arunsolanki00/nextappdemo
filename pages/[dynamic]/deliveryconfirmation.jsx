@@ -360,7 +360,7 @@ const DeliveryConfirmation = () => {
             if (response.status === 1) {
                 if (response.result.orderId && response.result.orderId > 0) {
                     dispatch(setorderId(response.result.orderId));
-                    handleNotify('Order complete successfully! with OrderId: ' + response.result.orderId, ToasterPositions.BottomRight, ToasterTypes.Success);
+                    handleNotify('Order complete successfully! with OrderId: ' + response.result.orderId, ToasterPositions.TopRight, ToasterTypes.Success);
 
                     if (paymentType === paymenttype.CASH) {
                         dispatch(emptycart());
@@ -375,7 +375,7 @@ const DeliveryConfirmation = () => {
                     }
                 }
             } else if (response.status == 2) {
-                handleNotify(response.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+                handleNotify(response.message, ToasterPositions.TopRight, ToasterTypes.Error);
                 setisdisable(false);
                 // setsaveaddresspopup(true)
             }

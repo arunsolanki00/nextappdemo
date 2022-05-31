@@ -65,16 +65,16 @@ export class MenuItemServices {
       responseclass = await JSON.parse(response.data.d);
 
       if (responseclass.result != null && responseclass.status === 1) {
-        handleNotify('Item is add into your favorite list', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('Item is add into your favorite list', ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
       }
       else {
-        handleNotify('Item is add into your favorite list', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('Item is add into your favorite list', ToasterPositions.TopRight, ToasterTypes.Success);
         return [];
       }
     }
     catch (e) {
-      handleNotify('Error with favorite list', ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify('Error with favorite list', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -98,16 +98,16 @@ export class MenuItemServices {
       responseclass = await JSON.parse(response.data.d);
 
       if (responseclass.result != null && responseclass.status === 1) {
-        handleNotify('Item is remove from your favorite list', ToasterPositions.BottomRight, ToasterTypes.Warning);
+        handleNotify('Item is remove from your favorite list', ToasterPositions.TopRight, ToasterTypes.Warning);
         return responseclass.result;
       }
       else {
-        handleNotify('Item is remove from your favorite list', ToasterPositions.BottomRight, ToasterTypes.Warning);
+        handleNotify('Item is remove from your favorite list', ToasterPositions.TopRight, ToasterTypes.Warning);
         return [];
       }
     }
     catch (e) {
-      handleNotify('Error with favorite list', ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify('Error with favorite list', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -129,16 +129,16 @@ export class MenuItemServices {
       responseclass = await JSON.parse(response.data.d);
 
       if (responseclass.result != null && responseclass.status === 1) {
-        handleNotify('Item added succesfully', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('Item added succesfully', ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
       }
       else {
-        handleNotify('Item added succesfully', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('Item added succesfully', ToasterPositions.TopRight, ToasterTypes.Success);
         return [];
       }
     }
     catch (e) {
-      handleNotify('Error with added item', ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify('Error with added item', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }

@@ -197,7 +197,8 @@ import SmallLoader from '../Common/small-loader.component';
               settipdatanew(data);
               let tipamountcal = calculateTip(
                 element.text,
-                carttotal.subTotalWithDiscount
+                //carttotal.subTotalWithDiscount
+                carttotal.subTotal
               );
               settipamount(tipamountcal);
             } else {
@@ -232,7 +233,8 @@ import SmallLoader from '../Common/small-loader.component';
         //tip update on grand total update
         let tamount = 0;
         if (tipPercent) {
-          tamount = calculateTip(tipPercent, carttotal.subTotalWithDiscount);
+          // tamount = calculateTip(tipPercent, carttotal.subTotalWithDiscount);
+          tamount = calculateTip(tipPercent, carttotal.subTotal);
           settipamount(tamount);
           settipvalue(tamount);
         }
@@ -258,7 +260,8 @@ import SmallLoader from '../Common/small-loader.component';
         if (selectedtip != undefined && parseInt(selectedtip.text) > 0) {
           let tipamount = calculateTip(
             selectedtip.text,
-            carttotal.subTotalWithDiscount
+            //carttotal.subTotalWithDiscount
+            carttotal.subTotal
           ); //parseInt(selectedtip.text) * parseFloat(carttotal.subTotalWithDiscount) / 100;
           settipamount(tipamount);
           settipvalue(parseFloat(tipamount));

@@ -120,7 +120,7 @@ function CartQuantityArea(props) {
                     }
                 }
                 else {
-                    handleNotify('Please choose delivery address', ToasterPositions.BottomRight, ToasterTypes.Error);
+                    handleNotify('Please choose delivery address', ToasterPositions.TopRight, ToasterTypes.Error);
                 }
             }
         });

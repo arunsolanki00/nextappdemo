@@ -60,16 +60,16 @@ export class DeliveryAddressServices {
             responseclass = await JSON.parse(response.data.d);
 
             if (responseclass.result != null && responseclass.status === 1) {
-                handleNotify('delete item successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+                handleNotify('delete item successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
                 return responseclass.result;
             }
             else {
-                handleNotify('delete item successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+                handleNotify('delete item successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
                 return [];
             }
         }
         catch (e) {
-            handleNotify('error with delete item', ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify('error with delete item', ToasterPositions.TopRight, ToasterTypes.Error);
             return e;
         }
     }
@@ -110,16 +110,16 @@ export class DeliveryAddressServices {
             responseclass = await JSON.parse(response.data.d);            
             
             if (responseclass.result != null && responseclass.status === 1) {
-                handleNotify('Address added successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+                handleNotify('Address added successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
                 return responseclass.result;
             }
             else if(responseclass.message && responseclass.status === 2){
-                handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Warning);
+                handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Warning);
                 return null;
             }            
         }
         catch (e) {
-            handleNotify('error with delete item', ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify('error with delete item', ToasterPositions.TopRight, ToasterTypes.Error);
             return e;
         }
     }
