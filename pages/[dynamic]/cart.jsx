@@ -159,7 +159,6 @@ const ShoppingCart=()=> {
           });
         }
       };
-    console.log("userinfo",userinfo)
       // if(rewardpoint){
       let rpoint = 0;
       let ramount = 0;
@@ -188,7 +187,7 @@ if(sessionid !== null){
     deliveryaddressinfo && pickupordelivery === "Delivery"
       ? deliveryaddressinfo.deliveryaddressId
       : 0,
-    0,  
+    tipPercent,  
     tipamount
   )
   );
@@ -198,12 +197,16 @@ if(sessionid !== null){
     // }
 
     if (carttotal != undefined && carttotal != null) {
+      
       if (
         carttotal?.tipPercentage !== undefined &&
         carttotal?.tipPercentage > 0
       ) {
+        
+        //TO DO
         let data = [];
         tipdata.forEach((element) => {
+          
           if (parseFloat(element.text) == carttotal.tipPercentage) {
             element.value = true;
             data.push(element);
@@ -221,6 +224,27 @@ if(sessionid !== null){
           }
         });
       }
+      else{
+        let data = [];
+        tipdata.forEach((element) => {
+          
+          if (parseFloat(element.text) === 15) {
+            element.value = true;
+            data.push(element);
+            settipdatanew(data);
+            let tipamountcal = calculateTip(
+              element.text,
+              carttotal.subTotalWithDiscount
+            );
+            settipamount(tipamountcal);
+          } else {
+            //settipdatanew.push(element)
+            data.push(element);
+            settipdatanew(data);
+          }
+        });
+        
+      }
       //if (parseFloat(carttotal.discountPercentage) > 0) {
       // let pvalue =
       //   (
@@ -232,7 +256,9 @@ if(sessionid !== null){
     }
   }, [carttotal?.grandTotal, grandtotal || grandtotal]);
   // }, [carttotal?.grandTotal,grandtotal]);
-
+// useEffect(()=>{
+//   console.log(tipdata)
+// },[carttotal.grandTotal,tipdata])
   useEffect(() => {
 
     if (carttotal != undefined && carttotal.grandTotal != undefined) {
@@ -315,6 +341,7 @@ if(sessionid !== null){
     //   customerId,
     //   restaurantinfo.defaultlocationId
     // );
+    
     dispatch(
       carttotaldata(
         sessionid,
@@ -548,7 +575,6 @@ if(sessionid !== null){
     return total.toFixed(2);
   }
  const itemstotal=calulateTotal();
- console.log(itemstotal)
   // if (cartdata != undefined && userinfo != undefined && userinfo != null && carttotal != null && carttotal.grandTotal != undefined && isOrdering === true) {
   if (userinfo != undefined && userinfo != null) {
     return (
