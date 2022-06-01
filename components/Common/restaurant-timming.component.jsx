@@ -45,7 +45,7 @@ const RestaurantTimmingComponent = (props) => {
           if (deliverytimenew.length > 0) {
             opencloseTimming.push(
               <tr>
-                {!isTakeoutClosed &&
+                {!isTakeoutClosed && restaurantinfo.istakeaway===true &&
                   <td>
                     <h5>
                       {deliverytimenew[0].weekname} <br />
@@ -73,9 +73,9 @@ const RestaurantTimmingComponent = (props) => {
                     </h5>
                   </td>
                   
-                }
+                } 
 
-                {!isDeliveryClosed &&
+                {!isDeliveryClosed && restaurantinfo.isdelivery===true &&
 
                   <td style={{ paddingTop: "0px !important" }}>
                     <h5>

@@ -119,8 +119,8 @@ const RestaurantLocationsComponent = (props) => {
 
                             </div>
                             <div className="col-lg-11 offset-1">
-                            {address.isTakeaway === true && <span className="size_20 color_black"> <> Pickup <i className="fa fa-check greenColor" aria-hidden="true"></i></>&nbsp; &nbsp; </span>}
-                            {address.isDelivery === true && <span className="size_20 color_black"> <> Delivery <i className="fa fa-check greenColor" aria-hidden="true"></i></> </span>}
+                            {(address.isTakeaway === true  && restaurantinfo.istakeaway===true) && <span className="size_20 color_black"> <> Pickup <i className="fa fa-check greenColor" aria-hidden="true"></i></>&nbsp; &nbsp; </span>}
+                            {(address.isDelivery === true && restaurantinfo.isdelivery===true) && <span className="size_20 color_black"> <> Delivery <i className="fa fa-check greenColor" aria-hidden="true"></i></> </span>}
                             </div>
                             </div>
                             <hr />
