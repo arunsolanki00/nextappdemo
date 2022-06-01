@@ -19,9 +19,9 @@ const RestaurantListComponent = () => {
 
     return (
         <div className="container-fluid">
-            <div className="row">
+            {/* <div className="row">
                 {process.env.NEXT_PUBLIC_ENV_LOCAL}
-            </div>
+            </div> */}
 
             <div className="row">
 
