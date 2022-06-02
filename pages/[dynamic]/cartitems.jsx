@@ -248,7 +248,11 @@ import { CartloginComponent } from "../../components/cart-login/cart-login";
         }
       }
     }, [carttotal && carttotal?.grandTotal > 0 && carttotal?.grandTotal]);
-  
+    useEffect(()=>{
+      if(Object.keys(cartdata).length === 0){
+        dispatch(updatecarttotaldata());
+      }
+  },[cartdata,cart.cartitemcount])
     const addtipclick = (item) => {
   
       let updatetip = [];

@@ -16,10 +16,8 @@ const OrderDetailSummary = (props) => {
   const router = useRouter();
   const { query: { dynamic, id, category, index } } = router;
   const [isProcessing, setIsProcessing] = useState(false)
-
-  
+  let sessionid = useSelector(({ session }) => session?.sessionid);
   const HandleFullOrderClick = (orderId) => {
-    let sessionid = useSelector(({ session }) => session?.sessionid);
 
     setIsProcessing(true);
     OrderServices.repeatOrder(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, 0, true, userinfo.customerId,sessionid).then((response) => {
