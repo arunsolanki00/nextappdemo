@@ -60,7 +60,7 @@ const TestimonialAddComponent = (props) => {
 
       if (responsedata.message.length > 0) {
         console.log("responsedata.message"+responsedata.message)
-        handleNotify('Testimonial added successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('Testimonial added successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
         setSubmitting(false);
 
         resetForm();
@@ -68,7 +68,7 @@ const TestimonialAddComponent = (props) => {
 
       } else {
         setErrorMesssage(responsedata.message);
-        handleNotify(responsedata.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify(responsedata.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return;
       }
     }

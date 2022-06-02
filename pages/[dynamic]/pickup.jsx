@@ -305,7 +305,7 @@ const Index = () => {
                                                     <div className="col-lg-8 column-centered flush margin_top_10 col-sm-10 col-xs-12">
                                                         {(defaultLocation.isOrderingDisable === false && defaultLocation.isTakeoutOrderingDisable === false && (pickupWindow && pickupWindow.length > 0)) ?
                                                             <>
-                                                                {isTakeOutAsap === true && <div className="col-lg-4 text-center col-sm-4 col-xs-12">
+                                                                {isTakeOutAsap === true  && <div className="col-lg-4 text-center col-sm-4 col-xs-12">
                                                                     <a className={`light_orange_btn ${activeButtonClass == 'asap' ? 'active' : ''}`} onClick={handletimeclick} >ASAP</a>
                                                                 </div>
                                                                 }

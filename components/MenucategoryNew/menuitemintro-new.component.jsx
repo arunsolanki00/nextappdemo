@@ -93,7 +93,7 @@ function MenuItemIntroComponentNew() {
                                 <div className="col-lg-12 s-piza col-sm-12 col-xs-12">
                                     <div className="row">
                                         <div className="col-lg-4 flush-right text-center col-sm-4 col-xs-12">
-                                            <a ><img src={categories.imgurl === "" ? "/images/work-in-progress.png" : categories.imgurl}  className="itemimage" alt="true" /></a>
+                                            <a><img src={categories?.mediumimgurl === "" || categories?.mediumimgurl === null ? "/images/work-in-progress.png" : categories.mediumimgurl}  className="itemimage" alt="true" /></a>
                                         </div>
                                         <div className="col-lg-8 col-sm-8 col-xs-12">
                                             <div className="itembox">
@@ -164,7 +164,8 @@ function MenuItemIntroComponentNew() {
                                 <div className="col-lg-12 s-piza col-sm-12 col-xs-12">
                                     <div className="row">
                                         <div className="col-lg-4 flush-right text-center col-sm-4 col-xs-12">
-                                            <a><img src="/images/work-in-progress.png" className="itemimage" alt="true" /></a>
+                                            {/* <a><img src="/images/work-in-progress.png" className="itemimage" alt="true" /></a> */}
+                                            <a><img src={categories?.mediumimgurl === "" || categories?.mediumimgurl === null ? "/images/work-in-progress.png" : categories.mediumimgurl}  className="itemimage" alt="true" /></a>
                                         </div>
                                         <div className="col-lg-8 col-sm-8 col-xs-12">
                                             <a>
@@ -194,7 +195,7 @@ function MenuItemIntroComponentNew() {
                                                             decimalScale={2}
                                                             fixedDecimalScale={true}
                                                         />
-
+                                                        <p>{categories.description}</p>
                                                         <CartQuantityArea menuitem={categories}  cartdetails={cartdetails}/>
                                                     </div>
                                                 </div>

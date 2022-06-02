@@ -101,16 +101,16 @@ export class CartServices {
       responseclass = await JSON.parse(response.data.d);
 
       if (responseclass.result != null && responseclass.status === 1) {
-        handleNotify('delete item successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('delete item successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
       }
       else {
-        handleNotify('delete item successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('delete item successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
         return [];
       }
     }
     catch (e) {
-      handleNotify('error with delete item', ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify('error with delete item', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -136,17 +136,17 @@ export class CartServices {
       
       if (responseclass.result != null && responseclass.status === 1) {
         if(rewardpoints > 0){
-          handleNotify(rewardpoints + " Reward Points has been redeemed", ToasterPositions.BottomRight, ToasterTypes.Success);
+          handleNotify(rewardpoints + " Reward Points has been redeemed", ToasterPositions.TopRight, ToasterTypes.Success);
         }
         return responseclass;
       }
       else {
-        handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Warning);
+        handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Warning);
         return [];
       }
     }
     catch (e) {
-      handleNotify("Error with reward point", ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify("Error with reward point", ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -174,16 +174,16 @@ export class CartServices {
       responseclass = await JSON.parse(response.data.d);
 
       if (responseclass.result != null && responseclass.status === 1) {
-        handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
       }
       else {
-        handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return [];
       }
     }
     catch (e) {
-      handleNotify("Error with update quantity", ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify("Error with update quantity", ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -215,16 +215,16 @@ export class CartServices {
       responseclass = await JSON.parse(response.data.d);
 
       if (responseclass.result != null && responseclass.status === 1) {
-        //handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        //handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
       }
       else {
-        //handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        //handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return [];
       }
     }
     catch (e) {
-      handleNotify("Error with cart total", ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify("Error with cart total", ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -248,16 +248,16 @@ export class CartServices {
 
        
       if (responseclass.result != null && responseclass.status === 'success') {
-        //handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        //handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
       }
       else {
-        //handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        //handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return [];
       }
     }
     catch (e) {
-      handleNotify("Error with delivery charges", ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify("Error with delivery charges", ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -278,16 +278,16 @@ export class CartServices {
       responseclass = await JSON.parse(response.data.d);
 
       if (responseclass.result != null && responseclass.status === 1) {
-        //handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        //handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
       }
       else {
-        //handleNotify(responseclass.message, ToasterPositions.BottomRight, ToasterTypes.Success);
+        //handleNotify(responseclass.message, ToasterPositions.TopRight, ToasterTypes.Success);
         return [];
       }
     }
     catch (e) {
-      handleNotify("Error with checkout", ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify("Error with checkout", ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -324,7 +324,7 @@ export class CartServices {
       }
     }
     catch (e) {
-      handleNotify("Error with checkout", ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify("Error with checkout", ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -369,7 +369,7 @@ export class CartServices {
       }
     }
     catch (e) {
-      handleNotify("Error with checkout", ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify("Error with checkout", ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }
@@ -392,16 +392,16 @@ export class CartServices {
       responseclass = await JSON.parse(response.data.d);
 
       if (responseclass.result != null && responseclass.status === 1) {
-        // handleNotify('cart deleted successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+        // handleNotify('cart deleted successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
       }
       else {
-       // handleNotify('cart deleted successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+       // handleNotify('cart deleted successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
         return [];
       }
     }
     catch (e) {
-      handleNotify('error with delete item', ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify('error with delete item', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
   }

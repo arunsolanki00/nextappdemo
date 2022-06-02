@@ -223,7 +223,7 @@ const NewMenuItemSubOptionsParameter = () => {
         "Topping value is exceed " +
           selectedoption[0].maxSelection +
           " toppings",
-        ToasterPositions.BottomRight,
+        ToasterPositions.TopRight,
         ToasterTypes.Error
       );
     }
@@ -323,7 +323,7 @@ const NewMenuItemSubOptionsParameter = () => {
         "Topping value is exceed " +
           selectedoption[0].maxSelection +
           " toppings",
-        ToasterPositions.BottomRight,
+        ToasterPositions.TopRight,
         ToasterTypes.Error
       );
     }
@@ -512,7 +512,7 @@ const NewMenuItemSubOptionsParameter = () => {
 
       handleNotify(
         "Please choose only " + selectedoption[0].maxSelection + " toppings",
-        ToasterPositions.BottomRight,
+        ToasterPositions.TopRight,
         ToasterTypes.Error
       );
     }

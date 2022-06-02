@@ -9,7 +9,7 @@ let responseclass = {
 
 export class RestaurantsServices {
 
-  static async getRestaurantsList(restauranturl,defaultLocationId) {
+  static async getRestaurantsList(restauranturl, defaultLocationId) {
     const location = ENDPOINTS.GET_RESTAURANTS;
     const config = {
       headers: {
@@ -18,9 +18,9 @@ export class RestaurantsServices {
     };
 
     const data = {
-      restaurantDetailRequest :{
-        restaurantURL:restauranturl,
-        defaultLocationId:defaultLocationId
+      restaurantDetailRequest: {
+        restaurantURL: restauranturl,
+        defaultLocationId: defaultLocationId
       }
     };
 
@@ -41,6 +41,8 @@ export class RestaurantsServices {
   }
 
   static async getRestaurantLocationList() {
+    debugger
+    console.log('getRestaurantLocationList')
     const restaurant = ENDPOINTS.GET_RESTAURANT_LOCATIONS_LIST;
     const config = {
       headers: {
@@ -49,7 +51,9 @@ export class RestaurantsServices {
 
     };
     try {
+      debugger
       let response = await axios.post(restaurant, config);
+      console.log('response' + response)
       responseclass = await JSON.parse(response.data.d);
 
       if (responseclass.result != null && responseclass.status === 1) {
@@ -58,6 +62,7 @@ export class RestaurantsServices {
         return [];
       }
     } catch (e) {
+      console.log('response error' + e)
       return e;
     }
   }

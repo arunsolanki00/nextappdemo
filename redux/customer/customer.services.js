@@ -36,7 +36,7 @@ export class CustomerServices {
         
         return responseclass.result;
       } else {
-        //handleNotify('error with delete item', ToasterPositions.BottomRight, ToasterTypes.Error);
+        //handleNotify('error with delete item', ToasterPositions.TopRight, ToasterTypes.Error);
         return [];
       }
     } catch (e) {
@@ -105,10 +105,10 @@ export class CustomerServices {
       responseclass = await JSON.parse(response.data.d);
       
       if (responseclass.result != null && responseclass.status === 1) {
-        handleNotify('customer updated successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify('customer updated successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
       } else {
-        handleNotify('customer update failed!', ToasterPositions.BottomRight, ToasterTypes.Error);
+        handleNotify('customer update failed!', ToasterPositions.TopRight, ToasterTypes.Error);
         return responseclass;
       }
     } catch (e) {

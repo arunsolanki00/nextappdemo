@@ -99,18 +99,18 @@ function CreateNewPasswordForm() {
             const response = await handleResetPasswordRequest();
 
             if (response && response.ChangeSuccessfully) {
-                handleNotify(response.PasswordMessage, ToasterPositions.BottomRight, ToasterTypes.Success);
+                handleNotify(response.PasswordMessage, ToasterPositions.TopRight, ToasterTypes.Success);
                 router.push("/" + dynamic + "/password-set");
             }
             else if (response && !response.ChangeSuccessfully) {
                 setSubmitting(false);
-                handleNotify(response.PasswordMessage, ToasterPositions.BottomRight, ToasterTypes.Error);
+                handleNotify(response.PasswordMessage, ToasterPositions.TopRight, ToasterTypes.Error);
                 return setErrorMessage(response.PasswordMessage);
             }
         }
         else {
             setSubmitting(false);
-            handleNotify("Token is not valid , please request again", ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify("Token is not valid , please request again", ToasterPositions.TopRight, ToasterTypes.Error);
             return setErrorMessage("Token is not valid , please request again");
         }
         setSubmitting(false);
@@ -148,19 +148,19 @@ function CreateNewPasswordForm() {
                 return response;
             }
             else if (fetchResponse.status === 400) {
-                handleNotify(fetchResponse.statusText, ToasterPositions.BottomRight, ToasterTypes.Error);
+                handleNotify(fetchResponse.statusText, ToasterPositions.TopRight, ToasterTypes.Error);
                 return null;
             }
             else if (fetchResponse.status === 500) {
-                handleNotify(fetchResponse.statusText, ToasterPositions.BottomRight, ToasterTypes.Error);
+                handleNotify(fetchResponse.statusText, ToasterPositions.TopRight, ToasterTypes.Error);
                 return null;
             }
             else {
-                handleNotify('Error while sending request', ToasterPositions.BottomRight, ToasterTypes.Error);
+                handleNotify('Error while sending request', ToasterPositions.TopRight, ToasterTypes.Error);
                 return null;
             }
         } catch (e) {
-            handleNotify('Error while sending request', ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify('Error while sending request', ToasterPositions.TopRight, ToasterTypes.Error);
             return null;
         }
     }

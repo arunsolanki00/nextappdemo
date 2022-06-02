@@ -4,13 +4,13 @@ import { CartServices } from "./cart.services";
 import { CartTypes } from "./cart.types";
 
 export const getCartItem = (cartsessionId, locationId, restaurantId, cartId, customerId, rewardpoints, redeemamount, deliveryaddressId,tipPercentage,tipAmount) => {
+    
     return async dispatch => {
         let tippercent= tipPercentage > 0 ? tipPercentage : 0; 
         let tip = tipAmount ? tipAmount: 0;
         CartServices.getCartItemList(cartsessionId, locationId, restaurantId, cartId, customerId, rewardpoints, redeemamount, deliveryaddressId,tippercent , tip).then(response => {
              
             if (response) {
-                 
                 console.log("response.cartDetails.cartTotal :")
                   
                 if(response?.cartDetails && response?.cartDetails?.cartTotal){
@@ -29,7 +29,6 @@ export const getCartItem = (cartsessionId, locationId, restaurantId, cartId, cus
 }
 
 export const getCartItemCount = (cartsessionId, locationId, restaurantId, customerId) => {
-    ;
     return async dispatch => {
         CartServices.getCartItemCount(cartsessionId, locationId, restaurantId, customerId).then(response => {
             ;
@@ -110,6 +109,7 @@ export const updatequantity = (cartsessionId, cartId, qty, price, locationId, re
 }
 
 export const carttotaldata = (cartsessionId, locationId, restaurantId, customerId, cartId, rewardpoints, redeemamount, tipPercentage, tipAmount, deliveryaddressId) => {
+    
     return async dispatch => {
         CartServices.carttotal(cartsessionId, locationId, restaurantId, customerId, cartId, rewardpoints, redeemamount, tipPercentage, tipAmount, deliveryaddressId).then(response => {
             if (response) {

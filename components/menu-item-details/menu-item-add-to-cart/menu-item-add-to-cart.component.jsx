@@ -102,7 +102,7 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 				let result = [];
 				for (var i = 0; i < selectedoption.length; i++) {
 					if (selectedoption[i].type != undefined && selectedoption[i].type.length > 0 && selectedoption[i].type.filter(x => x.subOptionselected === true).length === 0) {
-						handleNotify('Please select atleast one item in ' + selectedoption[i].name, ToasterPositions.BottomRight, ToasterTypes.Error);
+						handleNotify('Please select atleast one item in ' + selectedoption[i].name, ToasterPositions.TopRight, ToasterTypes.Error);
 						result.push({ value: i, text: false });
 						break;
 					}
@@ -138,7 +138,7 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 		}
 		else {
 			
-			handleNotify('Please choose delivery address', ToasterPositions.BottomRight, ToasterTypes.Error);
+			handleNotify('Please choose delivery address', ToasterPositions.TopRight, ToasterTypes.Error);
 		}
 	}
 

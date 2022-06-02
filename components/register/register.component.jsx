@@ -272,7 +272,7 @@ else{
             if (response.message !== null && response.status == 2) {
               handleNotify(
                 response.message,
-                ToasterPositions.BottomRight,
+                ToasterPositions.TopRight,
                 ToasterTypes.Warning
               );
               cleardata();
@@ -280,7 +280,7 @@ else{
             } else if (response.message === null && response.status == 2) {
               handleNotify(
                 "User not created Something went wrong",
-                ToasterPositions.BottomRight,
+                ToasterPositions.TopRight,
                 ToasterTypes.Warning
               );
               cleardata();
@@ -288,7 +288,7 @@ else{
             } else if (response.status == 1) {
               handleNotify(
                 "User created successfully",
-                ToasterPositions.BottomRight,
+                ToasterPositions.TopRight,
                 ToasterTypes.Success
               );
               setErrorMessage("User created successfully");
@@ -323,7 +323,7 @@ else{
       } else {
         handleNotify(
           "Please select address before register !!",
-          ToasterPositions.BottomRight,
+          ToasterPositions.TopRight,
           ToasterTypes.Warning
         );
       }
@@ -331,7 +331,7 @@ else{
   };
 
   useEffect(() => {
-    if (restaurantinfo.smsapigateway === 1) {
+    if (restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true) {
       RegisterServices.getOTPVerificationSetting(
         restaurantinfo.restaurantId,
         restaurantinfo.enableotpauthentication,
@@ -345,7 +345,7 @@ else{
   }, []);
 
   useEffect(() => {
-    if (OTPDetail && OTPDetail !== undefined && OTPDetail !== null) {
+    if (OTPDetail && OTPDetail !== undefined && OTPDetail !== null && restaurantinfo.enableotpauthentication === true) {
       if (!firebase.getApps().length) {
         const app = firebase.initializeApp({
           apiKey: "AIzaSyBccyPYUu1uQHKtoJpMTouyyz82E8_Lmhc", // OTPDetail?.apikey,
@@ -355,11 +355,14 @@ else{
         firebase.getApps()
       }
       const auth = getAuth();
+      auth.languageCode='en'
+   
       window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
         'size': 'normal',
         'callback': (response) => {
           // reCAPTCHA solved, allow signInWithPhoneNumber.
           // ...
+          console.log("prepared phone auth process");
         },
         'expired-callback': () => {
           // Response expired. Ask user to solve reCAPTCHA again.
@@ -394,13 +397,13 @@ else{
 
   const handleSendOTP = (e) => {
     e.preventDefault();
-    if (restaurantinfo.smsapigateway === 1) {
+    if (restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true) {
       // const vphone = firebase.auth().signInWithPhoneNumber(dialCode.toString() + values.phone, window.recaptchaVerifier).then(function (confirmationResult) {
       //   window.confirmationResult = confirmationResult;
         // setIsShowReSend(true);
-        // handleNotify("OTP sent Successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+        // handleNotify("OTP sent Successfully", ToasterPositions.TopRight, ToasterTypes.Success);
       // }).catch(function (error) {
-        // handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+        // handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
       // });
       const auth = getAuth();
      signInWithPhoneNumber(auth, dialCode.toString() + values.phone, window.recaptchaVerifier)
@@ -409,13 +412,13 @@ else{
       // user in with confirmationResult.confirm(code).
       window.confirmationResult = confirmationResult;
       setIsShowReSend(true);
-      handleNotify("OTP sent Successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+      handleNotify("OTP sent Successfully", ToasterPositions.TopRight, ToasterTypes.Success);
     }).catch((error) => {
       // Error; SMS not sent
-      handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+      handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
     });
     }
-    if (restaurantinfo.smsapigateway === 2) {
+    if (restaurantinfo.smsapigateway === 2 && restaurantinfo.enableotpauthentication === true) {
       RegisterServices.twilioSendCode(
         restaurantinfo.restaurantId,
         restaurantinfo.enableotpauthentication,
@@ -424,7 +427,7 @@ else{
       ).then((response) => {
         if (response && response != null) {
           setIsShowReSend(true);
-          handleNotify("OTP sent Successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+          handleNotify("OTP sent Successfully", ToasterPositions.TopRight, ToasterTypes.Success);
         }
       })
     }
@@ -433,7 +436,7 @@ else{
   const handleValidateOTP = (e) => {
     e.preventDefault();
     var code = values.otp;
-    if (restaurantinfo.smsapigateway === 1) {
+    if (restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true) {
       // var credential = firebase.auth.PhoneAuthProvider.credential(window.confirmationResult.verificationId, code);
       // window.confirmationResult.confirm(code).then(function (result) {
         // setValues({
@@ -443,9 +446,9 @@ else{
         // values.isVerifiedPhone="true";
 
         // setIsShowReSend(false);
-        // handleNotify("Successfully verified", ToasterPositions.BottomRight, ToasterTypes.Success);
+        // handleNotify("Successfully verified", ToasterPositions.TopRight, ToasterTypes.Success);
       // }).catch(function (error) {
-        // handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+        // handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
       // });
       // *******NEW**********
       confirmationResult.confirm(code).then((result) => {
@@ -458,14 +461,14 @@ else{
         values.isVerifiedPhone="true";
 
         setIsShowReSend(false);
-        handleNotify("Successfully verified", ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify("Successfully verified", ToasterPositions.TopRight, ToasterTypes.Success);
         // ...
       }).catch((error) => {
         // User couldn't sign in (bad verification code?)
-        handleNotify(error.message, ToasterPositions.BottomRight, ToasterTypes.Error);
+        handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
       });
     }
-    if (restaurantinfo.smsapigateway === 2) {
+    if (restaurantinfo.smsapigateway === 2 && restaurantinfo.enableotpauthentication === true) {
       RegisterServices.twilioVerifyCode(
         restaurantinfo.restaurantId,
         restaurantinfo.enableotpauthentication,
@@ -483,7 +486,7 @@ else{
             });
             
             values.isVerifiedPhone="true";
-            handleNotify("Successfully verified", ToasterPositions.BottomRight, ToasterTypes.Success);
+            handleNotify("Successfully verified", ToasterPositions.TopRight, ToasterTypes.Success);
           }
           else{
             setValues({
@@ -491,7 +494,7 @@ else{
               ["isVerifiedPhone"]: "false"
             });
             values.isVerifiedPhone="false";
-            handleNotify("otp does not match", ToasterPositions.BottomRight, ToasterTypes.Error);
+            handleNotify("otp does not match", ToasterPositions.TopRight, ToasterTypes.Error);
           }
         }
       })
@@ -768,10 +771,14 @@ else{
                         </span>
                       )}
                     </div>}
-                  {restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true &&
+                  {(restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true) &&
                     <div className="col-lg-4 col-sm-4 col-xs-12">
                       <div className="login-text" style={{ width: "32% !important", border: "none !important" }} id="recaptcha-container"></div>
-                    </div>}
+                    </div>
+                    
+                    }
+
+                    
                   {restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true &&
                     <div className="col-lg-2 col-sm-2 col-xs-12">
                       <a
@@ -793,7 +800,7 @@ else{
                       </a>
                     </div>}
                   <div className="col-lg-12">
-                    {restaurantinfo.smsapigateway !== 0 &&
+                    {restaurantinfo.smsapigateway !== 0 && restaurantinfo.enableotpauthentication === true &&
                       <div
                         className="col-lg-6 col-sm-6 col-xs-12"
                         style={{ marginBottom: "20px" }}
@@ -810,7 +817,7 @@ else{
                         />
                         <label className="formlabel" style={{ marginLeft: "-15px" }}>Enter Verification OTP</label>
                       </div>}
-                    {restaurantinfo.smsapigateway !== 0 &&
+                    {restaurantinfo.smsapigateway !== 0 && restaurantinfo.enableotpauthentication === true &&
                       <div className="col-lg-6 col-sm-6 col-xs-12">
                         <a
                           className="blue_btn font_18px blue_btn_porder orange_submit"

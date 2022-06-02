@@ -16,31 +16,31 @@ import { CartTypes } from '../../redux/cart/cart.types';
 import { getLocationIdFromStorage } from '../Common/localstore';
 
 const StripeCheckoutComponent = (props) => {
-     
-    const { orderId,calculatedTotal,changeOnCheckout,cardShowMessage } = props;
+
+    const { orderId, calculatedTotal, changeOnCheckout, cardShowMessage } = props;
     let sessionid = useSelector(({ session }) => session?.sessionid);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
 
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser);
     const selecteddelivery = useSelector(({ selecteddelivery }) => selecteddelivery);
     const rewardpoint = useSelector(({ cart }) => cart?.rewardpoints);
-    const pickupordelivery = useSelector(({ selecteddelivery }) => selecteddelivery.pickupordelivery);    
+    const pickupordelivery = useSelector(({ selecteddelivery }) => selecteddelivery.pickupordelivery);
     const [submitting, setSubmitting] = useState(false);
     const [errorMessage, setErrorMesssage] = useState("");
     const [paymentintentid, setpaymentintentid] = useState('');
     const [countries, setcountries] = useState();
     const [selectedCountryId, setselectedCountryId] = useState(0);
     const [isDisabled, setisDisabled] = useState(true)
-    let buttonName=`Pay $ ${calculatedTotal && calculatedTotal > 0 ? calculatedTotal.toFixed(2) : 0}`;
+    let buttonName = `Pay $ ${calculatedTotal && calculatedTotal > 0 ? calculatedTotal.toFixed(2) : 0}`;
     const [buttonname, setbuttonname] = useState("")
     const [values, setValues] = useState({ email: "", cardnumber: "", expiremonthyear: "", cvv: "", cardname: "", zipcode: "", });
-     const [isprocessing, setisprocessing] = useState(false);
+    const [isprocessing, setisprocessing] = useState(false);
     // const [currentMonth, setCurrentMonth] = useState();
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const router = useRouter();
     const { query: { dynamic }, } = router;
-    
+
     const [cardType, setCardType] = useState(0);
     const [ischecked, setischecked] = useState(false)
     const [isOrdering, setIsOrdering] = useState(false);
@@ -49,8 +49,8 @@ const StripeCheckoutComponent = (props) => {
         if (dynamic && dynamic !== undefined) {
             let restauranturl = dynamic.toLowerCase().toString().replace(/ /g, "-");
 
-            let locationId=getLocationIdFromStorage();
-            RestaurantsServices.getRestaurantsList(restauranturl,locationId).then(response => {
+            let locationId = getLocationIdFromStorage();
+            RestaurantsServices.getRestaurantsList(restauranturl, locationId).then(response => {
                 if (response) {
                     let newselectedRestaurant = response[0];
 
@@ -79,7 +79,7 @@ const StripeCheckoutComponent = (props) => {
     useEffect(() => {
         OrderServices.getAllCountry().then((response) => {
             if (response && response.result.countryList.length > 0) {
-                 
+
                 console.log('response ' + response);
                 setselectedCountryId(response.result.countryList[0].countryid);
                 setcountries(response.result.countryList);
@@ -89,7 +89,7 @@ const StripeCheckoutComponent = (props) => {
 
     useEffect(() => {
         // if (restaurantinfo && userinfo && order.isRedirectToCheckout === true) {
-            if (restaurantinfo && userinfo) {
+        if (restaurantinfo && userinfo) {
             CartServices.getstripepaymentintentid(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, userinfo.customerId, calculatedTotal)
                 .then((response) => {
                     if (response) {
@@ -154,23 +154,23 @@ const StripeCheckoutComponent = (props) => {
 
             setSubmitting(true);
             await OrderServices.confirmStripePayment(addPaymentObj.cardDetails).then((responsedata) => {
-     
+
                 if (responsedata && responsedata.status === 1) {
                     setSubmitting(false);
                     // let rewardpointObj=rewardpoints
                     // clearCartItems(restaurantinfo,rewardpoints,addPaymentObj.customerId,pickupordelivery === "Delivery" &&
                     // deliveryaddressinfo &&
                     // deliveryaddressinfo.deliveryaddressId);
-                    deleteCartItemFromSessionId(addPaymentObj.cartsessionid,restaurantinfo.restaurantId,restaurantinfo.defaultlocationId);
+                    deleteCartItemFromSessionId(addPaymentObj.cartsessionid, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId);
 
                     dispatch({ type: CartTypes.DELETE_CART_ITEM_FROM_SESSIONID, payload: null });
                     // dispatch(updateCartItem());
                     // dispatch(updateCartItemCoun());
 
-                    
+
                     emptycart();
                     // emptyorder();
-                    if(rewardpoint !== undefined){
+                    if (rewardpoint !== undefined) {
                         let rewardpoints = {
                             rewardvalue: rewardpoint.rewardvalue,
                             rewardamount: rewardpoint.rewardamount,
@@ -202,9 +202,9 @@ const StripeCheckoutComponent = (props) => {
 
                     // dispatch(getCartItemCount(addPaymentObj.cartsessionid, addPaymentObj.defaultlocationId, addPaymentObj.restaurantId, addPaymentObj.customerId));
                     // return router.push("/" + restaurantinfo.restaurantURL + "/myorders");
-                    
+
                     return router.push("/" + restaurantinfo.restaurantURL + "/orderconfirmation");
-                    
+
                 } else {
                     setischecked(false)
                     setisDisabled(true);
@@ -361,7 +361,7 @@ const StripeCheckoutComponent = (props) => {
                 <form id="paymentform">
                     <div className="customForm" >
                         <div className="col-lg-12 cards text-center col-sm-12 col-xs-12">
-                            <div className="col-lg-12 text-center col-sm-12 col-xs-12" style={{ height: "35px"}}>
+                            <div className="col-lg-12 text-center col-sm-12 col-xs-12" style={{ height: "35px" }}>
                                 {cardType === 1 && <span><img src="/images/card-1.png" alt="" /></span>}
                                 {cardType === 2 && <span><img src="/images/card-2.png" alt="" /></span>}
                                 {cardType === 3 && <span><img src="/images/card-3.png" alt="" /></span>}
@@ -372,11 +372,16 @@ const StripeCheckoutComponent = (props) => {
                             </div>
                         </div>
 
-                        {cardShowMessage ? <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" style={{height:"40px"}}>
-                                 <span style={{fontSize:"21px"}} className="error"> {cardShowMessage} </span> 
-                         </div>
-                         :
-                         <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" ></div> }
+                        {cardShowMessage ? <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" style={{ height: "40px" }}>
+                            <span style={{ fontSize: "21px" }} className="error"> Note: {cardShowMessage} </span>
+                        </div>
+                            :
+                            <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" ></div>}
+                            {errorMessage && 
+                            <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" style={{ height: "40px" }}>
+                            <span className="error" style={{ fontSize: "23px" }}> *{errorMessage}</span>
+                            </div>}
+                     
 
                         <div className="col-lg-12 col-sm-12 col-xs-12 marginbottom_12">
                             <input className="marginbottom_0" type="text" placeholder="Email" required onChange={handlePaymentChange}
@@ -437,13 +442,8 @@ const StripeCheckoutComponent = (props) => {
                                 </label>
                             </div>
                         </div>
-
-                        
-                        <div className="row">
-                                {errorMessage && <span className="error"> {errorMessage} </span> }
-                         </div>
                         <div className="col-lg-12 margin_top_30 text-center col-sm-12 col-xs-12">
-                            <Custombutton buttonText={isprocessing?"processing...":buttonName} buttonType="button" isDisable={isDisabled} disabledClass="blue_btn blue_btn_porder size_32 customdisable" buttonclass="blue_btn blue_btn_porder size_32" buttonMethod={submitStripeForm} />
+                            <Custombutton buttonText={isprocessing ? "processing..." : buttonName} buttonType="button" isDisable={isDisabled} disabledClass="blue_btn blue_btn_porder size_32 customdisable" buttonclass="blue_btn blue_btn_porder size_32" buttonMethod={submitStripeForm} />
                         </div>
                     </div>
                 </form>

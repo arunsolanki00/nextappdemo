@@ -24,12 +24,12 @@ const OrderDetailSummary = (props) => {
     setIsProcessing(true);
     OrderServices.repeatOrder(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, 0, true, userinfo.customerId,sessionid).then((response) => {
       if (response.status === 1) {
-        handleNotify("Your Order placed successfully", ToasterPositions.BottomRight, ToasterTypes.Success);
+        handleNotify("Your Order placed successfully", ToasterPositions.TopRight, ToasterTypes.Success);
         setIsProcessing(false);
         router.push("/" + restaurantURL + "/cart");
       } else {
         setIsProcessing(false);
-        handleNotify("Something went wrong", ToasterPositions.BottomRight, ToasterTypes.Error);
+        handleNotify("Something went wrong", ToasterPositions.TopRight, ToasterTypes.Error);
       }
     });
   }

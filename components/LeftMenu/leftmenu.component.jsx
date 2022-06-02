@@ -49,11 +49,11 @@ function LeftMenuComponent() {
       //CREATE SESSIONID AFTER THE LOGOUT
       let id=uuidv4()
       dispatch(createSessionId(id));
-      handleNotify('logout successfully!', ToasterPositions.BottomRight, ToasterTypes.Success);
+      handleNotify('logout successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
       router.push("/" + restaurantinfo.restaurantURL+"/pickup");
     }
     else {
-      handleNotify('please login first, before logout!', ToasterPositions.BottomRight, ToasterTypes.Info);
+      handleNotify('please login first, before logout!', ToasterPositions.TopRight, ToasterTypes.Info);
     }
   }
 

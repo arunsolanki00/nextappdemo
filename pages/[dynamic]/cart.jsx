@@ -74,8 +74,8 @@ const ShoppingCart=()=> {
   const ordertype = selecteddelivery.pickupordelivery === "Pickup" ? 1 : 2;
   const [tipdata, settipdata] = useState([
     { id: 1, value: false, text: "10" },
-    { id: 2, value: false, text: "20" },
-    { id: 3, value: false, text: "30" },
+    { id: 2, value: false, text: "15" },
+    { id: 3, value: false, text: "20" },
   ]);
   const [tipdatanew, settipdatanew] = useState([]);
 
@@ -159,7 +159,6 @@ const ShoppingCart=()=> {
           });
         }
       };
-    console.log("userinfo",userinfo)
       // if(rewardpoint){
       let rpoint = 0;
       let ramount = 0;
@@ -188,7 +187,7 @@ if(sessionid !== null){
     deliveryaddressinfo && pickupordelivery === "Delivery"
       ? deliveryaddressinfo.deliveryaddressId
       : 0,
-    0,  
+    tipPercent,  
     tipamount
   )
   );
@@ -198,13 +197,38 @@ if(sessionid !== null){
     // }
 
     if (carttotal != undefined && carttotal != null) {
+      
       if (
         carttotal?.tipPercentage !== undefined &&
         carttotal?.tipPercentage > 0
       ) {
+        
+        //TO DO
         let data = [];
         tipdata.forEach((element) => {
+          
           if (parseFloat(element.text) == carttotal.tipPercentage) {
+            element.value = true;
+            data.push(element);
+            settipdatanew(data);
+            let tipamountcal = calculateTip(
+              element.text,
+              // carttotal.subTotalWithDiscount
+              carttotal.subTotal
+            );
+            settipamount(tipamountcal);
+          } else {
+            //settipdatanew.push(element)
+            data.push(element);
+            settipdatanew(data);
+          }
+        });
+      }
+      else{
+        let data = [];
+        tipdata.forEach((element) => {
+          
+          if (parseFloat(element.text) === 15) {
             element.value = true;
             data.push(element);
             settipdatanew(data);
@@ -219,6 +243,7 @@ if(sessionid !== null){
             settipdatanew(data);
           }
         });
+        
       }
       //if (parseFloat(carttotal.discountPercentage) > 0) {
       // let pvalue =
@@ -231,7 +256,9 @@ if(sessionid !== null){
     }
   }, [carttotal?.grandTotal, grandtotal || grandtotal]);
   // }, [carttotal?.grandTotal,grandtotal]);
-
+// useEffect(()=>{
+//   console.log(tipdata)
+// },[carttotal.grandTotal,tipdata])
   useEffect(() => {
 
     if (carttotal != undefined && carttotal.grandTotal != undefined) {
@@ -252,7 +279,7 @@ if(sessionid !== null){
       //tip update on grand total update
       let tamount = 0;
       if (tipPercent) {
-        tamount = calculateTip(tipPercent, carttotal.subTotalWithDiscount);
+        tamount = calculateTip(tipPercent, carttotal.subTotal);
         settipamount(tamount);
         settipvalue(tamount);
       }
@@ -278,7 +305,8 @@ if(sessionid !== null){
       if (selectedtip != undefined && parseInt(selectedtip.text) > 0) {
         let tipamount = calculateTip(
           selectedtip.text,
-          carttotal.subTotalWithDiscount
+          // carttotal.subTotalWithDiscount
+          carttotal.subTotal
         ); //parseInt(selectedtip.text) * parseFloat(carttotal.subTotalWithDiscount) / 100;
         settipamount(tipamount);
         settipvalue(parseFloat(tipamount));
@@ -295,7 +323,7 @@ if(sessionid !== null){
       }
     }
   };
-
+//CALCULATE THE TIP AMOUNT
   function calculateTip(selectedtip, subtotal) {
     let tipamount = 0;
     if (selectedtip > 0 && subtotal > 0) {
@@ -313,6 +341,7 @@ if(sessionid !== null){
     //   customerId,
     //   restaurantinfo.defaultlocationId
     // );
+    
     dispatch(
       carttotaldata(
         sessionid,
@@ -546,7 +575,6 @@ if(sessionid !== null){
     return total.toFixed(2);
   }
  const itemstotal=calulateTotal();
- console.log(itemstotal)
   // if (cartdata != undefined && userinfo != undefined && userinfo != null && carttotal != null && carttotal.grandTotal != undefined && isOrdering === true) {
   if (userinfo != undefined && userinfo != null) {
     return (
