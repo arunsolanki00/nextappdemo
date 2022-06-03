@@ -1,18 +1,37 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useState,useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { setpickupordelivery } from "../../redux/selected-delivery-data/selecteddelivery.action";
 import ConfirmAddressChange from "../Common/Address/confirm-address-change.component";
 import LoginMainComponent from "../login/login.component";
 
 function DeliveryDropdownComponent() {
+    const dispatch = useDispatch();
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser);
     let objrestaurant = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const [deliverylocationpopup, setdeliverylocationpopup] = useState(false);
     const [loginpopup, setloginpopup] = useState(false);
-
+    const defaultLocation = objrestaurant ? objrestaurant.defaultLocation : null;
     const selecteddelivery = useSelector(({ selecteddelivery }) => selecteddelivery);
     const selecteddeliveryaddress = selecteddelivery.selecteddeliveryaddress;
-
+    const isTakeOutAsap = defaultLocation.isTakeOutAsap;
+    const isTakeOutPickupTime = defaultLocation.isTakeOutPickupTime;
+    const isDeliveryPickupTime = defaultLocation.isDeliveryPickupTime;
+    const isDeliveryAsap = defaultLocation.isDeliveryAsap;
     const [addressdisplay, setaddressdisplay] = useState([]);
+useEffect(() => {
+    
+    if( Object.keys(selecteddelivery.pickupordelivery).length === 0 ){
+        if( defaultLocation.isdelivery && defaultLocation.istakeaway){
+            dispatch(setpickupordelivery('pickup'))
+        }
+        else if((isDeliveryPickupTime || isDeliveryAsap) && defaultLocation.isdelivery)(
+           dispatch(setpickupordelivery('Delivery'))
+        )
+        else{
+            dispatch(setpickupordelivery('pickup'))
+        }
+    }
+}, [])
 
     const handleDeliveryLocationPopup = () => {
         if (userinfo != null && userinfo != undefined) {
@@ -59,9 +78,10 @@ function DeliveryDropdownComponent() {
         <>
             <div className="col-lg-9 small-text-right flush text-right dele col-sm-9 col-xs-10">
                 <div className="dropdown">
+                    {/* TO DO */}
                     {selecteddelivery &&
                         <>
-                            <h6 className="margin_0">{selecteddelivery && selecteddelivery.pickupordelivery}</h6>
+                            <h6 className="margin_0">{(selecteddelivery && Object.keys(selecteddelivery.pickupordelivery).length !== 0) && selecteddelivery.pickupordelivery}</h6>
 
                         </>
                     }
@@ -107,9 +127,19 @@ function DeliveryDropdownComponent() {
                                             Delivery Address
                                             <i className="fa size_32 color_green margin_left_5 top_-1 position_relative d-inline-block v-middle fa-angle-right"></i>
                                         </> :
+                                            // <>
+                                            //     {displayselecteddelivery()}
+                                            //     <i className="fa size_32 color_green margin_left_5 top_-1 position_relative d-inline-block v-middle fa-angle-right"></i>
+                                            // </>
                                             <>
-                                                {displayselecteddelivery()}
-                                                <i className="fa size_32 color_green margin_left_5 top_-1 position_relative d-inline-block v-middle fa-angle-right"></i>
+                                                {
+                                                    Object.keys(selecteddelivery.pickupordelivery).length !== 0 ? <>                                              {displayselecteddelivery()}
+                                                        <i className="fa size_32 color_green margin_left_5 top_-1 position_relative d-inline-block v-middle fa-angle-right"></i>
+                                                    </> :
+                                                        <>
+                                                            {""}
+                                                        </>
+                                                }
                                             </>
                                     }
 

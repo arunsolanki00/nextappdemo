@@ -26,7 +26,6 @@ const Index=()=> {
     const [lstcarttopping,setlstcarttopping]=useState([]);
 
     let menuItemDetail = useSelector(({ menuitem }) => menuitem?.menuitemdetaillist);
-    console.log(menuItemDetail);
     let selectedsize = menuItemDetail != undefined && menuItemDetail.size != undefined && menuItemDetail.size.length > 0 && menuItemDetail.size.find(x => x.sizeselected === true);
     let selectedtopping = menuItemDetail != undefined && menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && menuItemDetail.topping.find(x => x.subparameterId == selectedsize.subparameterId);
     let selectedmenuitemdetail = useSelector(({ menuitem }) => menuitem?.selectedmenuitemdetail);
