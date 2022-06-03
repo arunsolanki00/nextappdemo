@@ -7,7 +7,7 @@ const RestaurantListComponent = () => {
     const [restaurantList, setRestaurantList] = useState([]);
 
     useEffect(() => {
-        debugger
+        
         if (restaurantList?.length <= 0) {
             RestaurantsServices.getRestaurantLocationList().then(response => {
                 if (response) {

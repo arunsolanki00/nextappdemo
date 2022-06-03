@@ -5,7 +5,7 @@ import { getCategoryItemList, selectedCategory } from "../../../redux/category/c
 
 
 function CategorySlideComponent({ slides }) {
-
+console.log(slides);
     const router = useRouter();
     const dispatch = useDispatch();
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
@@ -16,10 +16,10 @@ function CategorySlideComponent({ slides }) {
     } = router
 
     const selectedCategoryClick = (item) => {
-        if (item != undefined) {
+                if (item != undefined) {
             //item.catSelected = true;
             dispatch(selectedCategory(item));
-            dispatch(getCategoryItemList(restaurantinfo.restaurantId, item.catId, customerId, restaurantinfo.defaultlocationId));
+            // dispatch(getCategoryItemList(restaurantinfo.restaurantId, item.catId, customerId, restaurantinfo.defaultlocationId));
         }
     }
 

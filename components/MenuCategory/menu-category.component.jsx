@@ -5,7 +5,7 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getCategoryItemList, selectedCategory } from "../../redux/category/category.action";
 
 function MenuCategoryComponent({ categories, selectedCat }) {
-
+  
     const router = useRouter();
     const dispatch = useDispatch();
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
@@ -56,8 +56,6 @@ function MenuCategoryComponent({ categories, selectedCat }) {
 
       slide.length > 0 && setslides(slide);
   }, [category])
-
-    console.log('Category Menu Loaded!!!')
 
     return (
         <div className="col-lg-12 categories-ul b-right col-sm-12 col-xs-12">

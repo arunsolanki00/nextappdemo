@@ -41,7 +41,7 @@ export class RestaurantsServices {
   }
 
   static async getRestaurantLocationList() {
-    debugger
+    
     console.log('getRestaurantLocationList')
     const restaurant = ENDPOINTS.GET_RESTAURANT_LOCATIONS_LIST;
     const config = {
@@ -51,7 +51,7 @@ export class RestaurantsServices {
 
     };
     try {
-      debugger
+      
       let response = await axios.post(restaurant, config);
       console.log('response' + response)
       responseclass = await JSON.parse(response.data.d);

@@ -19,9 +19,7 @@ function MenuCategoryWrapper() {
     const {
         query: { dynamic, id, category, index },
     } = router;
-
-    console.log("category name: " + category);
-
+    
     useEffect(() => {
         setloader(true);
         setloadingstate(true)
