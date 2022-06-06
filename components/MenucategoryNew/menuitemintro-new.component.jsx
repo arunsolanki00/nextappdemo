@@ -11,6 +11,7 @@ import { GetCurrency } from '../helpers/utility';
 import CartQuantityArea from './menucategory-cart-quantityarea.component';
 
 function MenuItemIntroComponentNew() {
+    
     const router = useRouter()
     const dispatch = useDispatch();
     const {
@@ -27,18 +28,12 @@ function MenuItemIntroComponentNew() {
     const slides = [];
     let menuItemDetail = useSelector(({ menuitem }) => menuitem.menuitemdetaillist);
     let selectedmenuitemdetail= useSelector(({ menuitem }) => menuitem.selectedmenuitemdetail)
-    // const [reload, setreload] = useState()
-
+    const [reload, setreload] = useState();
     // useEffect(() => {
+    //     debugger
     //     setreload(Math.random())
     // }, [menuitems])
-    useEffect(()=>{
-        
-        if(Object.keys(menuItemDetail).length === 0 ){
-            
-            dispatch(getMenuItemList(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, selectedmenuitemdetail.menuitemId));
-        }
-    },[selectedmenuitemdetail]) 
+
     const logindetailsclick = () => {
         if (userinfo === undefined || userinfo === null) {
             setShowLogin(true);
@@ -49,6 +44,7 @@ function MenuItemIntroComponentNew() {
     }
 
     const selectedFavoriteClick = (selecteditem, item) => {
+        setreload(Math.random());
         selecteditem.isFavoriteMenu = item;
         menuitems.map((data) => {
             if (data.menuitemId === selecteditem.menuitemId)
@@ -70,16 +66,11 @@ function MenuItemIntroComponentNew() {
     const selectedItemClick = (item) => {
         if (item != undefined) {
             dispatch(selectedMenuItem(item));
-            dispatch(getMenuItemList(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, item.menuitemId));
-
-            setTimeout(() => {
-
-            }, 1000);
-
-
+            dispatch(getMenuItemList(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, item.menuitemId,0,0));
+            // setTimeout(() => {
+            // }, 3000);
         }
     }
-
     if (menuitems) {
         for (let i = 0; i < menuitems.length; i++) {
             const categories = menuitems[i];
@@ -210,7 +201,6 @@ function MenuItemIntroComponentNew() {
             )
         }
     }
-
     return (
         <>
             <div className="col-lg-6 pull-right pizza-in col-sm-12 col-xs-12">
