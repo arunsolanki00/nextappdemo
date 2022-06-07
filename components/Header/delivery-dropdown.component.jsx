@@ -78,7 +78,6 @@ useEffect(() => {
         <>
             <div className="col-lg-9 small-text-right flush text-right dele col-sm-9 col-xs-10">
                 <div className="dropdown">
-                    {/* TO DO */}
                     {selecteddelivery &&
                         <>
                             <h6 className="margin_0">{(selecteddelivery && Object.keys(selecteddelivery.pickupordelivery).length !== 0) && selecteddelivery.pickupordelivery}</h6>
@@ -121,26 +120,16 @@ useEffect(() => {
                                 ''
                                 :
                                 <>
-                                    {/* TO DO */}
                                     {
                                         selecteddeliveryaddress === null ? <>
                                             Delivery Address
                                             <i className="fa size_32 color_green margin_left_5 top_-1 position_relative d-inline-block v-middle fa-angle-right"></i>
                                         </> :
-                                            // <>
-                                            //     {displayselecteddelivery()}
-                                            //     <i className="fa size_32 color_green margin_left_5 top_-1 position_relative d-inline-block v-middle fa-angle-right"></i>
-                                            // </>
                                             <>
-                                                {
-                                                    Object.keys(selecteddelivery.pickupordelivery).length !== 0 ? <>                                              {displayselecteddelivery()}
-                                                        <i className="fa size_32 color_green margin_left_5 top_-1 position_relative d-inline-block v-middle fa-angle-right"></i>
-                                                    </> :
-                                                        <>
-                                                            {""}
-                                                        </>
-                                                }
+                                                {displayselecteddelivery()}
+                                                <i className="fa size_32 color_green margin_left_5 top_-1 position_relative d-inline-block v-middle fa-angle-right"></i>
                                             </>
+
                                     }
 
                                 </>}
