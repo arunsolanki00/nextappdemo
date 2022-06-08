@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
-  getMenuItemList,
+  getMenuItemDetailes,
   selectedMenuItem,
 } from "../../redux/menu-item/menu-item.action";
 import Skeleton from "react-loading-skeleton";
@@ -68,7 +68,7 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
     if (item != undefined) {
       dispatch(selectedMenuItem(item));
       dispatch(
-        getMenuItemList(
+        getMenuItemDetailes(
           restaurantinfo.restaurantId,
           restaurantinfo.defaultlocationId,
           0,

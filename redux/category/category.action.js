@@ -2,10 +2,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { CategoryServices } from "./category.services";
 import { CategoryTypes } from "./category.types";
 
-export const getCategoryItemList = (restaurantId,categories,customerId,locationId) => {        
+export const getCategoryItemList = (restaurantId,categories,customerId,locationId) => {  
     return async dispatch => {        
-        CategoryServices.getCategoryItemList(restaurantId,categories,customerId,locationId).then(response => {            
-            if (response) {                
+        CategoryServices.getCategoryItemList(restaurantId,categories,customerId,locationId).then(response => {          
+              
+            if (response) {  
                 dispatch({
                     type: CategoryTypes.CATEGORY_ITEM_LIST,
                     payload: response                    
@@ -15,7 +16,7 @@ export const getCategoryItemList = (restaurantId,categories,customerId,locationI
     }
 }
 
-export const selectedCategory = (item) => {     
+export const selectedCategory = (item) => {   
     return async (dispatch) => {                                                     
         dispatch({
             type: CategoryTypes.SELECTED_CATEGORY_DATA,

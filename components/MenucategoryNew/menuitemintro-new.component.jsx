@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import NumberFormat from 'react-number-format';
 import { useRouter } from "next/router"
-import { addFavorite, deleteFavorite, getMenuItemList, selecteditemquantity, selectedMenuItem } from '../../redux/menu-item/menu-item.action';
+import { addFavorite, deleteFavorite, getMenuItemDetailes, selecteditemquantity, selectedMenuItem } from '../../redux/menu-item/menu-item.action';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { removeCategoryList, setCategoryList } from '../../redux/category/category.action';
 import { useEffect, useState } from 'react';
@@ -66,7 +66,7 @@ function MenuItemIntroComponentNew() {
     const selectedItemClick = (item) => {
         if (item != undefined) {
             dispatch(selectedMenuItem(item));
-            dispatch(getMenuItemList(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, item.menuitemId,0,0));
+            dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, item.menuitemId,0,0));
             // setTimeout(() => {
             // }, 3000);
         }
@@ -77,7 +77,6 @@ function MenuItemIntroComponentNew() {
             slides.push(
                 <div key={i}>
                     {/* if price type == 0 then no option in menu item and if default price == 1 then no option in menu item */}
-
                     {(categories.typeid > 0 && categories.isdefaultprice === 0)
                         ? (
                             <div className="row">

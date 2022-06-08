@@ -755,6 +755,24 @@ if(sessionid !== null){
                                           </p>
                                         </div>
                                       </div>
+                                      {
+                                        carttotal?.PromotionCal > 0 &&
+                                        <div className="row">
+                                        <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
+                                          <p className="margin_0 margin_top_15 size_19">
+                                            Promotion ({carttotal?.PromotionPercentage.toFixed(2)} %) :{" "}
+                                          </p>
+                                        </div>
+                                          <div className="col-lg-4 col-sm-4 col-xs-4 text-right">
+                                            <p className="margin_0 margin_top_15 size_19">
+                                              <span>
+                                                -{" "}
+                                                {carttotal?.PromotionCal > 0 ? currency + " " + carttotal?.PromotionCal.toFixed(2) : currency + " " + " 0.00"}
+                                              </span>
+                                            </p>
+                                          </div>
+                                      </div>
+                                      }
                                       <div className="row">
                                         <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
                                           <p className="margin_0 margin_top_15 size_19">

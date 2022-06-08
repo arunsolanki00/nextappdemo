@@ -2,16 +2,17 @@
 import React, { useEffect, useState } from 'react'
 import { flushSync } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeMenuItem, selectedItemSize, updateitemoption } from '../../../redux/menu-item/menu-item.action';
+import { getMenuItemDetailes, removeMenuItem, selectedItemSize, updateitemoption } from '../../../redux/menu-item/menu-item.action';
 import NewMenuItemSubOptionsParameter from './new-menu-item-sub-options-parameter/new-menu-item-sub-options-parameter.component';
 
 const NewMenuItemOptionsParameter = (props) => {
     const dispatch = useDispatch();
     const [count, setCount] = useState(Math.random);
+    const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     let menuItemDetail = useSelector(({ menuitem }) => menuitem.menuitemdetaillist);
     let selectedsize = menuItemDetail != undefined && menuItemDetail.size != undefined && menuItemDetail.size.find(x => x.sizeselected == true);
     let selectedtopping = menuItemDetail != undefined && menuItemDetail.topping != undefined && menuItemDetail.topping.find(x => x.subparameterId == selectedsize.subparameterId);
-
+    let selectedmenuitemdetail = useSelector(({ menuitem }) => menuitem.selectedmenuitemdetail)
     let selectedoption = selectedtopping != undefined && selectedtopping.list?.length > 0 && selectedtopping?.list.filter(x => x.optionselected == true);
     let lstoption = [];
     let optiontype = selectedoption != undefined && selectedoption.length > 0 &&
@@ -19,7 +20,7 @@ const NewMenuItemOptionsParameter = (props) => {
             if (lstoption.length === 0 || lstoption.find(x => x.suboptioncategoryname === data.suboptioncategoryname) === undefined)
                 lstoption.push(data);
         })
-
+    let sessionid = useSelector(({ session }) => session?.sessionid);
     let defaultselected = selectedoption != undefined && selectedoption.length > 0 && selectedoption[0].type.filter(x => x.defaultSelection != null);
 
     // let optiontype = selectedoption != undefined && selectedoption.length > 0 &&
@@ -29,9 +30,15 @@ const NewMenuItemOptionsParameter = (props) => {
 
     //         lstoption.push(data);
     //     })
+    useEffect(() => {
+        if (Object.keys(menuItemDetail).length === 0) {
+            debugger
+            console.log("length is 0")
+            dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, selectedmenuitemdetail.menuitemId, sessionid, 0));
+        }
+    }, [])
 
     const selectedOptionClick = (item) => {
-
         let lstdefault = [];
         selectedoption[0].type.map((data) => {
             if (item.suboptioncategoryname == data.suboptioncategoryname)
@@ -125,8 +132,9 @@ const NewMenuItemOptionsParameter = (props) => {
                                 })}
                             </ul>
                         </div>
-
-                        <NewMenuItemSubOptionsParameter />
+                        {
+                            Object.keys(menuItemDetail).length > 0 &&<NewMenuItemSubOptionsParameter />
+                        }
 
                     </div>
                 </div>

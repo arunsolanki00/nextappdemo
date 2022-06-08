@@ -18,7 +18,7 @@ import { MenuItemTypes } from "../../redux/menu-item/menu-item.types";
 import handleNotify from "../helpers/toaster/toaster-notify";
 import LoginMainComponent from "../login/login.component";
 import {
-  getMenuItemList,
+  getMenuItemDetailes,
   selectedMenuItem,
 } from "../../redux/menu-item/menu-item.action";
 import { useRouter } from "next/router";
@@ -176,7 +176,7 @@ function MenuCategoryCart({ sendDataToParent }) {
   const selectedItemClick = (item, menucategoryitem, menuitemnameurl) => {
     if (item != undefined) {
       dispatch(
-        getMenuItemList(
+        getMenuItemDetailes(
           restaurantinfo.restaurantId,
           restaurantinfo.defaultlocationId,
           0,

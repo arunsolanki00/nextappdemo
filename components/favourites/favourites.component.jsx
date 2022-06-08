@@ -6,7 +6,7 @@ import { Router } from "next/router";
 import {
   addFavorite,
   deleteFavorite,
-  getMenuItemList,
+  getMenuItemDetailes,
   selectedMenuItem,
 } from "../../redux/menu-item/menu-item.action";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -162,7 +162,7 @@ const FavouritesComponent = (props) => {
       item.isFavoriteMenu = true; // need to set true as we need that at Menuitem componenet
       dispatch(selectedMenuItem(item));
       dispatch(
-        getMenuItemList(
+        getMenuItemDetailes(
           restaurantinfo.restaurantId,
           restaurantinfo.defaultlocationId,
           0,
