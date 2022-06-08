@@ -16,13 +16,14 @@ const RestaurantLocationsComponent = (props) => {
   const restaurantlocation = useSelector(({ restaurant }) => restaurant.restaurantslocationlist);
   const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
   const [addressList, setAddressList] = useState(restaurantlocation?.addressList);
+  const defaultLocation=restaurantinfo?.defaultLocation;
 
   const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
 
   const dispatch = useDispatch();
   let sessionid = useSelector(({ session }) => session?.sessionid);
   const handleClick = async (lid) => {
-    const request = await fetch(ENDPOINTS.LOCATION_BY_ID, {
+          const request = await fetch(ENDPOINTS.LOCATION_BY_ID, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -92,7 +93,7 @@ const RestaurantLocationsComponent = (props) => {
                       let gmaplink = ENDPOINTS.GOOGLE_MAP_LINK + locationFullAddress;
 
                       return (
-                        <div key={index}>
+                        <div key={index} style={address.locationId === defaultLocation.locationId?{backgroundColor:"lightgrey",borderRadius:"25px"}:{backgroundColor:""}}>
                           <a value={address.locationId}
                             onClick={() => handleClick(address.locationId)}
                           >

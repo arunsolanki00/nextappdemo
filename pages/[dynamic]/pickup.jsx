@@ -219,10 +219,8 @@ const Index = () => {
         
     }, [restaurantinfo.defaultLocation?.locationId])
 
-    const handleLocationPopup = () => {
-        // setLoadPickupComplete(true);
-        // setloadingState(false);
-        setlocationpopup(!locationpopup);
+    const handleLocationPopup = (isLocationPopup) => {
+          setlocationpopup(isLocationPopup) 
     }
 
     if (!loadingState && loadpickupComplete) {
@@ -392,7 +390,7 @@ const Index = () => {
                                                             {(apiResponse.addressList && apiResponse.addressList.length > 1) &&
 
                                                                 <a className="light_orange_btn clock_more_btn"
-                                                                    onClick={handleLocationPopup}
+                                                                    onClick={()=>handleLocationPopup(true)}
                                                                     data-toggle="modal"
                                                                     data-target="#myModal"><i className="fa fa-map-marker"></i> Change
                                                                 </a>

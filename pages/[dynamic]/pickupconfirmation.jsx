@@ -591,7 +591,8 @@ useEffect(()=>{
                                                                     Today {ordertimedisplay && <> {MonthList(currentDate.getMonth())} {currentDate.getDate()}, {ordertimedisplay} </>}
                                                                 </h5>
                                                             }
-                                                        </div> : <>
+                                                        </div>
+                                                        <>
                                                             {
                                                                 ordertimeerrormessage !== "" &&
                                                                 <div className="col-lg-12 col-sm-12 col-xs-12">
