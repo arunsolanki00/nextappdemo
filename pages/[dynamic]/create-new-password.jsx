@@ -1,4 +1,4 @@
-import React, { Component, useState } from "react";
+import React from "react";
 import CreateNewPasswordForm from "../../components/forgot-password/create-new-password.component";
 
 const CreateNewPassword=()=> {

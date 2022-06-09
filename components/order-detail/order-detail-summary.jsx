@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import RewardPointDetail from "./reward-point-detail";
@@ -18,7 +17,6 @@ const OrderDetailSummary = (props) => {
   const [isProcessing, setIsProcessing] = useState(false)
   let sessionid = useSelector(({ session }) => session?.sessionid);
   const HandleFullOrderClick = (orderId) => {
-
     setIsProcessing(true);
     OrderServices.repeatOrder(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, 0, true, userinfo.customerId,sessionid).then((response) => {
       if (response.status === 1) {
@@ -31,7 +29,6 @@ const OrderDetailSummary = (props) => {
       }
     });
   }
-
   const orderSummary = props != undefined && props.orderdetailCal;
   const currency = orderSummary.currencysymbol;
   console.log(orderSummary?.total);

@@ -1,13 +1,10 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import { LocationServices } from "../../redux/location/location.services";
 import Loader from "../Common/loader/loader.component";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { ENDPOINTS } from "../config";
 import { restaurantsdetail } from "../../redux/restaurants/restaurants.action";
-// import { getAuthKey, getSessionKey } from "./auth";
 import { deleteCartItemFromSessionId, emptycart, initialrewardpoint } from "../../redux/cart/cart.action";
-import { CartTypes } from "../../redux/cart/cart.types";
 import { setLocationIdInStorage } from "./localstore";
 import { getAuthKey } from "./auth";
 
@@ -17,9 +14,7 @@ const RestaurantLocationsComponent = (props) => {
   const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
   const [addressList, setAddressList] = useState(restaurantlocation?.addressList);
   const defaultLocation=restaurantinfo?.defaultLocation;
-
   const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
-
   const dispatch = useDispatch();
   let sessionid = useSelector(({ session }) => session?.sessionid);
   const handleClick = async (lid) => {
@@ -35,10 +30,8 @@ const RestaurantLocationsComponent = (props) => {
         locationId: lid
       })
     });
-
     const response = await request.json();
     var data = await JSON.parse(response.d);
-
     Object.keys(restaurantinfo).map((session) => {
       if (session === 'defaultLocation') {
         Object.assign(restaurantinfo.defaultLocation, data.result);
@@ -47,27 +40,20 @@ const RestaurantLocationsComponent = (props) => {
         restaurantinfo.defaultlocationId = data.result.locationId;
       };
     });
-
     dispatch(restaurantsdetail(null));
     dispatch(restaurantsdetail(restaurantinfo));
-
     setLocationIdInStorage(restaurantinfo.defaultlocationId);
-
     if (userinfo && userinfo?.customerId) {
-      // const cartsessionid = getSessionKey(restaurantinfo.restaurantId, userinfo.customerId, restaurantinfo.defaultlocationId);
       deleteCartItemFromSessionId(sessionid, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId);
       dispatch(emptycart());
       dispatch(initialrewardpoint(userinfo));
     }
-
     $('.modal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-
     sethidelocations(true);
     props.handleLocationPopup(false);
   }
-
   if (addressList !== null)
     return (
       <>
@@ -86,12 +72,9 @@ const RestaurantLocationsComponent = (props) => {
                     </h4>
                   </div>
                   <div className="col-lg-12 col-sm-12 col-xs-12">
-
                     {addressList && addressList.map((address,index) => {
-
                       let locationFullAddress = address.locationName + "," + address.address1 + "," + address.cityName + "," + address.zipcode;
                       let gmaplink = ENDPOINTS.GOOGLE_MAP_LINK + locationFullAddress;
-
                       return (
                         <div key={index} style={address.locationId === defaultLocation.locationId?{backgroundColor:"lightgrey",borderRadius:"25px"}:{backgroundColor:""}}>
                           <a value={address.locationId}
@@ -111,13 +94,11 @@ const RestaurantLocationsComponent = (props) => {
                               </a>
                               </div>
                               <div className="col-lg-11 col-sm-11">
-                                {/* <h5>{address.address1},{address.zipcode}</h5> */}
                                 <h5>{`${address.address1}, ${address.cityName}, ${address.zipcode}`}</h5>
                               </div>
                             </div>
                             <div className="row">
                             <div className="col-lg-1">
-
                             </div>
                             <div className="col-lg-11 offset-1">
                             {(address.isTakeaway === true  && restaurantinfo.istakeaway===true) && <span className="size_20 color_black"> <> Pickup <i className="fa fa-check greenColor" aria-hidden="true"></i></>&nbsp; &nbsp; </span>}

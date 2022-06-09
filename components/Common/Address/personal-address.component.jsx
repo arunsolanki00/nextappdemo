@@ -1,19 +1,14 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { addAddress, getAddress } from "../../../redux/delivery-address/delivery-address.action";
-import $ from "jquery";
 import { GoogleAutoComplete } from "../google.map.component";
 
 const PersonalAddress = ({ ispersonal, sendDataToParent }) => {
     const dispatch = useDispatch();
     const [query, setQuery] = useState("");
-    const [addressdetail, setaddressdetail] = useState({});
-    const autoCompleteRef = useRef(null);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const customerId = userinfo ? userinfo.customerId : 0;
-    let autoComplete;
-
     const [businessname, setbusinessname] = useState("");
     const [address1, setaddress1] = useState("");
     const [address2, setaddress2] = useState("");
@@ -26,65 +21,12 @@ const PersonalAddress = ({ ispersonal, sendDataToParent }) => {
     const [latitude, setlatitude] = useState();
     const [longitude, setlongitude] = useState();
 
-    // const loadScript = (url, callback) => {
-    //     let script = document.createElement("script");
-    //     script.type = "text/javascript";
-
-    //     if (script.readyState) {
-    //         script.onreadystatechange = function () {
-    //             if (script.readyState === "loaded" || script.readyState === "complete") {
-    //                 script.onreadystatechange = null;
-    //                 callback();
-    //             }
-    //         };
-    //     } else {
-    //         script.onload = () => callback();
-    //     }
-
-    //     script.src = url;
-    //     document.getElementsByTagName("head")[0].appendChild(script);
-    // };
-
-    // function handleScriptLoad(updateQuery, autoCompleteRef) {
-    //     autoComplete = new window.google.maps.places.Autocomplete(
-    //         autoCompleteRef.current,
-    //         { types: ["geocode"] }
-    //     );
-    //     autoComplete.addListener("place_changed", () =>
-    //         handlePlaceSelect(updateQuery)
-    //     );
-    // }
-
-    // async function handlePlaceSelect(updateQuery) {
-    //     const addressObject = autoComplete.getPlace();
-    //     const query = addressObject.formatted_address;
-    //     updateQuery(query);
-    //     var adata = addressObject.address_components;
-
-    //     if (addressObject.geometry.location) {
-    //         let lat = addressObject.geometry.location.lat;
-    //         let lng = addressObject.geometry.location.lng;
-
-    //         if (lat) { setlatitude(lat); }
-    //         if (lng) { setlongitude(lng); }
-    //     }
-
-    //     if (adata != undefined) {
-    //         setpostalcode(adata[0] != undefined && adata[0].long_name != undefined && adata[0].long_name);
-    //         setcity(adata[1] != undefined && adata[1].long_name != undefined && adata[1].long_name);
-    //         setaddress1(adata[2] != undefined && adata[2].long_name != undefined && adata[2].long_name);
-    //         setstate(adata[3] != undefined && adata[3].short_name != undefined && adata[3].short_name);
-    //         setcountry(adata[4] != undefined && adata[4].long_name != undefined && adata[4].long_name);
-    //     }
-    // }
-
     const sendToParent = (index) => {
         setpostalcode(index.zip);
         setcity(index.city);
         setaddress1(index.address1);
         setstate(index.state);
         setcountry(index.country);
-
         setlatitude(index.lat);
         setlongitude(index.lng);
     }
@@ -104,13 +46,6 @@ const PersonalAddress = ({ ispersonal, sendDataToParent }) => {
         setlongitude("");
         setlatitude("");
     }, [ispersonal])
-
-    // useEffect(() => {
-    //     loadScript(
-    //         `https://maps.googleapis.com/maps/api/js?key=${"testapi"}&libraries=places`,
-    //         () => handleScriptLoad(setQuery, autoCompleteRef)
-    //     );
-    // }, []);
 
     const AddNewAddress = () => {
         if (address1 != undefined && city != undefined && state != undefined && postalcode != undefined &&
@@ -132,10 +67,8 @@ const PersonalAddress = ({ ispersonal, sendDataToParent }) => {
             obj.country = country != undefined && country;
             obj.addresstype = ispersonal === false ? 1 : 0;
             obj.businessname = businessname != undefined && businessname ? businessname : '';
-
             dispatch(addAddress(obj, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
             sendDataToParent(false);
-
             setQuery("");
             setbusinessname("");
             setaddress1("");
@@ -147,7 +80,6 @@ const PersonalAddress = ({ ispersonal, sendDataToParent }) => {
             setroomnumber("");
             setcountry("");
             setapartment("");
-
             dispatch(getAddress(userinfo ? userinfo.customerId : 0, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
         }
     }
@@ -162,24 +94,14 @@ const PersonalAddress = ({ ispersonal, sendDataToParent }) => {
                     </p>}
                 </div>
                 <div className="col-lg-12 text-center col-sm-12 col-xs-12">
-                    {/* <input
-                        className="search"
-                        ref={autoCompleteRef}
-                        onChange={event => setQuery(event.target.value)}
-                        placeholder="Enter Your Address"
-                        value={query}
-                    /> */}
                      <GoogleAutoComplete sendToParent={sendToParent} />
-                    {/* <label className="formlabel search">Enter Your Address</label> */}
                 </div>
                 <div className="col-lg-12 margin_top_10 text-center col-sm-12 col-xs-12">&nbsp;</div>
-
                 {ispersonal === false &&
                     <div className="col-lg-12 text-center col-sm-12 col-xs-12">
                         <input type="text" placeholder="Business name" value={businessname} onChange={event => setbusinessname(event.target.value)} required />
                         <label className="formlabel">Business name</label>
                     </div>}
-
                 <div className="col-lg-12 text-center col-sm-12 col-xs-12">
                     <input id={"address1Field"} type="text" placeholder="Address 1" value={address1} onChange={event => setaddress1(event.target.value)} disabled/>
                     {(address1 == "" || address1 == null) && <label className="formlabel">Address 1</label>}

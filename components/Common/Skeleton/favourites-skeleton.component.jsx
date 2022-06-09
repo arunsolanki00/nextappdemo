@@ -9,7 +9,6 @@ export const FavouritesSkeleton = () => {
       <div className="col-lg-6 s-piza b-right b-bottom col-sm-12 col-xs-12" style={{height:"345px"}} >
         <div className="row row-eq-height">
           <div className="col-lg-4 flush-right xsnoflush text-center col-sm-4 col-xs-12">
-            {/* <img src="/images/pizza-1.png" alt="" className="itemimage" /> */}
             <Skeleton width={250} height={150} />
           </div>
           <div className="col-lg-8 col-sm-8 col-xs-12">
@@ -19,13 +18,11 @@ export const FavouritesSkeleton = () => {
                   <div className="tablerow">
                     <div className="tablecell">
                       <h3 className="color_black margin_bottom_10">
-                        {/* name */}
                         <Skeleton width={250} />
                       </h3>
                       <p>
                         <Skeleton />
                       </p>
-                      {/* <span className="fa angle size_15 angle-round bg_green color_white fa-angle-right"></span> */}
                       <span style={{ marginLeft: "450px" }}>
                         <Skeleton circle={true} height={40} width={40} />
                       </span>
@@ -49,11 +46,9 @@ export const FavouritesSkeleton = () => {
           </div>
         </div>
       </div>
-      {/* *********************************************** */}
       <div className="col-lg-6 s-piza b-right b-bottom col-sm-12 col-xs-12" style={{height:"345px"}} >
         <div className="row row-eq-height">
           <div className="col-lg-4 flush-right xsnoflush text-center col-sm-4 col-xs-12">
-            {/* <img src="/images/pizza-1.png" alt="" className="itemimage" /> */}
             <Skeleton width={250} height={150} />
           </div>
           <div className="col-lg-8 col-sm-8 col-xs-12">
@@ -63,13 +58,11 @@ export const FavouritesSkeleton = () => {
                   <div className="tablerow">
                     <div className="tablecell">
                       <h3 className="color_black margin_bottom_10">
-                        {/* name */}
                         <Skeleton width={250} />
                       </h3>
                       <p>
                         <Skeleton />
                       </p>
-                      {/* <span className="fa angle size_15 angle-round bg_green color_white fa-angle-right"></span> */}
                       <span style={{ marginLeft: "450px" }}>
                         <Skeleton circle={true} height={40} width={40} />
                       </span>
@@ -93,14 +86,11 @@ export const FavouritesSkeleton = () => {
           </div>
         </div>
       </div>
-      {/* ********************3************************* */}
     </div> 
-    {/* *************************** */}
     <div className="row row-eq-height">
       <div className="col-lg-6 s-piza b-right b-bottom col-sm-12 col-xs-12" style={{height:"345px"}} >
         <div className="row row-eq-height">
           <div className="col-lg-4 flush-right xsnoflush text-center col-sm-4 col-xs-12">
-            {/* <img src="/images/pizza-1.png" alt="" className="itemimage" /> */}
             <Skeleton width={250} height={150} />
           </div>
           <div className="col-lg-8 col-sm-8 col-xs-12">
@@ -110,13 +100,11 @@ export const FavouritesSkeleton = () => {
                   <div className="tablerow">
                     <div className="tablecell">
                       <h3 className="color_black margin_bottom_10">
-                        {/* name */}
                         <Skeleton width={250} />
                       </h3>
                       <p>
                         <Skeleton />
                       </p>
-                      {/* <span className="fa angle size_15 angle-round bg_green color_white fa-angle-right"></span> */}
                       <span style={{ marginLeft: "450px" }}>
                         <Skeleton circle={true} height={40} width={40} />
                       </span>
@@ -140,11 +128,9 @@ export const FavouritesSkeleton = () => {
           </div>
         </div>
       </div>
-      {/* *********************************************** */}
       <div className="col-lg-6 s-piza b-right b-bottom col-sm-12 col-xs-12" style={{height:"345px"}} >
         <div className="row row-eq-height">
           <div className="col-lg-4 flush-right xsnoflush text-center col-sm-4 col-xs-12">
-            {/* <img src="/images/pizza-1.png" alt="" className="itemimage" /> */}
             <Skeleton width={250} height={150} />
           </div>
           <div className="col-lg-8 col-sm-8 col-xs-12">
@@ -154,13 +140,11 @@ export const FavouritesSkeleton = () => {
                   <div className="tablerow">
                     <div className="tablecell">
                       <h3 className="color_black margin_bottom_10">
-                        {/* name */}
                         <Skeleton width={250} />
                       </h3>
                       <p>
                         <Skeleton />
                       </p>
-                      {/* <span className="fa angle size_15 angle-round bg_green color_white fa-angle-right"></span> */}
                       <span style={{ marginLeft: "450px" }}>
                         <Skeleton circle={true} height={40} width={40} />
                       </span>
@@ -184,7 +168,6 @@ export const FavouritesSkeleton = () => {
           </div>
         </div>
       </div>
-      {/* ********************3************************* */}
     </div> 
     </div>
   );

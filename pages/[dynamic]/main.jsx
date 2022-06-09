@@ -16,23 +16,16 @@ const MainPage =({ restaurant }) => {
     const [currency, setcurrency] = useState(GetCurrency())
     const router = useRouter();
     const { query: { dynamic }, } = router;
-
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
     const allCategory = useSelector(({ main }) => main.maincategoryList, shallowEqual); // 
     const promotionCategory = useSelector(({ main }) => main.promotioncategoryList, shallowEqual);
-
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const customerId = userinfo ? userinfo.customerId : 0;
     let rewardpoints = useSelector(({ cart }) => cart.rewardpoints);
-
-    let cssProperties = {};
     const dispatch = useDispatch();
-
     const [HungryData, setHungryData] = useState([]);
     const [PromotionsData, setPromotionsData] = useState(null);
     const [loadcontent, setLoadcontent] = useState(false);
-    const [calculatedreward, setcalculatedreward] = useState(0);
-
     const [amount, setamount] = useState(0.00);
     const [point, setpoint] = useState(0);
 
@@ -43,16 +36,8 @@ const MainPage =({ restaurant }) => {
 
     useEffect(() => {
         if (dynamic && dynamic !== undefined) {
-            // if (userinfo) {
-            //     const r = userinfo.totalRewardPoints > 0 ? userinfo.totalRewardPoints : 0;
-            //     const rv = userinfo.rewardvalue > 0 ? userinfo.rewardvalue : 0;
-            //     if (r > 0 && rv > 0) {
-            //         setcalculatedreward(r / rv);
-            //     }
-            // }
             promotionCategory.length > 0  ? setPromotionsData(promotionCategory) : setPromotionsData([]);
             allCategory.length > 0 ? setHungryData(allCategory) : setHungryData([]);
-            
             setLoadcontent(true);
             dispatch(getAddress(customerId, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
         }

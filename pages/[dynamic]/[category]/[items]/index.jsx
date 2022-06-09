@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { useDispatch, useSelector, shallowEqual } from 'react-redux'
 import BackHeaderComponent from '../../../../components/Header/backheader.component'
 import { MemoizedCartCounterComponent } from '../../../../components/Header/cart-counter.component'
@@ -11,14 +11,12 @@ import LoginMainComponent from '../../../../components/login/login.component'
 import MenuItemAddToCartComponent from '../../../../components/menu-item-details/menu-item-add-to-cart/menu-item-add-to-cart.component'
 import NewMenuItemDescription from '../../../../components/new-menu-item-details/new-menu-item-description/new-menu-item-description.component'
 import NewMenuItemOptionsParameter from '../../../../components/new-menu-item-details/new-menu-item-options-parameter/new-menu-item-options-parameter.component'
-import { addFavorite, deleteFavorite, getMenuItemDetailes, getMenuItemList, removeMenuItemForFavorite, selectedMenuItem } from '../../../../redux/menu-item/menu-item.action'
-import { getCategoryItemDetailes, getCategoryItemList, selectedCategory } from '../../../../redux/category/category.action';
+import { addFavorite, deleteFavorite, getMenuItemDetailes,  removeMenuItemForFavorite, selectedMenuItem } from '../../../../redux/menu-item/menu-item.action'
+import {  selectedCategory } from '../../../../redux/category/category.action';
 import { CategoryServices } from '../../../../redux/category/category.services';
 import { CategoryTypes } from '../../../../redux/category/category.types';
-// import 'public\css\style.css'
 
 const Index = () => {
-
     const dispatch = useDispatch();
     const [amount, setamount] = useState(0.00);
     const [point, setpoint] = useState(0);
@@ -27,9 +25,7 @@ const Index = () => {
     const restaurantinfo = useSelector(({ restaurant }) => restaurant?.restaurantdetail, shallowEqual);
     const [currency, setcurrency] = useState(GetCurrency());
     const [showLogin, setShowLogin] = useState(false);
-    //let lstcarttopping = [];
     const router = useRouter();
-
     const { asPath } = router;
     const {
         query: { dynamic },
@@ -45,7 +41,6 @@ const Index = () => {
     let selectedmenuitemdetail = useSelector(({ menuitem }) => menuitem?.selectedmenuitemdetail);
     const [count, setcount] = useState(Math.random());
     const [load, setload] = useState(0);
-
 
     useEffect(() => {
         //CONDITION FOR THE categoryitemlist REDUX IS EMPTY AND USER DIRECT ENTER THE LINK IN THE BROWSER 
@@ -65,7 +60,6 @@ const Index = () => {
                         selectedCategoryItem = selcetedCategoryList?.filter(x => x.menuItemName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-") === urlArray[3].toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-"))
                         dispatch(selectedMenuItem(selectedCategoryItem[0]));
                         dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, selectedCategoryItem[0].menuitemId, 0, 0));
-
                         setload(load + 1);
                     }
                 }
@@ -87,20 +81,6 @@ const Index = () => {
         }, 500);
     }, [userinfo]);
 
-    // const updatecount1=(count1)=>{
-    //     if(selectedtopping && selectedtopping?.list){
-    //         selectedtopping.list != undefined && selectedtopping.list.length > 0 &&
-    //         selectedtopping.list.map((lsttop) => {
-    //             lsttop.type != undefined && lsttop.type.length > 0 &&
-    //                 lsttop.type.map((type) => {
-    //                     if (type.subOptionselected === true) {
-    //                         lstcarttopping.push(type);
-    //                     }
-    //                 })
-    //         })
-    //     }
-    //     setCount(count1)
-    // }
     useEffect(() => {
         if (selectedtopping && selectedtopping?.list) {
             let lstcarttoppingNew = lstcarttopping;
@@ -109,7 +89,6 @@ const Index = () => {
                     lsttop.type != undefined && lsttop.type.length > 0 &&
                         lsttop.type.map((type) => {
                             if (type.subOptionselected === true) {
-                                //lstcarttopping.push(type);
                                 lstcarttoppingNew.push(type)
                                 setlstcarttopping(lstcarttoppingNew);
                             }
@@ -134,7 +113,6 @@ const Index = () => {
         }
     }
 
-
     const LoadingComponent = () => {
         return (
             <div>Loading...</div>
@@ -146,9 +124,7 @@ const Index = () => {
         objdata.isFavoriteMenu = item;
         dispatch(removeMenuItemForFavorite());
         dispatch(selectedMenuItem(objdata));
-
         if (item === true) {
-
             dispatch(addFavorite(userinfo.customerId.toString(), restaurantinfo.restaurantId, objdata.menuitemId != undefined ? objdata.menuitemId : objdata.menuitemid));
         }
         else {
@@ -157,13 +133,9 @@ const Index = () => {
     }
     const updateCount = () => {
         setcount(count + 1);
-
     }
 
-
-
     return (
-
         <div>
             <div className="container-fluid">
                 <div className="row row-eq-height">
@@ -177,10 +149,8 @@ const Index = () => {
                                     <DeliveryDropdownComponent />
                                     <MemoizedCartCounterComponent />
                                 </div>
-
                             </div>
                         </div>
-
                         {(load > 0) &&
                             (
                                 <div className='prod-details'>
@@ -215,8 +185,6 @@ const Index = () => {
                                                     <div className="row new-tabs">
                                                         <NewMenuItemOptionsParameter count={count} />
                                                     </div>
-                                                    {/* </div> */}
-
                                                 </div>
                                                 <div className="col-lg-3 rt-s flush col-sm-12 col-xs-12">
                                                     <div className="col-lg-12 orange_div ora col-sm-12 col-xs-12 text-center removedLHeight">
@@ -224,7 +192,6 @@ const Index = () => {
                                                             <div className="color_white size_15">You have <em>{point}</em> reward points, <br />worth <em className="color_white size_24">{currency} {amount.toFixed(2)}</em><br /><em className="sm  color_white width_100">You can redeem {point} points or {amount}</em></div>
                                                         </div>
                                                     </div>
-
                                                     <MenuItemAddToCartComponent
                                                         ctopping={lstcarttopping}
                                                         sendDataToParent={sendDataToParent} />
@@ -235,7 +202,6 @@ const Index = () => {
                                 </div>
                             )
                         }
-
                     </div>
                 </div>
             </div>

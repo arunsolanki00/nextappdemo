@@ -26,7 +26,6 @@ function handleScriptLoad(updateQuery, autoCompleteRef) {
     autoCompleteRef.current,
     { types: ["geocode"] }
   );
-  //autoComplete.setFields(["address_components", "formatted_address"]);
   autoComplete.addListener("place_changed", () =>
     handlePlaceSelect(updateQuery)
   );
@@ -47,7 +46,6 @@ async function handlePlaceSelect(updateQuery) {
 function SearchLocationInput() {
   const [query, setQuery] = useState("");
   const autoCompleteRef = useRef(null);
-
   useEffect(() => {
     loadScript(
       `https://maps.googleapis.com/maps/api/js?key=${"testapi"}&libraries=places`,

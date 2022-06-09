@@ -4,14 +4,11 @@ import "react-image-crop/dist/ReactCrop.css";
 import Image from "next/image";
 import { CustomerServices } from "../../redux/customer/customer.services";
 import Head from "next/head";
-import { shallowEqual, useSelector, useDispatch } from "react-redux";
+import {  useSelector, useDispatch } from "react-redux";
 import useForm from "../Common/custom-hooks/useForm";
 import validate from "./myaccount-update.validationRules";
-import { LoginServices } from "../../redux/login/login.services";
 import { LoginTypes } from "../../redux/login/login.types";
-import { useRouter } from "next/router";
 // import Compress from "compress.js";
-import { resizeImageFn } from "../helpers/utility";
 import { Custombutton } from "../Common/button/custombutton";
 import MyAddressesComponent from "./my-addresses.component";
 const defaultImgSrc = "../../public/images/user.png";
@@ -23,10 +20,7 @@ const initialFieldValue = {
   //imageFile:null
 };
 
-
-
 const MyAccountInfoComponent = () => {
-
   const { handleChange, handleSubmit, values, errors, isDisabled } = useForm(
     submitSuccess,
     validate
@@ -47,19 +41,16 @@ const MyAccountInfoComponent = () => {
   const previewCanvasRef = useRef(null);
   const [crop, setCrop] = useState({   x: 27,
     y: 15,unit: "%", height:50,width:50  });
-
   const [completedCrop, setCompletedCrop] = useState(null);
   const [fileData, setFile] = useState({
     base64: "",
     fileList: null,
     type: "",
   });
-
   const [oldpassword, setoldpassword] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [errorMessage, setErrorMesssage] = useState(null);
   const [showchangePassword, setShowchangePassword] = useState(false);
-
   const [imageFileName, setimageFileName] = useState("");
   const [imageUpload, setimageUpload] = useState(false);
   const [imgType, setimgType] = useState("");
@@ -74,18 +65,15 @@ const MyAccountInfoComponent = () => {
     setdisplayImage(false);
     setimageshow(false);
     if (e.target.files && e.target.files.length > 0) {
-       ;
       const reader = new FileReader();
       reader.addEventListener("load", () => setUpImg(reader.result));
       reader.readAsDataURL(e.target.files[0]);
       setimageFileName(e.target.files[0].name);
-
       setimgType(e.target.files[0].type);
     }
   };
 
   const onLoad = useCallback((img) => {
-     ;
     imgRef.current = img;
   }, []);
 
@@ -93,23 +81,17 @@ const MyAccountInfoComponent = () => {
     if (!completedCrop || !previewCanvasRef.current || !imgRef.current) {
       return;
     }
-     ;
     const image = imgRef.current;
     const canvas = previewCanvasRef.current;
     const crop = completedCrop;
-
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
-
     const ctx = canvas.getContext("2d");
     const pixelRatio = window.devicePixelRatio;
-
     canvas.width = crop.width * pixelRatio * scaleX;
     canvas.height = crop.height * pixelRatio * scaleY;
-
     ctx.setTransform(pixelRatio,0, 0, pixelRatio, 0, 0);
     ctx.imageSmoothingQuality = "low";
-
     ctx.drawImage(
       image,
       crop.x * scaleX,
@@ -150,7 +132,6 @@ const MyAccountInfoComponent = () => {
 
   const handleChangePassword = () => {
     let ischeck = !showchangePassword;
-
     setShowchangePassword(ischeck);
     if (ischeck) {
       CustomerServices.getCustomerPassword(
@@ -177,17 +158,13 @@ const MyAccountInfoComponent = () => {
   };
 
   const disableChange = () => {};
-
   function submitSuccess() {
-     
     //var croppedImg=null;
     let imgfilename="";
     let imgfiletype="";
-
     var croppedImg = completedCrop !== null ? getCroppedImg(imgRef.current, crop, imageFileName) : null;
     imgfilename = imageFileName;
     imgfiletype = imgType;
-
     // if(imgRef.current !== null)
     // {
     //   croppedImg = getCroppedImg(imgRef.current, crop, imageFileName);
@@ -221,19 +198,13 @@ const MyAccountInfoComponent = () => {
   }
 
   const submitData = async (updateUserInfoObj) => {
-     ;
-
     if (updateUserInfoObj != undefined) {
       setSubmitting(true);
-
       const responsedata = await CustomerServices.updateCustomerInfo(
         updateUserInfoObj
       );
-
-      console.log(responsedata);
       if (responsedata && responsedata.Customer != undefined) {
         if (responsedata.Customer) {
-          
           const customerdetails = {
             customerId: updateUserInfoObj.customerId,
             emailId: updateUserInfoObj.email,
@@ -250,14 +221,11 @@ const MyAccountInfoComponent = () => {
             rewardvalue: userinfo.rewardvalue,
             totalRewardPoints:userinfo.totalRewardPoints,
           };
-          
           dispatch({
             type: LoginTypes.USER_DETAIL,
             payload: customerdetails,
           });
         }
-
-        console.log("update success");
         setSubmitting(false);
         setisdiplaycanvas(false)
         setdisplayImage(true)
@@ -276,26 +244,20 @@ const MyAccountInfoComponent = () => {
     // naturalWidth = image?.naturalWidth;
     // let naturalHeight=0;
     // naturalHeight = image?.naturalHeight;
-    
-     
     const canvas = document.createElement("canvas");
     // const scaleX = naturalWidth > 0 ? naturalWidth: naturalWidth / image.width;
     // const scaleY = naturalHeight > 0 ? naturalHeight: naturalHeight / image.height;
-
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
-
     canvas.width = crop.width;
     canvas.height = crop.height;
     const ctx = canvas.getContext("2d");
-
     // New lines to be added
     const pixelRatio = window.devicePixelRatio;
     canvas.width = crop.width * pixelRatio;
     canvas.height = crop.height * pixelRatio;
     ctx.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
     ctx.imageSmoothingQuality = "low";
-
     ctx.drawImage(
       image,
       crop.x * scaleX,
@@ -380,7 +342,6 @@ const MyAccountInfoComponent = () => {
                <h4
                className="size_24 color_orange weight_500 margin_bottom_15"
                 onClick={handleImageUpload}
-
               >
                 {" "}
                 Upload{"   "}
@@ -419,7 +380,6 @@ const MyAccountInfoComponent = () => {
             }}
           /> */}
         </div>
-
         <div className="col-lg-8 infs flush col-sm-6 col-xs-12">
           <div className="row">
             <div className="col-lg-6 col-sm-6 col-xs-12 flush-right">
@@ -455,7 +415,6 @@ const MyAccountInfoComponent = () => {
             <div className="col-lg-4 col-sm-4 col-xs-12 flush-right">
               <input
                 type="text"
-                // placeholder="Phone"
                 name="phone"
                 onChange={disableChange}
                 value={values.phone}
@@ -466,7 +425,6 @@ const MyAccountInfoComponent = () => {
             </div>
             <div className="col-lg-8 col-sm-8 col-xs-12">
               <input
-                // className="pen"
                 className="emailid"
                 type="text"
                 placeholder="Email"
@@ -492,10 +450,8 @@ const MyAccountInfoComponent = () => {
                   value={oldpassword}
                 />
                 <label className="formlabel">Password</label>
-                {/* {password && <span className="help">{password}</span>} */}
               </div>
             )}
-
             <div className="col-lg-6 col-sm-6 col-xs-12">
               <a className="forgot" onClick={handleChangePassword}>
                 Change Password
@@ -517,7 +473,6 @@ const MyAccountInfoComponent = () => {
                   <span className="error">{errors.newpassword}</span>
                 )}
               </div>
-
               <div className="col-lg-6 col-sm-6 col-xs-12">
                 <input
                   type="password"
@@ -527,9 +482,6 @@ const MyAccountInfoComponent = () => {
                   value={values.confirmpassword}
                 />
                 <label className="formlabel">Confirm Password</label>
-                {/* {errors.confirmpassword && (
-                  <span className="help" style={{ color: "red" }}>{errors.confirmpassword}</span>
-                )} */}
                 {errors.confirmpassword && (
                   <span className="error">{errors.confirmpassword}</span>
                 )}
@@ -537,18 +489,7 @@ const MyAccountInfoComponent = () => {
             </div>
           )}
           <div className="row">
-            {/* { submitting === true &&
-              <div className="col-lg-12 col-sm-12 text-center col-xs-12">
-                  Loading......
-              </div>
-            } */}
             <div className="col-lg-12 col-sm-12 text-center col-xs-12">
-              {/* <a
-                className="blue_btn blue_btn_porder width_400"
-                onClick={handleSubmit}
-              >
-                Save My Details
-              </a> */}
               {submitting ? (
                 <Custombutton
                   buttonText="Processing..."
@@ -568,9 +509,7 @@ const MyAccountInfoComponent = () => {
               )}
             </div>
           </div>
-       
          <MyAddressesComponent />
-       
         </div>
       </div>
     </>

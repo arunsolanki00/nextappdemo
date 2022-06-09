@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import { shallowEqual, useSelector, useDispatch } from "react-redux";
 import OrderDetailSummary from "./order-detail-summary";
@@ -10,7 +9,6 @@ import { ToasterPositions } from "../helpers/toaster/toaster-positions";
 import { ToasterTypes } from "../helpers/toaster/toaster-types";
 
 const OrderDetailComponent = (props) => {
-  // const {orderInfo,setOrderInfo} = useState();
   const [orderdetails, setOrderdetails] = useState([]);
   const [orderdetailCal, setOrderdetailCal] = useState();
   const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
@@ -21,10 +19,8 @@ const OrderDetailComponent = (props) => {
   );
   const restaurantId = restaurantinfo.restaurantId;
   const locationId = restaurantinfo.defaultlocationId;
-
   const router = useRouter();
   const { query: { dynamic, id, category, index } } = router;
-  //const orderInfo=props.OrderInfo;
   useEffect(() => {
     OrderServices.getOrderInfo(restaurantId, locationId, props.orderId, customerId).then((response) => {
       if (response) {
@@ -39,9 +35,7 @@ const OrderDetailComponent = (props) => {
   }, []);
 
   const handleOrderClick = (orderId, orderDetailId) => {
-
     OrderServices.repeatOrder(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, orderDetailId, false, customerId).then((response) => {
-
       if (response.status === 1) {
         handleNotify("Your Order placed successfully", ToasterPositions.TopRight, ToasterTypes.Success);
         router.push("/" + restaurantinfo.restaurantURL + "/cart");
@@ -76,7 +70,6 @@ const OrderDetailComponent = (props) => {
                           <div className="col-lg-2 flush xsnoflush text-center col-sm-3 col-xs-12">
                             <div className="col-lg-12 flush text-center col-sm-12 col-xs-12">
                               <img
-                                // src={`${order.imgname.trim() !== "" ? order.imgname : "/images/pizza-1.png"
                                 src={`${order.imgname?.trim() === ""  || order.imgname === null ?  "/images/defaultfood.JPG" : order.imgname}`}  
                                 className="itemimage"
                                 alt
@@ -130,7 +123,6 @@ const OrderDetailComponent = (props) => {
                     ))}
                   </div>
                 </div>
-
                 <OrderDetailSummary orderdetailCal={orderdetailCal} orderId={props.orderId} />
               </div>
             </div>

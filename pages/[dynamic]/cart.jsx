@@ -12,8 +12,6 @@ import {
   carttotaldata,
   updatecarttotaldata,
   deliverycharges,
-  cartcheckout,
-  setcartgrandtotal,
   orderinstruction,
   getCartItemCount
 } from "../../redux/cart/cart.action";
@@ -29,29 +27,25 @@ import { getLocationIdFromStorage } from "../../components/Common/localstore";
 import NoItemsCartComponent from "../../components/ShoppingCart/no-items-cart.component";
 import GeoFancingDeliveryCharges from "../../components/ShoppingCart/geo-fancing-delivery-charges.component";
 import { CartTypes } from "../../redux/cart/cart.types";
-// import { createSessionId } from "../../redux/session/session.action";
-import { v4 as uuidv4 } from 'uuid';
 import { CartloginComponent } from "../../components/cart-login/cart-login";
 import { setordertime } from "../../redux/order/order.action";
 import { OrderServices } from "../../redux/order/order.services";
 
-const ShoppingCart=()=> {
+const ShoppingCart = () => {
   const dispatch = useDispatch();
   const router = useRouter();
   const {
     query: { dynamic },
   } = router;
-
   let restaurantinfo = useSelector(
     ({ restaurant }) => restaurant.restaurantdetail
   );
   const location = restaurantinfo.defaultLocation;
-
   const userinfo = useSelector(
     ({ userdetail }) => userdetail.loggedinuser,
     shallowEqual
   );
-  let customerId=userinfo ? userinfo.customerId : 0;
+  let customerId = userinfo ? userinfo.customerId : 0;
   let cart = useSelector(({ cart }) => cart);
   let carttotal = cart?.carttotal && cart.carttotal;
   let cartdata = cart?.cartitemdetail && cart?.cartitemdetail;
@@ -59,7 +53,7 @@ const ShoppingCart=()=> {
   // let cartsessionId = restaurantinfo && userinfo && getSessionKey(restaurantinfo.restaurantId, userinfo && userinfo.customerId, restaurantinfo.defaultlocationId);
   let sessionid = useSelector(({ session }) => session?.sessionid);
   let objrestaurant = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
-   const { restaurantURL } = objrestaurant;
+  const { restaurantURL } = objrestaurant;
   let isGeoFancing = location && location.locationId === restaurantinfo.defaultlocationId ? location.isGeoFencing : false;
 
   const pickupordelivery = useSelector(
@@ -78,31 +72,21 @@ const ShoppingCart=()=> {
     { id: 3, value: false, text: "20" },
   ]);
   const [tipdatanew, settipdatanew] = useState([]);
-
   const [tipvalue, settipvalue] = useState(carttotal?.totalTip && carttotal.totalTip.toFixed(2));
-  // const [grandtotal, setgrandtotal] = useState(carttotal.grandTotal != undefined ? parseFloat(carttotal.grandTotal) + parseFloat(tipvalue) : 0);
   const [grandtotal, setgrandtotal] = useState(carttotal?.grandTotal != undefined ? parseFloat(carttotal.grandTotal) : 0);
-  // const [tipamount, settipamount] = useState(carttotal.tipAmount);
   const [tipamount, settipamount] = useState(carttotal?.totalTip && carttotal?.totalTip > 0 ? carttotal?.totalTip.toFixed(2) : 0);
   const [specialinstructions, setspecialinstructions] = useState(cart?.orderinstruction && cart.orderinstruction == "" ? "" : cart.orderinstruction);
   const [loader, setloader] = useState(false);
   const [tipPercent, settipPercent] = useState(parseFloat(carttotal?.tipPercentage) > 0 ? parseFloat(carttotal.tipPercentage) : '');
-
   const [discountAmount, setdiscountAmount] = useState(0);
   const [discountPercent, setdiscountPercent] = useState(0);
-  const [paybyCash, setpaybyCash] = useState('')
-  const [paybycard, setpaybycard] = useState('')
   const [isPayActive, setisPayActive] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [isDisableOrder, setIsDisableOrder] = useState(true)
   const [currency, setcurrency] = useState(GetCurrency());
-
   const [isOrdering, setIsOrdering] = useState(false);
-
-  // const [sessionId, setsessionId] = useState(sessionidObj);
   let minimumdeliveryorder = restaurantinfo.defaultLocation ? restaurantinfo.defaultLocation?.minimumdeliveryorder : 0;
   let minimumtakeoutorder = restaurantinfo.defaultLocation ? restaurantinfo.defaultLocation?.minimumtakeoutorder : 0;
-
   let dcharges =
     cart &&
     pickupordelivery === "Delivery" &&
@@ -126,13 +110,11 @@ const ShoppingCart=()=> {
           if (newselectedRestaurant) {
             dispatch(restaurantsdetail(newselectedRestaurant));
           }
-
-           
           if (newselectedRestaurant.defaultLocation.isOrderingDisable === true)
             router.push("/" + newselectedRestaurant.restaurantURL + "/restaurant-close");
-            else if (pickupordelivery && pickupordelivery === "Pickup" && location.isTakeoutOrderingDisable === true) 
+          else if (pickupordelivery && pickupordelivery === "Pickup" && location.isTakeoutOrderingDisable === true)
             router.push("/" + newselectedRestaurant.restaurantURL + "/restaurant-close");
-           else if (pickupordelivery && pickupordelivery === "Delivery" && location.isDeliveryOrderingDisable === true) 
+          else if (pickupordelivery && pickupordelivery === "Delivery" && location.isDeliveryOrderingDisable === true)
             router.push("/" + newselectedRestaurant.restaurantURL + "/restaurant-close");
           else setIsOrdering(true);
         }
@@ -149,85 +131,74 @@ const ShoppingCart=()=> {
 
   useEffect(() => {
     // if (userinfo != undefined && userinfo != null) {
-      {
-        if (pickupordelivery && pickupordelivery === "Delivery")
-          dispatch(deliverycharges(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, isGeoFancing))
-        else {
-          dispatch({
-            type: CartTypes.EMPTY_DELIVERY_CHARGES,
-            payload: null
-          });
-        }
-      };
-      // if(rewardpoint){
-      let rpoint = 0;
-      let ramount = 0;
-      if (rewardpoint?.redeemPoint) {
-        rpoint = rewardpoint.redeemPoint > 0 ? rewardpoint.redeemPoint : 0;
+    {
+      if (pickupordelivery && pickupordelivery === "Delivery")
+        dispatch(deliverycharges(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, isGeoFancing))
+      else {
+        dispatch({
+          type: CartTypes.EMPTY_DELIVERY_CHARGES,
+          payload: null
+        });
       }
-      if (rewardpoint?.rewardvalue && rpoint > 0) {
-        ramount = rpoint / rewardpoint.rewardvalue;
-      }
-
-      // let sessionid=sessionidObj;
-      // if(sessionid===null){
-      //   sessionid=uuidv4();
-      //   dispatch(createSessionId(sessionid))
-      // }
-if(sessionid !== null){
-  dispatch(getCartItem(
-    sessionid ,
-    restaurantinfo.defaultlocationId,
-    restaurantinfo.restaurantId,
-    0,
-    // userinfo && userinfo.customerId,
-    customerId,
-    rpoint,
-    ramount,
-    deliveryaddressinfo && pickupordelivery === "Delivery"
-      ? deliveryaddressinfo.deliveryaddressId
-      : 0,
-    tipPercent,  
-    tipamount
-  )
-  );
-  dispatch(getCartItemCount(sessionid, restaurantinfo.defaultlocationId, restaurantinfo.restaurantId, userinfo?.customerId?userinfo.customerId:0));
-}
+    };
+    // if(rewardpoint){
+    let rpoint = 0;
+    let ramount = 0;
+    if (rewardpoint?.redeemPoint) {
+      rpoint = rewardpoint.redeemPoint > 0 ? rewardpoint.redeemPoint : 0;
+    }
+    if (rewardpoint?.rewardvalue && rpoint > 0) {
+      ramount = rpoint / rewardpoint.rewardvalue;
+    }
+    if (sessionid !== null) {
+      dispatch(getCartItem(
+        sessionid,
+        restaurantinfo.defaultlocationId,
+        restaurantinfo.restaurantId,
+        0,
+        customerId,
+        rpoint,
+        ramount,
+        deliveryaddressinfo && pickupordelivery === "Delivery"
+          ? deliveryaddressinfo.deliveryaddressId
+          : 0,
+        tipPercent,
+        tipamount
+      )
+      );
+      dispatch(getCartItemCount(sessionid, restaurantinfo.defaultlocationId, restaurantinfo.restaurantId, userinfo?.customerId ? userinfo.customerId : 0));
+    }
 
     // }
 
     if (carttotal != undefined && carttotal != null) {
-      
+
       if (
         carttotal?.tipPercentage !== undefined &&
         carttotal?.tipPercentage > 0
       ) {
-        
-        //TO DO
         let data = [];
         tipdata.forEach((element) => {
-          
+
           if (parseFloat(element.text) == carttotal.tipPercentage) {
             element.value = true;
             data.push(element);
             settipdatanew(data);
             let tipamountcal = calculateTip(
               element.text,
-              // carttotal.subTotalWithDiscount
               carttotal.subTotal
             );
             settipamount(tipamountcal);
           } else {
-            //settipdatanew.push(element)
             data.push(element);
             settipdatanew(data);
           }
         });
       }
-      else{
+      else {
         let data = [];
         tipdata.forEach((element) => {
-          
+
           if (parseFloat(element.text) === 15) {
             element.value = true;
             data.push(element);
@@ -243,7 +214,7 @@ if(sessionid !== null){
             settipdatanew(data);
           }
         });
-        
+
       }
       //if (parseFloat(carttotal.discountPercentage) > 0) {
       // let pvalue =
@@ -256,9 +227,9 @@ if(sessionid !== null){
     }
   }, [carttotal?.grandTotal, grandtotal || grandtotal]);
   // }, [carttotal?.grandTotal,grandtotal]);
-// useEffect(()=>{
-//   console.log(tipdata)
-// },[carttotal.grandTotal,tipdata])
+  // useEffect(()=>{
+  //   console.log(tipdata)
+  // },[carttotal.grandTotal,tipdata])
   useEffect(() => {
 
     if (carttotal != undefined && carttotal.grandTotal != undefined) {
@@ -285,11 +256,11 @@ if(sessionid !== null){
       }
     }
   }, [carttotal && carttotal?.grandTotal > 0 && carttotal?.grandTotal]);
-  useEffect(()=>{
-    if(Object.keys(cartdata).length === 0){
+  useEffect(() => {
+    if (Object.keys(cartdata).length === 0) {
       dispatch(updatecarttotaldata());
     }
-},[cartdata,cart.cartitemcount])
+  }, [cartdata, cart.cartitemcount])
   const addtipclick = (item) => {
 
     let updatetip = [];
@@ -327,7 +298,7 @@ if(sessionid !== null){
       }
     }
   };
-//CALCULATE THE TIP AMOUNT
+  //CALCULATE THE TIP AMOUNT
   function calculateTip(selectedtip, subtotal) {
     let tipamount = 0;
     if (selectedtip > 0 && subtotal > 0) {
@@ -345,7 +316,7 @@ if(sessionid !== null){
     //   customerId,
     //   restaurantinfo.defaultlocationId
     // );
-    
+
     dispatch(
       carttotaldata(
         sessionid,
@@ -373,27 +344,26 @@ if(sessionid !== null){
     //     setShowLogin(false);
     // }
     if (order.checktime.includes('AM') || order.checktime.includes('PM')) {
-        let otime = order.checktime.split(' ');
-        OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, otime[0], otime[1], ordertype)
-            .then((response) => {
-                if (response.result != undefined && response.result !== null) {
-                    if (response.result.status === 'fail' || response.result.status === 'error') {
-                        setordertimeerrormessage(response.result.message);
-                        dispatch(setordertime(""));
-                        setIsDisableOrder(true);
-                    }
-                    if (response.result.status === 'success') {
-                        setIsDisableOrder(false);
-                        setisPayActive(true);
-                    }
-                }
-            });
+      let otime = order.checktime.split(' ');
+      OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, otime[0], otime[1], ordertype)
+        .then((response) => {
+          if (response.result != undefined && response.result !== null) {
+            if (response.result.status === 'fail' || response.result.status === 'error') {
+              setordertimeerrormessage(response.result.message);
+              dispatch(setordertime(""));
+              setIsDisableOrder(true);
+            }
+            if (response.result.status === 'success') {
+              setIsDisableOrder(false);
+              setisPayActive(true);
+            }
+          }
+        });
     }
-}
+  }
   const onchangetipamount = (item) => {
 
     const pattern = new RegExp(/^[0-9]*(\.\d{0,2})*$/);
-    //const numbervalidate = /^[0-9\b]+$/;
     if (pattern.test(item.target.value) || item.target.value === "") {
       let tvalue = item.target.value != "" ? item.target.value : "";
       let updatetip = [];
@@ -407,13 +377,6 @@ if(sessionid !== null){
         settipPercent(0);
         settipdata(updatetip);
         settipvalue(tvalue != "" ? parseFloat(tvalue).toFixed(2) : 0);
-        // setgrandtotal(
-        //   tvalue != ""
-        //     ? parseFloat(tvalue) + parseFloat(carttotal.grandTotal.toFixed(2))
-        //     : parseFloat(carttotal.grandTotal.toFixed(2))
-        // );
-
-
         dispatch(
           carttotaldata(
             sessionid,
@@ -435,25 +398,18 @@ if(sessionid !== null){
     }
   };
 
-  // useEffect(() => {
-  //   settipamount(carttotal.tipAmount);
-  // }, [carttotal.tipAmount])
-
   const DisplayMinimumOrderDelivery = () => {
 
     if (pickupordelivery === "Pickup") {
       if (carttotal.subTotal >= minimumtakeoutorder) {
         return (
-   
-                        <Link href={`/${restaurantinfo.restaurantURL}/choosepayment`} as={`/${restaurantURL}/choosepayment`}>
-                        <a className="blue_btn"> Checkout {loader === true &&
-                          (<SmallLoader />)}
-                        </a>
-                        </Link>
-                        // <a className="blue_btn" onClick={""}> Checkout {loader === true &&
-                        //   (<SmallLoader />)}
-                        // </a>
-      )
+
+          <Link href={`/${restaurantinfo.restaurantURL}/choosepayment`} as={`/${restaurantURL}/choosepayment`}>
+            <a className="blue_btn"> Checkout {loader === true &&
+              (<SmallLoader />)}
+            </a>
+          </Link>
+                )
       } else {
         return (
           <>
@@ -571,14 +527,14 @@ if(sessionid !== null){
       setErrorMessage("");
     }
   }, [dcharges, cart, deliveryaddressinfo, userinfo, carttotal]);
-  const calulateTotal=()=>{
-    let total=0;
-    cartdata?.cartDetails?.cartItemDetails?.map(data=>{
-       total+=data.totalprice;
+  const calulateTotal = () => {
+    let total = 0;
+    cartdata?.cartDetails?.cartItemDetails?.map(data => {
+      total += data.totalprice;
     })
     return total.toFixed(2);
   }
- const itemstotal=calulateTotal();
+  const itemstotal = calulateTotal();
   // if (cartdata != undefined && userinfo != undefined && userinfo != null && carttotal != null && carttotal.grandTotal != undefined && isOrdering === true) {
   if (userinfo != undefined && userinfo != null) {
     return (
@@ -718,7 +674,7 @@ if(sessionid !== null){
                                             </a>
                                           );
                                         })}
-                                      <span className="size_19" style={{color:"#9C9C9C"}}>
+                                      <span className="size_19" style={{ color: "#9C9C9C" }}>
                                         ${" "}
                                         <input
                                           type="text"
@@ -758,11 +714,11 @@ if(sessionid !== null){
                                       {
                                         carttotal?.PromotionCal > 0 &&
                                         <div className="row">
-                                        <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
-                                          <p className="margin_0 margin_top_15 size_19">
-                                            Promotion ({carttotal?.PromotionPercentage.toFixed(2)} %) :{" "}
-                                          </p>
-                                        </div>
+                                          <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
+                                            <p className="margin_0 margin_top_15 size_19">
+                                              Promotion ({carttotal?.PromotionPercentage.toFixed(2)} %) :{" "}
+                                            </p>
+                                          </div>
                                           <div className="col-lg-4 col-sm-4 col-xs-4 text-right">
                                             <p className="margin_0 margin_top_15 size_19">
                                               <span>
@@ -771,7 +727,7 @@ if(sessionid !== null){
                                               </span>
                                             </p>
                                           </div>
-                                      </div>
+                                        </div>
                                       }
                                       <div className="row">
                                         <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
@@ -798,12 +754,12 @@ if(sessionid !== null){
                                       {
                                         carttotal?.isDiscountApplied === true &&
                                         <div className="row">
-                                        <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
-                                          <p className="margin_0 margin_top_15 size_19">
-                                            Discount ({discountPercent} %) :{" "}
-                                          </p>
-                                        </div>
-                                        
+                                          <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
+                                            <p className="margin_0 margin_top_15 size_19">
+                                              Discount ({discountPercent} %) :{" "}
+                                            </p>
+                                          </div>
+
                                           <div className="col-lg-4 col-sm-4 col-xs-4 text-right">
                                             <p className="margin_0 margin_top_15 size_19">
                                               <span>
@@ -812,9 +768,9 @@ if(sessionid !== null){
                                               </span>
                                             </p>
                                           </div>
-                                      </div>
+                                        </div>
                                       }
-                                   
+
                                       {pickupordelivery === "Delivery" && (
                                         <div className="row">
                                           <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
@@ -859,40 +815,40 @@ if(sessionid !== null){
                                       </div>
                                       {carttotal?.hstTotal > 0 &&
                                         (<div className="row">
-                                        <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
-                                          <p className="margin_0 margin_top_15 size_19">
-                                            HST Tax (
-                                            {carttotal != undefined &&
-                                              carttotal.taxPercentage !=
-                                              undefined &&
-                                              carttotal.taxPercentage.toFixed(2)}
-                                            %) :
-                                          </p>
-                                        </div>
-                                        <div className="col-lg-4 col-sm-4 col-xs-4 text-right">
-                                          <p className="margin_0 margin_top_15 size_19">
-                                            <span>
-                                              {" "}
+                                          <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
+                                            <p className="margin_0 margin_top_15 size_19">
+                                              HST Tax (
                                               {carttotal != undefined &&
-                                                carttotal.hstTotal !=
+                                                carttotal.taxPercentage !=
                                                 undefined &&
-                                                currency + " " + carttotal.hstTotal.toFixed(2)}
-                                            </span>
-                                          </p>
-                                        </div>
-                                      </div>)
+                                                carttotal.taxPercentage.toFixed(2)}
+                                              %) :
+                                            </p>
+                                          </div>
+                                          <div className="col-lg-4 col-sm-4 col-xs-4 text-right">
+                                            <p className="margin_0 margin_top_15 size_19">
+                                              <span>
+                                                {" "}
+                                                {carttotal != undefined &&
+                                                  carttotal.hstTotal !=
+                                                  undefined &&
+                                                  currency + " " + carttotal.hstTotal.toFixed(2)}
+                                              </span>
+                                            </p>
+                                          </div>
+                                        </div>)
                                       }
-                                      
+
 
                                       {/* New GST Rules */}
-                                      {cartTaxList && cartTaxList.map((taxes,index) => {
-                                         
+                                      {cartTaxList && cartTaxList.map((taxes, index) => {
+
                                         return (
                                           <div className="row" key={index}>
                                             <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
                                               <p className="margin_0 margin_top_15 size_19">
-                                              {taxes.FeesType===2 ? <>{taxes?.TaxesName}{" "} ( {taxes?.Taxes.toFixed(2)} {" "} %) :</> : <>{taxes?.TaxesName}:</> }
-                                                
+                                                {taxes.FeesType === 2 ? <>{taxes?.TaxesName}{" "} ( {taxes?.Taxes.toFixed(2)} {" "} %) :</> : <>{taxes?.TaxesName}:</>}
+
                                               </p>
                                             </div>
                                             <div className="col-lg-4 col-sm-4 col-xs-4 text-right">
@@ -979,7 +935,7 @@ if(sessionid !== null){
                                         </a>
                                       )}
                                     </div>
-                                   
+
                                   </div>
                                 </form>
                               </div>
@@ -1025,8 +981,8 @@ if(sessionid !== null){
       </>
     );
   } else {
-    return (<> 
-    <CartloginComponent/>
+    return (<>
+      <CartloginComponent />
     </>)
     //return window.open(`/${restaurantinfo.restaurantURL}/`, "_self");
   }

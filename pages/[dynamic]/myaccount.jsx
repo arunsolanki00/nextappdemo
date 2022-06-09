@@ -5,9 +5,6 @@ import LeftMenuComponent from "../../components/LeftMenu/leftmenu.component";
 import { MemoizedCartCounterComponent } from "../../components/Header/cart-counter.component";
 import DeliveryDropdownComponent from "../../components/Header/delivery-dropdown.component";
 import { MemoizedHeaderLogoComponent } from "../../components/Header/headerlogo.component";
-
-import MyaccountInfoCopy from "../../components/myaccount/my-account-info.component";
-import MyAccountInfoComponentold from "../../components/myaccount/my-account-info.component_old";
 import MyAccountInfoComponent from "../../components/myaccount/my-account-info.component";
 
 const MyAccount = () => {
@@ -15,7 +12,6 @@ const MyAccount = () => {
     ({ restaurant }) => restaurant.restaurantdetail,
     shallowEqual
   );
-  const restaurantId = restaurantinfo.restaurantId;
 
   return (
     <>

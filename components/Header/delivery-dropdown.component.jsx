@@ -13,13 +13,9 @@ function DeliveryDropdownComponent() {
     const defaultLocation = objrestaurant ? objrestaurant.defaultLocation : null;
     const selecteddelivery = useSelector(({ selecteddelivery }) => selecteddelivery);
     const selecteddeliveryaddress = selecteddelivery.selecteddeliveryaddress;
-    const isTakeOutAsap = defaultLocation.isTakeOutAsap;
-    const isTakeOutPickupTime = defaultLocation.isTakeOutPickupTime;
     const isDeliveryPickupTime = defaultLocation.isDeliveryPickupTime;
     const isDeliveryAsap = defaultLocation.isDeliveryAsap;
-    const [addressdisplay, setaddressdisplay] = useState([]);
 useEffect(() => {
-    
     if( Object.keys(selecteddelivery.pickupordelivery).length === 0 ){
         if( defaultLocation.isdelivery && defaultLocation.istakeaway){
             dispatch(setpickupordelivery('pickup'))
@@ -45,9 +41,7 @@ useEffect(() => {
     }
 
     function displayselecteddelivery() {
-
         let addressdisplay = '';
-
         if (selecteddeliveryaddress !== null && selecteddeliveryaddress !== undefined && selecteddeliveryaddress.addresstype !== undefined) {
             if (selecteddeliveryaddress.addresstype === 0) {
                 addressdisplay = selecteddeliveryaddress.address1 + ',' + selecteddeliveryaddress.city;
@@ -69,6 +63,7 @@ useEffect(() => {
             <>{addressdisplay}</>
         )
     }
+
     function displayselectedPickup() {
         return (
             <>{`${objrestaurant && objrestaurant.defaultLocation.address1},  ${objrestaurant && objrestaurant.defaultLocation.cityname}`}</>
@@ -106,8 +101,6 @@ useEffect(() => {
                                         <i className="fa size_32 color_green margin_left_5 top_-1 position_relative d-inline-block v-middle fa-angle-right"></i>
                                     </a>
                             }
-
-                            {/* {`${objrestaurant && objrestaurant.defaultLocation.address1},  ${objrestaurant && objrestaurant.defaultLocation.cityname}`}  */}
                         </>
                     }
                     {(userinfo === undefined || userinfo === null) &&

@@ -1,6 +1,4 @@
-// import { urlObjectKeys } from 'next/dist/next-server/lib/utils';
 import React, { useEffect, useState } from 'react'
-import { flushSync } from 'react-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getMenuItemDetailes, removeMenuItem, selectedItemSize, updateitemoption } from '../../../redux/menu-item/menu-item.action';
 import NewMenuItemSubOptionsParameter from './new-menu-item-sub-options-parameter/new-menu-item-sub-options-parameter.component';
@@ -22,14 +20,6 @@ const NewMenuItemOptionsParameter = (props) => {
         })
     let sessionid = useSelector(({ session }) => session?.sessionid);
     let defaultselected = selectedoption != undefined && selectedoption.length > 0 && selectedoption[0].type.filter(x => x.defaultSelection != null);
-
-    // let optiontype = selectedoption != undefined && selectedoption.length > 0 &&
-    //     selectedoption[0].type.map((data) => {
-    //          
-    //         if (lstoption.length === 0 || lstoption.find(x => x.suboptioncategoryname === data.suboptioncategoryname) === undefined)
-
-    //         lstoption.push(data);
-    //     })
     useEffect(() => {
         if (Object.keys(menuItemDetail).length === 0) {
             debugger
@@ -73,7 +63,6 @@ const NewMenuItemOptionsParameter = (props) => {
 
     const selectedToppingClick = (item) => {
         let lstoptiondata = [];
-
         selectedtopping.list.map((data) => {
             if (item.name === data.name) data.optionselected = true;
             else data.optionselected = false;
@@ -102,11 +91,6 @@ const NewMenuItemOptionsParameter = (props) => {
         </div>
             <div className="col-lg-12 col-sm-12 col-xs-12">
                 <ul className="nav nav-tabs">
-                    {/* <li className="active"><a data-toggle="tab" href="#dough">Dough / Sauce / Cheese</a></li>
-                <li><a data-toggle="tab" href="#topping">Toppings</a></li>
-                <li><a data-toggle="tab" href="#extratopping">Extra Flavour Toppings</a></li>
-                <li><a data-toggle="tab" href="#special">Special Instructions</a></li> */}
-
                     {/* menu item option parameter */}
                     {selectedtopping != undefined && selectedtopping.list != undefined && selectedtopping.list.filter(x => x.displayStatus === true).map((item, index) => {
                         return (
@@ -121,8 +105,6 @@ const NewMenuItemOptionsParameter = (props) => {
                     <div id="dough" className="tab-pane fade in active">
                         <div className="col-lg-6 col-sm-6 col-xs-12">
                             <ul className="nav nav-pills">
-                                {/* <li className="active"><a data-toggle="pill" href="#meat-dough">Meat</a></li>
-                            <li><a data-toggle="pill" href="#veggie-dough">Veggie</a></li> */}
                                 {lstoption != undefined && lstoption.length > 0 && lstoption.map((data, index) => {
                                     return (
                                         <>
@@ -135,7 +117,6 @@ const NewMenuItemOptionsParameter = (props) => {
                         {
                             Object.keys(menuItemDetail).length > 0 &&<NewMenuItemSubOptionsParameter />
                         }
-
                     </div>
                 </div>
             </div>

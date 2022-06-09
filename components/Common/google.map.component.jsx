@@ -1,15 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react'
-//import './App.css'
-//import { Search, GpsFixed } from "@material-ui/icons"
-
-
 const apiKey = "AIzaSyC6hNIP3xs2wN0tRG3Ue5Vg8seHGZTYnn4";
 const mapApiJs = 'https://maps.googleapis.com/maps/api/js';
 const geocodeJson = 'https://maps.googleapis.com/maps/api/geocode/json';
 
-
 // load google map api js
-
 function loadAsyncScript(src) {
     return new Promise(resolve => {
         const script = document.createElement("script");
@@ -24,7 +18,6 @@ function loadAsyncScript(src) {
 }
 
 const extractAddress = (place) => {
- 
     const address = {
         city: "",
         state: "",
@@ -32,7 +25,6 @@ const extractAddress = (place) => {
         country: "",
         lat:"",
         lng:"",
-
         plain() {
             const city = this.city ? this.city + ", " : "";
             const zip = this.zip ? this.zip + ", " : "";
@@ -42,21 +34,16 @@ const extractAddress = (place) => {
             return city + zip + state + this.country + lat + lng;
         }
     }
-
-
     if (!Array.isArray(place?.address_components)) {
         return address;
     }
     place.address_components.forEach(component => {
-        
         const types = component.types;
         const value = component.long_name;
         const shortvalue = component.short_name;
-
         if (types.includes("locality")) {
             address.city = value;
         }
-
         if (types.includes("street_number")) {
             address.address1 = value + ' ';
         }
@@ -76,8 +63,6 @@ const extractAddress = (place) => {
             address.state = shortvalue;
         }
     });
-    
-
     if(place.geometry?.location){
         address.lat = place.geometry.location.lat();
         address.lng = place.geometry.location.lng();
@@ -111,7 +96,6 @@ export const GoogleAutoComplete = ({ sendToParent }) => {
     // init autocomplete
     const initAutocomplete = () => {
         if (!searchInput.current) return;
-
         var options = {
             componentRestrictions: { country: "ca" }
         };
@@ -137,20 +121,19 @@ export const GoogleAutoComplete = ({ sendToParent }) => {
     }
 
 
-    const findMyLocation = () => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(position => {
-                reverseGeocode(position.coords)
-            })
-        }
-    }
+    // const findMyLocation = () => {
+    //     if (navigator.geolocation) {
+    //         navigator.geolocation.getCurrentPosition(position => {
+    //             reverseGeocode(position.coords)
+    //         })
+    //     }
+    // }
     // load map script after mounted
     useEffect(() => {
         initMapScript().then(() => initAutocomplete())
     }, []);
 
     const handlequery=(event)=>{
-         
         console.log(event.target.value);
         setQuery(event.target.value)
     }

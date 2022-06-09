@@ -2,19 +2,11 @@ import React, { useState, useEffect } from "react";
 import { GetCurrency } from "../helpers/utility";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { Router } from "next/router";
 import {
-  addFavorite,
-  deleteFavorite,
   getMenuItemDetailes,
   selectedMenuItem,
 } from "../../redux/menu-item/menu-item.action";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
-import {
-  getCategoryItemList,
-  removeCategoryList,
-  setCategoryList,
-} from "../../redux/category/category.action";
 import Link from "next/link";
 import { FavouritesServices } from "../../redux/favourites/favourites.services";
 
@@ -31,12 +23,10 @@ const FavouritesComponent = (props) => {
     ({ userdetail }) => userdetail.loggedinuser,
     shallowEqual
   );
-
   const favouriteList = [];
   for (let i = 0; i < favourites.length; i += 2) {
     const evenMenuItem = favourites[i];
     const oddMenuItem = favourites[i + 1];
-
     favouriteList.push(
       <div className="row row-eq-height">
         {oddMenuItem ? (
@@ -178,8 +168,6 @@ const FavouritesComponent = (props) => {
       else data = data;
     });
 
-    //dispatch(deleteFavorite( userinfo.customerId, restaurantinfo.restaurantId, selecteditem.menuitemid));
-
     FavouritesServices.deletefavorite(
       userinfo.customerId,
       restaurantinfo.restaurantId,
@@ -195,7 +183,6 @@ const FavouritesComponent = (props) => {
         }
       });
     });
-    
   };
   return favourites != undefined && favourites && favourites.length > 0 ? (
     <>

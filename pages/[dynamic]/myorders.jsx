@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Head from "next/head";
 import Image from "next/image";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
+import { useSelector, shallowEqual } from "react-redux";
 import LeftMenuComponent from "../../components/LeftMenu/leftmenu.component";
 import { MemoizedCartCounterComponent } from "../../components/Header/cart-counter.component";
 import DeliveryDropdownComponent from "../../components/Header/delivery-dropdown.component";

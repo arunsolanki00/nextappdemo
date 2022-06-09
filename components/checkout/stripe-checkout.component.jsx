@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, shallowEqual, useDispatch } from "react-redux";
-// import { CardNumberElement, CardExpiryElement, CardCVCElement, injectStripe, CardElement } from '@stripe/react-stripe-js';
 import validate from './stripe-checkout.validationRules';
 import { OrderServices } from '../../redux/order/order.services';
-import { clearCartItems, deleteCartItemFromSessionId, emptycart, getCartItem, getCartItemCount, initialrewardpoint, orderinstruction, setrewardpoint, stripepaymentintentid, updateCartItem, updateCartItemCount } from '../../redux/cart/cart.action';
+import {  deleteCartItemFromSessionId, emptycart, orderinstruction,  stripepaymentintentid,  updateCartItemCount } from '../../redux/cart/cart.action';
 import { CartServices } from '../../redux/cart/cart.services';
 import { Custombutton } from '../Common/button/custombutton';
 import { characterValid, checkCardType, dateValidate, numberValidate } from '../helpers/validate';
 import { useRouter } from 'next/router'
-import { emptyorder, setorderId } from '../../redux/order/order.action';
-// import { getSessionKey } from '../Common/auth';
+import {  setorderId } from '../../redux/order/order.action';
 import { RestaurantsServices } from '../../redux/restaurants/restaurants.services';
 import { restaurantsdetail } from '../../redux/restaurants/restaurants.action';
 import { CartTypes } from '../../redux/cart/cart.types';
@@ -20,11 +18,8 @@ const StripeCheckoutComponent = (props) => {
     const { orderId, calculatedTotal, changeOnCheckout, cardShowMessage } = props;
     let sessionid = useSelector(({ session }) => session?.sessionid);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
-
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser);
-    const selecteddelivery = useSelector(({ selecteddelivery }) => selecteddelivery);
     const rewardpoint = useSelector(({ cart }) => cart?.rewardpoints);
-    const pickupordelivery = useSelector(({ selecteddelivery }) => selecteddelivery.pickupordelivery);
     const [submitting, setSubmitting] = useState(false);
     const [errorMessage, setErrorMesssage] = useState("");
     const [paymentintentid, setpaymentintentid] = useState('');
@@ -35,12 +30,10 @@ const StripeCheckoutComponent = (props) => {
     const [buttonname, setbuttonname] = useState("")
     const [values, setValues] = useState({ email: "", cardnumber: "", expiremonthyear: "", cvv: "", cardname: "", zipcode: "", });
     const [isprocessing, setisprocessing] = useState(false);
-    // const [currentMonth, setCurrentMonth] = useState();
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const router = useRouter();
     const { query: { dynamic }, } = router;
-
     const [cardType, setCardType] = useState(0);
     const [ischecked, setischecked] = useState(false)
     const [isOrdering, setIsOrdering] = useState(false);
@@ -48,16 +41,13 @@ const StripeCheckoutComponent = (props) => {
     useEffect(() => {
         if (dynamic && dynamic !== undefined) {
             let restauranturl = dynamic.toLowerCase().toString().replace(/ /g, "-");
-
             let locationId = getLocationIdFromStorage();
             RestaurantsServices.getRestaurantsList(restauranturl, locationId).then(response => {
                 if (response) {
                     let newselectedRestaurant = response[0];
-
                     if (newselectedRestaurant) {
                         dispatch(restaurantsdetail(newselectedRestaurant));
                     }
-
                     if (newselectedRestaurant.defaultLocation.isOrderingDisable === true)
                         router.push("/" + newselectedRestaurant.restaurantURL + "/restaurant-close");
                     else setIsOrdering(true);
@@ -65,16 +55,6 @@ const StripeCheckoutComponent = (props) => {
             });
         }
     }, []);
-
-    // useEffect(() => {
-    //      
-    //      if (order === undefined || order.isRedirectToCheckout === false) {
-    //         if (ordertype === 1)
-    //             return router.push("/" + restaurantinfo.restaurantURL + "/pickupconfirmation");
-    //         if (ordertype === 2)
-    //             return router.push("/" + restaurantinfo.restaurantURL + "/deliveryconfirmation");
-    //     }
-    // }, [orderId]);
 
     useEffect(() => {
         OrderServices.getAllCountry().then((response) => {
@@ -88,7 +68,6 @@ const StripeCheckoutComponent = (props) => {
     }, []);
 
     useEffect(() => {
-        // if (restaurantinfo && userinfo && order.isRedirectToCheckout === true) {
         if (restaurantinfo && userinfo) {
             CartServices.getstripepaymentintentid(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, userinfo.customerId, calculatedTotal)
                 .then((response) => {
@@ -107,7 +86,6 @@ const StripeCheckoutComponent = (props) => {
         event.preventDefault();
         let errorsList = validate(values);
         setErrors(errorsList);
-
         if (Object.keys(errorsList).length === 0) {
             submitSuccess();
             setbuttonname("Processing...")
@@ -115,15 +93,11 @@ const StripeCheckoutComponent = (props) => {
             return;
         } else {
             setischecked(false)
-            //setisDisabled(true)
         }
-
     };
 
     const submitSuccess = () => {
-
         let expiry = values.expiremonthyear.split('/')
-        // const cartsessionid = getSessionKey(restaurantinfo.restaurantId, userinfo.customerId,restaurantinfo.defaultlocationId);
         const addPaymentObj = {
             cardDetails: {
                 restaurantId: restaurantinfo.restaurantId,
@@ -148,28 +122,14 @@ const StripeCheckoutComponent = (props) => {
     }
 
     const submitData = async (addPaymentObj) => {
-
         if (addPaymentObj != undefined) {
-
-
             setSubmitting(true);
             await OrderServices.confirmStripePayment(addPaymentObj.cardDetails).then((responsedata) => {
-
                 if (responsedata && responsedata.status === 1) {
                     setSubmitting(false);
-                    // let rewardpointObj=rewardpoints
-                    // clearCartItems(restaurantinfo,rewardpoints,addPaymentObj.customerId,pickupordelivery === "Delivery" &&
-                    // deliveryaddressinfo &&
-                    // deliveryaddressinfo.deliveryaddressId);
                     deleteCartItemFromSessionId(addPaymentObj.cartsessionid, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId);
-
                     dispatch({ type: CartTypes.DELETE_CART_ITEM_FROM_SESSIONID, payload: null });
-                    // dispatch(updateCartItem());
-                    // dispatch(updateCartItemCoun());
-
-
                     emptycart();
-                    // emptyorder();
                     if (rewardpoint !== undefined) {
                         let rewardpoints = {
                             rewardvalue: rewardpoint.rewardvalue,
@@ -183,28 +143,15 @@ const StripeCheckoutComponent = (props) => {
                             payload: rewardpoints,
                         });
                     }
-
                     setorderId("");
                     stripepaymentintentid("");
-
                     updateCartItemCount();
                     orderinstruction("");
                     dispatch({
                         type: CartTypes.EMPTY_ORDER_INFO,
                         payload: null,
                     });
-                    //clearRedeemPoint(userinfo,rewardpoints);
-                    // dispatch(initialrewardpoint(userinfo));
-                    // dispatch(getCartItem(addPaymentObj.cartsessionid, restaurantinfo.defaultlocationId, restaurantinfo.restaurantId, 0, userinfo.customerId, 0,0,
-                    //     deliveryaddressinfo && deliveryaddressinfo.deliveryaddressId ? deliveryaddressinfo.deliveryaddressId : 0));
-                    // dispatch(getCartItemCount(addPaymentObj.cartsessionid, restaurantinfo.defaultlocationId, restaurantinfo.restaurantId, userinfo.customerId));
-
-
-                    // dispatch(getCartItemCount(addPaymentObj.cartsessionid, addPaymentObj.defaultlocationId, addPaymentObj.restaurantId, addPaymentObj.customerId));
-                    // return router.push("/" + restaurantinfo.restaurantURL + "/myorders");
-
                     return router.push("/" + restaurantinfo.restaurantURL + "/orderconfirmation");
-
                 } else {
                     setischecked(false)
                     setisDisabled(true);
@@ -217,8 +164,6 @@ const StripeCheckoutComponent = (props) => {
     };
 
     const handleCheckbox = (event) => {
-
-        // setisDisabled(!isDisabled);
         if (event.currentTarget.checked) {
             setischecked(true)
             setisDisabled(false);
@@ -230,7 +175,6 @@ const StripeCheckoutComponent = (props) => {
     }
 
     const handleCVVChange = (event) => {
-
         if (event.target.name === "cvv" && numberValidate(event.target.value) && event.target.value !== "" && event.target.value.length <= 3) {
             setValues((values) => ({
                 ...values,
@@ -254,28 +198,22 @@ const StripeCheckoutComponent = (props) => {
     }
 
     const handleCardNumberPress = (event) => {
-
         let cardnumbercheck = values.cardnumber.replace(/\s+/g, '') + event.key.replace(/\s+/g, '');
-
         //remove charcter from card number
         if (event.key === 'Backspace') {
             values.cardnumber = values.cardnumber.slice(0, -1)
-
             setValues((values) => ({
                 ...values,
                 [event.target.name]: values.cardnumber,
             }));
-
             setCardType(0);
         } else if (cardnumbercheck.length <= 16) {
             let cardnumber = event.key.replace(/\s+/g, '');
-
             //number validate check
             if (numberValidate(cardnumber)) {
                 values.cardnumber = values.cardnumber + cardnumber;
                 //set card type                
                 setCardType(checkCardType(values.cardnumber));
-
                 //add space after 4 digits in card number
                 if (cardnumbercheck.length % 4 === 0 && cardnumbercheck.length < 16) {
                     setValues((values) => ({
@@ -298,18 +236,14 @@ const StripeCheckoutComponent = (props) => {
     }
 
     const handleExpiryChange = (event) => {
-
         if (event.key === "Backspace") {
             values.expiremonthyear = values.expiremonthyear.slice(0, -1)
-
             setValues((values) => ({
                 ...values,
                 [event.target.name]: values.expiremonthyear,
             }));
-
         } else {
             let expdate = values.expiremonthyear.replace('/', '').replace(/\s+/g, '') + event.key.replace(/\s+/g, '');
-
             if (dateValidate(expdate) === true && expdate.length <= 4) {
                 setValues((values) => ({
                     ...values,
@@ -328,7 +262,6 @@ const StripeCheckoutComponent = (props) => {
     }
 
     const handlePaymentChange = (event) => {
-
         if (event.target.value === "") {
             setValues((values) => ({
                 ...values,
@@ -340,14 +273,12 @@ const StripeCheckoutComponent = (props) => {
                 ...values,
                 [event.target.name]: event.target.value,
             }));
-
         } else if (event.target.name === "cardname" && characterValid(event.target.value)) {
             setValues((values) => ({
                 ...values,
                 [event.target.name]: event.target.value,
             }));
         }
-
         setErrors((errors) => ({
             ...errors,
             [event.target.name]: "",
@@ -371,7 +302,6 @@ const StripeCheckoutComponent = (props) => {
                                 <a href="#"><img src="/images/strip.svg" alt="" /></a>
                             </div>
                         </div>
-
                         {cardShowMessage ? <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" style={{ height: "40px" }}>
                             <span style={{ fontSize: "21px" }} className="error"> Note: {cardShowMessage} </span>
                         </div>
@@ -381,8 +311,6 @@ const StripeCheckoutComponent = (props) => {
                             <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" style={{ height: "40px" }}>
                             <span className="error" style={{ fontSize: "23px" }}> *{errorMessage}</span>
                             </div>}
-                     
-
                         <div className="col-lg-12 col-sm-12 col-xs-12 marginbottom_12">
                             <input className="marginbottom_0" type="text" placeholder="Email" required onChange={handlePaymentChange}
                                 value={values.email}
@@ -394,7 +322,6 @@ const StripeCheckoutComponent = (props) => {
                             <label className="label-normal">Card information</label>
                         </div>
                         <div className="col-lg-12 normal-input-style col-sm-12 col-xs-12 marginbottom_12">
-                            {/* <input className type="text" placeholder="1234 1234 1234 1234" required onChange={handleCardNumberChange} value={values.cardnumber} name="cardnumber" /> */}
                             <input className="marginbottom_0" type="text" placeholder="1234 1234 1234 1234" required onKeyDown={handleCardNumberPress} value={values.cardnumber} name="cardnumber" />
                             {errors.cardnumber && <span className="error">{errors.cardnumber}</span>}
                             <div className="card-imgs">
@@ -425,8 +352,6 @@ const StripeCheckoutComponent = (props) => {
                         </div>
                         <div className="col-lg-12 col-sm-12 col-xs-12">
                             <label className="label-normal">Country or region</label>
-                            {/* <DropDownList value={values.country} id="billingCountry" onChange={handleChange} name="country" data={countries}>  </DropDownList> */}
-
                             <select id="billingCountry" name="country" value={values.country} >
                                 {countries && countries.map((option) => {
                                     return (

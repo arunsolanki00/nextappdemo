@@ -13,12 +13,9 @@ const Testimonial = () => {
     ({ restaurant }) => restaurant.restaurantdetail,
     shallowEqual
   );
-
   const [count, setcount] = useState(0);
-
   const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
   const customerId = userinfo ? userinfo.customerId : 0;
-
   const restaurantId = restaurantinfo.restaurantId;
   const locationId = restaurantinfo.defaultlocationId;
 

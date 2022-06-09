@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import { MemoizedHeaderLogoComponent } from '../../components/Header/headerlogo.component'
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
@@ -10,41 +9,30 @@ import { restaurantsLocation, restaurantstiming } from "../../redux/restaurants/
 import RestaurantTimmingComponent from "../../components/Common/restaurant-timming.component";
 import LoginMainComponent from "../../components/login/login.component";
 import Choosetime from "../../components/Common/choose-time.component";
-// import { OrderServices } from "../../redux/order/order.services";
 import { selecteddeliveryaddress, setpickupordelivery } from "../../redux/selected-delivery-data/selecteddelivery.action";
 import { RestaurantsTypes } from "../../redux/restaurants/restaurants.types";
-import Loader from "../../components/Common/loader/loader.component";
 import { DeliveryConfirmationMessage, PickUpConfirmationMessage } from "../../components/helpers/static-message/pickupconfirmation2-message";
 import { getSelectedRestaurantTime } from "../../redux/main/main.action";
 import { OrderServices } from "../../redux/order/order.services";
 import { emptyordertime, isasap, setordertime } from "../../redux/order/order.action";
 import { IndexSkeleton } from "../../components/Common/Skeleton/index-skeleton.component";
-import { PickupMessage } from "../../components/helpers/static-message/pickup-message";
 import { MonthList } from "../../components/helpers/utility";
-import { createSessionId } from "../../redux/session/session.action";
-import { v4 as uuidv4 } from 'uuid';
 const Index = () => {
     const router = useRouter();
     const dispatch = useDispatch();
     const { query: { dynamic, id, category, items } } = router;
-
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const [loadpickupComplete, setLoadPickupComplete] = useState(false);
-    const selecetdtime = useSelector(({ order }) => order.checktime);
     const restaurantWindowTime = useSelector(({ main }) => main.restaurantWindowTime);
-
     const pickupWindow = (restaurantWindowTime && restaurantWindowTime.pickupTime) && restaurantWindowTime.pickupTime;
     const deliveryWindow = (restaurantWindowTime && restaurantWindowTime.deliveryTime) && restaurantWindowTime.deliveryTime;
-
     const defaultLocation = restaurantinfo ? restaurantinfo.defaultLocation : null;
     const restauranttiming = useSelector(({ restaurant }) => restaurant.restaurantstiminglist);
-
     const isTakeOutAsap = defaultLocation.isTakeOutAsap;
     const isTakeOutPickupTime = defaultLocation.isTakeOutPickupTime;
     const isDeliveryPickupTime = defaultLocation.isDeliveryPickupTime;
     const isDeliveryAsap = defaultLocation.isDeliveryAsap;
-
     const [apiResponse, setapiResponse] = useState([]);
     const [showLogin, setShowLogin] = useState(false);
     const [displayASAPTime, setDisplayASAPTime] = useState(false);
@@ -57,27 +45,16 @@ const Index = () => {
     const [isDisabled, setisDisabled] = useState(true)
     const [loadingState, setloadingState] = useState(false);
     const [restauranttimingList, setrestauranttimingList] = useState();
-    let sessionid = useSelector(({ session }) => session?.sessionid);
     const handlerestaurantHoursPopup = () => {
         setrestauranttimingList(restauranttiming);
         setrestaurantHoursPopup(true);
     };
-
     const [currentDate, setcurrentDate] = useState();
 
     const logindetailsclick = () =>{
-        // if(sessionid === null){
-        //     let id=uuidv4()
-        //     dispatch(createSessionId(id));
-        // }
         setShowLogin(true);
     } 
     useEffect(() => {
-        
-        // if(sessionid === null){
-        //     let id=uuidv4()
-        //     dispatch(createSessionId(id));
-        // }
         let date = new Date();
         setcurrentDate(date);
     }, []);
@@ -88,16 +65,12 @@ const Index = () => {
         setTimeOrErrorMessage("");
         setDisplayASAPTime(!displayASAPTime);
         setActiveButtonClass('asap');
-
         OrderServices.getOrderTiming(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, ordertype).then((gettimeresponse) => {
             if (gettimeresponse?.result) {
-
                 if (gettimeresponse.result?.time) {
                     let time = gettimeresponse.result.time.split(' ');
-
                     OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, time[0], time[1], ordertype)
                         .then((response) => {
-
                             if (response.result.message && response.result.message.length > 0 && response.result.status !== "success") {
                                 setTimeOrErrorMessage(response.result.message);
                                 settimestate(false);
@@ -106,10 +79,8 @@ const Index = () => {
                                 setisDisabled(true)
                                 return;
                             }
-
                             if (response.result != undefined && response.result !== null) {
                                 if (response.result?.status === "success") {
-
                                     let newtime = time[0] + ' ' + time[1];
                                     setOrderTime(newtime);
                                     dispatch(setordertime(newtime));
@@ -119,7 +90,6 @@ const Index = () => {
                                     setDisplayASAPTime(false);
                                     setisDisabled(true)
                                 }
-
                                 setDisplayASAPTime(!displayASAPTime);
                                 setActiveButtonClass('asap');
                                 dispatch(isasap(true));
@@ -129,27 +99,6 @@ const Index = () => {
             }
         });
     }
-
-    //call from child to parent for set selected time
-    // function checktimeselected(selecetdtime) {
-    //     console.log("selecetdtime :" + selecetdtime)
-
-    //     if (selecetdtime) {
-    //         let ordertimeArray = selecetdtime && selecetdtime.split(":");
-    //         if (ordertimeArray.length > 1) {
-    //             setDisplayASAPTime(true);
-    //             setOrderTime(selecetdtime);
-    //             dispatch(setordertime(selecetdtime))
-    //             setisDisabled(false);
-    //         } else {
-    //             setTimeOrErrorMessage(selecetdtime);
-    //             settimestate(false);
-    //             setDisplayASAPTime(false);
-    //             setisDisabled(true);
-    //         }
-    //     }
-    // }
-
     const handlelateronclick = () => {
         setTimeOrErrorMessage("");
         setActiveButtonClass('lateron');
@@ -174,17 +123,14 @@ const Index = () => {
     }
 
     useEffect(() => {
-         
         if (restaurantinfo && restaurantinfo.defaultlocationId === 0) {
             router.push("/" + restaurantinfo.restaurantURL + "/restaurant-close");
         }
         if (defaultLocation?.istakeaway != undefined && defaultLocation?.istakeaway === false && defaultLocation?.isdelivery === true) {
             router.push("/" + restaurantinfo.restaurantURL + "/delivery");
         }
-
         if ((isTakeOutAsap === false && isTakeOutPickupTime === false) && (isDeliveryPickupTime || isDeliveryAsap))
             router.push("/" + restaurantinfo.restaurantURL + "/delivery");
-        
     }, []);
 
     useEffect(() => {
@@ -193,15 +139,12 @@ const Index = () => {
                 const getResponse = await restaurantsLocation(restaurantinfo && restaurantinfo.restaurantId, "0", "0");
                 dispatch(setpickupordelivery('Pickup'));
                 dispatch(selecteddeliveryaddress(null));// as we do not need delivery address selected            
-    
                 dispatch(restaurantstiming(restaurantinfo && restaurantinfo.defaultlocationId, restaurantinfo && restaurantinfo.restaurantId));
-                // dispatch(getAddress(userinfo ? userinfo.customerId : 0, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
                 dispatch({
                     type: RestaurantsTypes.RESTAURANT_LOCATION_LIST,
                     payload: getResponse
                 })
                 dispatch(getSelectedRestaurantTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
-    
                 setapiResponse(getResponse);
                 setLoadPickupComplete(true);
                 dispatch(emptyordertime());
@@ -210,13 +153,10 @@ const Index = () => {
                 fetchData();
             }, 1000);
             setloadingState(false);
-    
             setOrderTime("")
             setTimeOrErrorMessage("")
             setActiveButtonClass("")
-    
             setrestauranttimingList(restauranttiming);
-        
     }, [restaurantinfo.defaultLocation?.locationId])
 
     const handleLocationPopup = (isLocationPopup) => {
@@ -232,7 +172,6 @@ const Index = () => {
                         <div className="container">
                             <div className="row">
                                 <MemoizedHeaderLogoComponent />
-                                {/* <div className="col-lg-12 tp-pickup flush col-sm-12 col-xs-12"> */}
                                 <div className="col-lg-12 flush col-sm-12 col-xs-12">
                                     <div className="col-lg-12 text-center col-sm-12 col-xs-12">
                                         {userinfo && userinfo.firstname ? <h1 className="margin_bottom_30">Hi {userinfo.firstname}, hungry?</h1> : <h1 className="margin_bottom_30">Hey there!</h1>}
@@ -283,20 +222,6 @@ const Index = () => {
                                                     <div className="col-lg-12 col-sm-12 col-xs-12 small-text-center">
 
                                                         <h3>{PickUpConfirmationMessage.SELECT_PICKUP_TIME}</h3>
-
-                                                        {/* {defaultLocation.isOrderingDisable || defaultLocation.isTakeoutOrderingDisable ?
-                                                            <h3 className="color_red">{defaultLocation.orderingMessage ? defaultLocation.orderingMessage : PickUpConfirmationMessage.CLOSE_TODAY}</h3>
-                                                            :
-                                                            <h3>{PickUpConfirmationMessage.SELECT_PICKUP_TIME}</h3>
-
-                                                        } */}
-
-                                                        {/* <form className="customForm hide">
-                                                            <div className="col-lg-12 flush-left col-sm-12 col-xs-12">
-                                                                <input className="search" type="text" placeholder="Enter address or postal code or city…" required />
-                                                                <label className="formlabel search">Enter address or postal code or city…</label>
-                                                            </div>
-                                                        </form> */}
                                                     </div>
                                                 </div>
                                                 <div className="row in" >
@@ -358,13 +283,10 @@ const Index = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        {/* {defaultLocation.istakeaway ?
-                                            <> */}
                                         <div className="row row-eq-height">
                                             <div className="col-lg-1 text-center flush col-sm-1 col-xs-12">
                                                 <div className="numbers">2</div>
                                             </div>
-
                                             <div className="col-lg-11 sp-d col-sm-11 col-xs-12">
                                                 <div className="row">
                                                     <div className="col-lg-12 col-sm-12 col-xs-12 small-text-center">
@@ -386,16 +308,13 @@ const Index = () => {
                                                                 </span></h5>
                                                         </div>
                                                         <div className="col-lg-4 text-center col-sm-4 col-xs-12">
-
                                                             {(apiResponse.addressList && apiResponse.addressList.length > 1) &&
-
                                                                 <a className="light_orange_btn clock_more_btn"
                                                                     onClick={()=>handleLocationPopup(true)}
                                                                     data-toggle="modal"
                                                                     data-target="#myModal"><i className="fa fa-map-marker"></i> Change
                                                                 </a>
                                                             }
-
                                                         </div>
                                                     </div>
                                                     {defaultLocation.istakeaway && defaultLocation.isOrderingDisable === false && pickupWindow && pickupWindow.length > 0 ?
@@ -471,9 +390,6 @@ const Index = () => {
                                                                 }
                                                             </div>
                                                             <div className="col-lg-6 text-center col-sm-6 col-xs-12">
-                                                                {/* <Link href="/[dynamic]/register" as={`/${restaurantinfo.restaurantURL}/register`}>
-                                                                                <a className="orange_side_btn orange_bord_btn">Register</a>
-                                                                            </Link> */}
                                                                 {isDisabled ?
                                                                     <a className="blue_btn blue_btn_porder disabled" disabled>Next</a>
                                                                     :
@@ -492,19 +408,16 @@ const Index = () => {
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </section>
-
                     {
                         locationpopup === true && (
                             <RestaurantLocationsComponent restaurantId={restaurantinfo && restaurantinfo.defaultLocation.restaurantId} handleLocationPopup={handleLocationPopup} />
                         )
                     }
-
                     {
                         restaurantHoursPopup === true && (
                             <RestaurantTimmingComponent
@@ -515,11 +428,8 @@ const Index = () => {
                             />
                         )
                     }
-
                     {showLogin === true && <LoginMainComponent restaurantinfo={restaurantinfo} />}
-
                     {timestate === true && <Choosetime ordertype={ordertype} restaurantinfo={restaurantinfo} restaurantWindowTime={restaurantWindowTime} isTakeAway={defaultLocation.istakeaway} isDelivery={defaultLocation.isdelivery} checktimeselected={checktimeselected} />}
-
                 </>
             </>
         );
