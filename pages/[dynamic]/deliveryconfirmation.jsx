@@ -11,7 +11,7 @@ import { MemoizedHeaderLogoComponent } from "../../components/Header/headerlogo.
 import { RestaurantsTypes } from "../../redux/restaurants/restaurants.types";
 import { OrderServices } from "../../redux/order/order.services";
 import Choosetime from "../../components/Common/choose-time.component";
-import { emptyorder, isasap, isRedirectToCheckout, setorderId, setordertime } from "../../redux/order/order.action";
+import { emptyorder, emptyordertime, isasap, isRedirectToCheckout, setorderId, setordertime } from "../../redux/order/order.action";
 // import { getSessionKey } from "../../components/Common/auth";
 import { emptycart, getCartItem, updateCartItemCount } from "../../redux/cart/cart.action";
 import handleNotify from "../../components/helpers/toaster/toaster-notify";
@@ -352,6 +352,7 @@ const DeliveryConfirmation = () => {
             paymentType: paymentType,  //1 for cash payment    2 for card payment
             locationId: restaurantinfo.defaultlocationId,
             restaurantId: restaurantinfo.restaurantId,
+            
         };
 
         OrderServices.addOrder(placeOrder, restaurantinfo.restaurantId).then(response => {

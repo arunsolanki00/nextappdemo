@@ -94,6 +94,8 @@ function MenuCategoryCart({ sendDataToParent }) {
     ({ menuitem }) => menuitem.selectedmenuitemdetail
   );
   let quantity = useSelector(({ menuitem }) => menuitem.selecteditemquantity);
+  const ordertype = deliveryaddressinfo.pickupordelivery === "Delivery" ? 2 : 1;
+
   // let cartsessionid =
   //   restaurantinfo &&
   //   userinfo &&
@@ -302,7 +304,7 @@ function MenuCategoryCart({ sendDataToParent }) {
           customerId,
           total,
           quantity,
-          sessionid
+          sessionid,ordertype
         );
         if (itemobj != undefined) {
           MenuItemServices.addItemToCart(
@@ -385,7 +387,7 @@ function MenuCategoryCart({ sendDataToParent }) {
             customerId,
             total,
             quantity,
-            sessionid
+            sessionid,ordertype
           );
           if (itemobj != undefined) {
             MenuItemServices.addItemToCart(
@@ -422,7 +424,7 @@ function MenuCategoryCart({ sendDataToParent }) {
           customerId,
           total,
           quantity,
-          sessionid
+          sessionid,ordertype
         );
         if (itemobj != undefined) {
           MenuItemServices.addItemToCart(

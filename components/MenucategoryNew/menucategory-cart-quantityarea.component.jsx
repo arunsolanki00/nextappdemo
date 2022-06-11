@@ -36,6 +36,7 @@ function CartQuantityArea(props) {
     let cartsessionid = sessionidObj;
     //getSessionKey(restaurantinfo.restaurantId, customerId, restaurantinfo.defaultlocationId);
     const location = restaurantinfo.defaultLocation;
+    const ordertype = deliveryaddressinfo.pickupordelivery === "Delivery" ? 2 : 1;
 
     let defaultQuantity = 1;
     const IsOrderDisable = () => {
@@ -106,7 +107,7 @@ function CartQuantityArea(props) {
                     deliveryaddressinfo.pickupordelivery === "Pickup" ||
                     (deliveryaddressinfo.pickupordelivery === "Delivery"))) {
                     if (menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && selectedoption.length === 0) {
-                        let itemobj = FormatOrderObject(restaurantinfo, objselectedItem, menuItemDetail, customerId, total, currentQty, cartsessionid);
+                        let itemobj = FormatOrderObject(restaurantinfo, objselectedItem, menuItemDetail, customerId, total, currentQty, cartsessionid,ordertype);
                         if (itemobj != undefined) {
                             MenuItemServices.addItemToCart(itemobj, restaurantinfo.restaurantId).then(response => {
 
