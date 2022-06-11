@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,6 @@ import { ToasterPositions } from "../helpers/toaster/toaster-positions";
 import { ToasterTypes } from "../helpers/toaster/toaster-types";
 import { emptycart } from "../../redux/cart/cart.action";
 import { LeftMenuName } from "../helpers/static-message/leftmenu-message";
-import { cleardeliveryaddress } from "../../redux/selected-delivery-data/selecteddelivery.action";
 import { clearSessionId, createSessionId } from "../../redux/session/session.action";
 import { v4 as uuidv4 } from 'uuid';
 function LeftMenuComponent() {
@@ -165,28 +164,6 @@ function LeftMenuComponent() {
                 <a> <em> <i className="fa fa-spoon"></i> <span>{LeftMenuName.LOCATIONS}</span> </em> </a>
               </Link>
             </li>
-            {/* <li>
-              <a href="support.html">
-                <em>
-                  <i className="fa fa-cog"></i> <span>Support</span>
-                </em>
-              </a>
-            </li> */}
-            {/* <li>
-              <a href="add-feedback.html">
-                <em>
-                  <i className="fa fa-thumbs-o-up"></i>{" "}
-                  <span>Add feedback</span>
-                </em>
-              </a>
-            </li> */}
-            {/* <li>
-              <a href="share.html">
-                <em>
-                  <i className="fa fa-paperclip"></i> <span>Share</span>
-                </em>
-              </a>
-            </li> */}
           </ul>
         </div>
         <div className="col-lg-12 soc col-sm-12 col-xs-12">

@@ -5,10 +5,9 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import {
-  getMenuItemList,
+  getMenuItemDetailes,
   selectedMenuItem,
 } from "../../redux/menu-item/menu-item.action";
-import Skeleton from "react-loading-skeleton";
 import { MyOrdersSkeleton } from "../Common/Skeleton/myorders-skeleton.component";
 import NoItemsCartComponent from "../ShoppingCart/no-items-cart.component";
 
@@ -16,7 +15,7 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const {
-    query: { dynamic, id, orderdetails, index },
+    query: { dynamic },
   } = router;
   const userinfo = useSelector(
     ({ userdetail }) => userdetail.loggedinuser,
@@ -37,23 +36,18 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
         restaurantinfo.restaurantId
       ).then((response) => {
         if (response) {
-           
           if (response.orderHistory !== undefined) {
-            // if(response.orderHistory.length > 20){
             let orderhistorylisttop = [];
             let orderhistorylistFull = [];
             response.orderHistory.map((details, index) => {
               if (index <= 10) {
                 orderhistorylisttop.push(details)
-                //setOrderHistory(details);
               } else {
                 orderhistorylistFull.push(details);
-                //setOrderHistoryFull(details);
               }
             });
             setOrderHistory(orderhistorylisttop);
             setOrderHistoryFull(orderhistorylistFull);
-            //}
           }
           else
             setOrderHistory([]);
@@ -68,7 +62,7 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
     if (item != undefined) {
       dispatch(selectedMenuItem(item));
       dispatch(
-        getMenuItemList(
+        getMenuItemDetailes(
           restaurantinfo.restaurantId,
           restaurantinfo.defaultlocationId,
           0,
@@ -85,16 +79,12 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
   return (
     <div>
       <div className="col-lg-12 pull-right pizza-in col-sm-12 col-xs-12" style={{ textAlign: "right" }}>
-
         <a className="orange_price_btn orderPriceBtn"> Total: {orderHistory?.length + orderHistoryFull?.length} </a></div>
       {!loadingstate ||
         (orderHistory && orderHistory !== undefined && orderHistory?.length) ? (
-
         <div className="row">
-
           <div className="col-lg-12 pull-right pizza-in col-sm-12 col-xs-12">
             <div className="row">
-
               {orderHistory.length > 0 && orderHistory.map((details, index) => (
                 <>
                   <div className="col-lg-6 col-sm-12 col-xs-12 flush-left" key={index}>
@@ -169,9 +159,6 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
                   </div>
                 </>
               ))}
-
-
-
               {showAll && orderHistoryFull.length > 0 && orderHistoryFull.map((details, index) => (
                 <>
                   <div className="col-lg-6 col-sm-12 col-xs-12 flush-left" key={index}>
@@ -246,7 +233,6 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
                   </div>
                 </>
               ))}
-
               {orderHistoryFull.length > 0 && <div className="col-lg-12 pull-right pizza-in col-sm-12 col-xs-12" style={{ textAlign: "right" }}>
                 <div className="row">
                   {showAll === false ? (<a onClick={displayFullList} className="orange_price_btn orderPriceBtn"> Show Full List </a>)

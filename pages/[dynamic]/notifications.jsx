@@ -13,7 +13,6 @@ const Notifications = () => {
     shallowEqual
   );
   const restaurantId = restaurantinfo.restaurantId;
-
   return (
     <>
       <Head>

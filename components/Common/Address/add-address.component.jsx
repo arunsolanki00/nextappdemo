@@ -6,34 +6,26 @@ import { useSelector, useDispatch } from "react-redux";
 import { updateAddressCheck } from "../../../redux/delivery-address/delivery-address.action";
 
 const AddAddress = (props) => {
-
     const [active, setactive] = useState(true);
     const dispatch = useDispatch();
     let restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
-
     const Tabchange = (item) => {
         if (item != undefined) {
             setactive(item);
         }
     }
     const router = useRouter();
-
     const [loadaddress, setloadaddress] = useState(true);
-    const [isclose, setisclose] = useState(false);
 
     const CloseAddress = () => {
         let addresspopupclose = document.getElementById("addresspopupclose");
         addresspopupclose.click();
-
         let addresspersonaltab = document.getElementById("addresspersonaltab");
         addresspersonaltab.click();
-
     }
 
     const sendDataToParent = (index) => {
         setloadaddress(index);
-
-
         if (props !== null) {
             if (props.reloadAddressList !== undefined) {
                 setTimeout(() => props.reloadAddressList(), 3000);

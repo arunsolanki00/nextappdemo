@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMountEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from "next/image";
 import { OrderServices } from '../../redux/order/order.services';
@@ -25,9 +24,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: '300 !important',
         letterSpacing: '0 !important',
         textTransform: 'uppercase !important',
-        // paddingTop: '0px !important',
         paddingRight: '0px !important',
-        // paddingBottom: '0px !important',
         paddingLeft: '8px !important',
         border: '0px none !important',
         width:'75px !important',
@@ -43,21 +40,15 @@ const Choosetime = (props) => {
     const pickupordelivery = useSelector(({ selecteddelivery }) => selecteddelivery.pickupordelivery);
     const ordertype = props?.ordertype;
     const selecetdtime = useSelector(({ order }) => order.checktime);
-    const isasap = useSelector(({ order }) => order.isasap);
-    const defaultLocation = restaurantinfo ? restaurantinfo.defaultLocation : null;
-     
     const [hour, setHour] = useState('');
     const [minute, setMinute] = useState();
     const [meridiem, setMeridiem] = useState();
     const [timeErrorMessage, setTimeErrorMessage] = useState("");
     const [successMessage, setsuccessMessage] = useState("");
     const [isdisable, setisdisable] = useState(false)
-
     const [isTimeLoad, setisTimeLoad] = useState(false)
-
     const pickuptime = [];
     const deliverytime = [];
-
 
     if ((hour === '' && !isTimeLoad)) {
         if(selecetdtime !== undefined && selecetdtime !== '')
@@ -73,11 +64,9 @@ const Choosetime = (props) => {
             OrderServices.getOrderTiming(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, ordertype).then((gettimeresponse) => {
                 if (gettimeresponse) {
                     if (gettimeresponse?.result) {
-                        
                         if (gettimeresponse.result?.time) {
                             let time = gettimeresponse.result.time.split(' ');
                             let newtime = time[0].split(':');
-    
                             setHour(newtime[0]);
                             setMinute(newtime[1]);
                             setMeridiem(time[1]);
@@ -168,20 +157,16 @@ const Choosetime = (props) => {
 
     const handlesave = (e) => {
         e.preventDefault()
-         
-        // setfullTime(hour + ':' + minute + ' ' + meridiem);
         OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, parseInt(hour) + ':' + parseInt(minute), meridiem, ordertype)
             .then((response) => {
                 console.log(response,"responese")
                 if (response.result != undefined && response.result !== null) {
-
                     if (response.result.status !== 'success') {
                         setTimeErrorMessage(response.result.message);
                         setisdisable(true);
                         setsuccessMessage('');
                         dispatch(setordertime(''));
                     }
-
                     if (response.result.status === 'success') {
                         let timedisplay = hour + ':' + minute + ' ' + meridiem;
                         if (ordertype == 1) {
@@ -199,7 +184,6 @@ const Choosetime = (props) => {
     }
 
     const popupClose = (selectedtime) => {
-         
         setsuccessMessage('');
         setHour('');
         setisTimeLoad(false);
@@ -247,7 +231,6 @@ const Choosetime = (props) => {
         if (!numberValidate(hh) || hh > 12) {
             return;
         }
-
         setHour(hh);
         setisdisable(false)
     }
@@ -265,9 +248,7 @@ const Choosetime = (props) => {
                                 <h3> {pickupordelivery !== '' ? 'Choose ' + pickupordelivery : 'Choose'} time</h3>
                             </div>
                             <div className="col-lg-12 text-center col-sm-12 col-xs-12">
-
                                 <form className={classes.container}>
-
                                     <div className="row">
                                         <div className="col-md-12">
                                             <div className="col-md-3">
@@ -284,7 +265,6 @@ const Choosetime = (props) => {
                                             <div className="col-md-3">
                                             </div>
                                         </div>
-
                                         <div className="col-md-12"  style={{height:"48px"}}>
                                             <div className="col-md-3">
                                             </div>
@@ -300,7 +280,6 @@ const Choosetime = (props) => {
                                             <div className="col-md-3">
                                             </div>
                                         </div>
-
                                         <div className="col-md-12">
                                             <div className="col-md-3">
                                             </div>
@@ -316,7 +295,6 @@ const Choosetime = (props) => {
                                             <div className="col-md-3">
                                             </div>
                                         </div>
-
                                     </div>
                                 </form>
                             </div>

@@ -12,8 +12,8 @@ const DeleteAddress = ({ deliveryaddressId }) => {
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const customerId = userinfo ? userinfo.customerId : 0;
+    
     const handledeleteAddressPopup = () => {
-
         if (deliveryaddressId != undefined) {
             DeliveryAddressServices.deleteDeliveryAddress(deliveryaddressId, restaurantinfo.restaurantId).then(response => {
                 if (response) {

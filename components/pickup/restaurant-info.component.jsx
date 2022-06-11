@@ -2,32 +2,15 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import RestaurantLocationsComponent from "../Common/restaurant-locations.component";
 import RestaurantTimmingComponent from "../Common/restaurant-timming.component";
-import CalenderTimeComponent from "../Common/calender-time.component";
-import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import RestaurantTodayTime from "./restaurant-today-time";
 
 const RestaurantInfoComponent = (props) => {
-
   const locations = props.restaurantinfo.defaultLocation;
   const deliverTime = props.timminginfo.deliveryTime;
   const pickupTime = props.timminginfo.pickupTime;
-
   const [locationpopup, setlocationpopup] = useState(false);
   const [restaurantHoursPopup, setrestaurantHoursPopup] = useState(false);
   const handleLocationPopup = () => setlocationpopup(true);
   const handlerestaurantHoursPopup = () => setrestaurantHoursPopup(true);
-
-  // const timmingFunction = (restaurantId,locationId) => {
-  //   return(<RestaurantTodayTime deliverTime={deliverTime} pickupTime={pickupTime} restaurantId={restaurantId} locationId={locationId}/>)
-  // }
-
-  // const selectLocation = (locationId) => {
-  //   
-  //   let restaurantId=17;
-
-  //   // return(<RestaurantTodayTime deliverTime={deliverTime} pickupTime={pickupTime} restaurantId={restaurantId} locationId={locationId}/>)
-  // }
-
   return (
     <>
       <div className="row in">
@@ -63,15 +46,8 @@ const RestaurantInfoComponent = (props) => {
             <p className="size_12 margin_top_10">Changing location may affect your <br />added items in cart.</p>
           </div>
         </div>
-
-        {/* {timmingFunction(restaurantId,locationId)} */}
-        {/* <RestaurantTodayTime deliverTime={deliverTime} pickupTime={pickupTime} restaurantId={restaurantId} locationId={locationId}/> */}
-
         <div className="col-lg-4 col-sm-4 col-xs-12">
           <h5 className="size_22 color_black weight_300 margin_bottom_20">
-            {/* <i className="fa fa-clock-o" />
-          Pickup hours
-          <br /> */}
             {pickupTime &&
               pickupTime.map((ptime, index) => (
                 <span className="size_20 color_grey" id={index} key={index}>
@@ -81,12 +57,8 @@ const RestaurantInfoComponent = (props) => {
               ))}
           </h5>
         </div>
-
         <div className="col-lg-4 col-sm-4 col-xs-12">
           <h5 className="size_22 color_black weight_300 margin_bottom_20">
-            {/* <i className="fa fa-clock-o" />
-          Delivery hours
-          <br /> */}
             {deliverTime &&
               deliverTime.map((dtime, index) => (
                 <span className="size_20 color_grey" id={index} key={index}>
@@ -96,8 +68,6 @@ const RestaurantInfoComponent = (props) => {
               ))}
           </h5>
         </div>
-
-
         <div className="col-lg-4 text-center col-sm-4 col-xs-12">
           <a
             className="light_orange_btn clock_more_btn"
@@ -110,11 +80,9 @@ const RestaurantInfoComponent = (props) => {
           <p className="size_12 margin_top_10">Changing time may affect your<br />added items in cart.</p>
         </div>
       </div>
-
       {locationpopup === true && (
         <RestaurantLocationsComponent restaurantId={locations.restaurantId} />
       )}
-
       {restaurantHoursPopup === true && (
         <RestaurantTimmingComponent
           locationId={locations.locationId}

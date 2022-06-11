@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
-import { getAddress } from "../../../redux/delivery-address/delivery-address.action";
-import { DeliveryAddressServices } from "../../../redux/delivery-address/delivery-address.services";
 import { selecteddeliveryaddress } from "../../../redux/selected-delivery-data/selecteddelivery.action";
 import AddAddress from "./add-address.component";
 import DeleteAddress from "./delete-address.component";
 
 const SaveAddressPopup = () => {
-    
     const dispatch = useDispatch();
     const deliverydata = useSelector(({ deliveryaddress }) => deliveryaddress.deliveryaddressdata);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
@@ -32,7 +29,6 @@ const SaveAddressPopup = () => {
     }
 
     const handleaddressclick = (item) => {
-        
         if (item != undefined) {
             popupClose();
             dispatch(selecteddeliveryaddress(item));
@@ -141,7 +137,6 @@ const SaveAddressPopup = () => {
                     </div>
                 </div>
             </div>
-
             { deleteadresspopup === true && <DeleteAddress deliveryaddressId={deliveryaddressId} />}
             { addadresspopup === true && <AddAddress />}
         </>

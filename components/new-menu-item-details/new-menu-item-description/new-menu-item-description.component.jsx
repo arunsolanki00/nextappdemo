@@ -4,20 +4,17 @@ import { addFavorite, deleteFavorite, removeMenuItem, removeMenuItemForFavorite,
 import Head from "next/head";
 
 function NewMenuItemDescription(props) {
-
     const dispatch = useDispatch();
     let menuItemDetail = useSelector(({ menuitem }) => menuitem.menuitemdetaillist);
     let selectedmenuitemdetail = useSelector(({ menuitem }) => menuitem.selectedmenuitemdetail);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
-
     const [currentQty, setcurrentQty] = useState(selectedmenuitemdetail.qty != undefined ? selectedmenuitemdetail.qty : 1);
     const [minQty, setminQty] = useState(1);
     const [count, setCount] = useState(0);
     const selectedSizeClick = (item) => {
         setCount(count+1)
         props.updateCount();
-        // setTimeout(() => {
             if (item != undefined) {
                 let lstsizedata = [];
                 menuItemDetail.size.map((data) => {
@@ -32,11 +29,7 @@ function NewMenuItemDescription(props) {
                 dispatch(removeMenuItem());
                 dispatch(selectedItemSize(menuItemDetail));
             }
-            
-       // }, 500);
-
     }
-    
 
     const increment = () => {
         const plusState = currentQty + 1;
@@ -57,7 +50,6 @@ function NewMenuItemDescription(props) {
         objdata.isFavoriteMenu = item;
         dispatch(removeMenuItemForFavorite());
         dispatch(selectedMenuItem(objdata));
-
         if (item === true) {
             dispatch(addFavorite(userinfo.customerId.toString(), restaurantinfo.restaurantId, objdata.menuitemId != undefined ? objdata.menuitemId : objdata.menuitemid));
         }

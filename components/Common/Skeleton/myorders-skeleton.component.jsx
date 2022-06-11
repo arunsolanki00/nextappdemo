@@ -25,10 +25,6 @@ export const MyOrdersSkeleton = () => {
                     <Skeleton circle={true} height={38} width={38} />
                   </span>
                 <hr className="grd margin_bottom_10" />
-                {/* <span style={{marginLeft:"800px",position:"absolute",top:"20px",left:"21px"}}>
-                    <Skeleton circle={true} height={40} width={40} />
-                  </span> */}
-               
                 </div>
                 <div className="col-lg-12 col-sm-12 col-xs-12">
                   <div className="row">
@@ -38,7 +34,6 @@ export const MyOrdersSkeleton = () => {
                         <Skeleton height={60} width={800} />
                       </h3>
                       <p className="color_000">
-                        {/* <Skeleton height={15} width={200} /> */}
                       </p>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-xs-12">
@@ -72,10 +67,6 @@ export const MyOrdersSkeleton = () => {
                     <Skeleton circle={true} height={38} width={38} />
                   </span>
                 <hr className="grd margin_bottom_10" />
-                {/* <span style={{marginLeft:"800px",position:"absolute",top:"20px",left:"21px"}}>
-                    <Skeleton circle={true} height={40} width={40} />
-                  </span> */}
-               
                 </div>
                 <div className="col-lg-12 col-sm-12 col-xs-12">
                   <div className="row">
@@ -85,13 +76,11 @@ export const MyOrdersSkeleton = () => {
                         <Skeleton height={60} width={800} />
                       </h3>
                       <p className="color_000">
-                        {/* <Skeleton height={15} width={200} /> */}
                       </p>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-xs-12">
                       <p className="color_000">
                         <a className="orange_price_btn orderPriceBtn" href="#">
-                          {/* <Skeleton height={20} width={100} /> */}
                         </a>
                       </p>
                     </div>
@@ -122,10 +111,6 @@ export const MyOrdersSkeleton = () => {
                     <Skeleton circle={true} height={38} width={38} />
                   </span>
                 <hr className="grd margin_bottom_10" />
-                {/* <span style={{marginLeft:"800px",position:"absolute",top:"20px",left:"21px"}}>
-                    <Skeleton circle={true} height={40} width={40} />
-                  </span> */}
-               
                 </div>
                 <div className="col-lg-12 col-sm-12 col-xs-12">
                   <div className="row">
@@ -135,13 +120,11 @@ export const MyOrdersSkeleton = () => {
                         <Skeleton height={60} width={800} />
                       </h3>
                       <p className="color_000">
-                        {/* <Skeleton height={15} width={200} /> */}
                       </p>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-xs-12">
                       <p className="color_000">
                         <a className="orange_price_btn orderPriceBtn" href="#">
-                          {/* <Skeleton height={20} width={100} /> */}
                         </a>
                       </p>
                     </div>
@@ -169,10 +152,6 @@ export const MyOrdersSkeleton = () => {
                     <Skeleton circle={true} height={38} width={38} />
                   </span>
                 <hr className="grd margin_bottom_10" />
-                {/* <span style={{marginLeft:"800px",position:"absolute",top:"20px",left:"21px"}}>
-                    <Skeleton circle={true} height={40} width={40} />
-                  </span> */}
-               
                 </div>
                 <div className="col-lg-12 col-sm-12 col-xs-12">
                   <div className="row">
@@ -182,13 +161,11 @@ export const MyOrdersSkeleton = () => {
                         <Skeleton height={60} width={800} />
                       </h3>
                       <p className="color_000">
-                        {/* <Skeleton height={15} width={200} /> */}
                       </p>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-xs-12">
                       <p className="color_000">
                         <a className="orange_price_btn orderPriceBtn" href="#">
-                          {/* <Skeleton height={20} width={100} /> */}
                         </a>
                       </p>
                     </div>
@@ -219,10 +196,6 @@ export const MyOrdersSkeleton = () => {
                     <Skeleton circle={true} height={38} width={38} />
                   </span>
                 <hr className="grd margin_bottom_10" />
-                {/* <span style={{marginLeft:"800px",position:"absolute",top:"20px",left:"21px"}}>
-                    <Skeleton circle={true} height={40} width={40} />
-                  </span> */}
-               
                 </div>
                 <div className="col-lg-12 col-sm-12 col-xs-12">
                   <div className="row">
@@ -232,13 +205,11 @@ export const MyOrdersSkeleton = () => {
                         <Skeleton height={60} width={800} />
                       </h3>
                       <p className="color_000">
-                        {/* <Skeleton height={15} width={200} /> */}
                       </p>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-xs-12">
                       <p className="color_000">
                         <a className="orange_price_btn orderPriceBtn" href="#">
-                          {/* <Skeleton height={20} width={100} /> */}
                         </a>
                       </p>
                     </div>
@@ -266,10 +237,6 @@ export const MyOrdersSkeleton = () => {
                     <Skeleton circle={true} height={38} width={38} />
                   </span>
                 <hr className="grd margin_bottom_10" />
-                {/* <span style={{marginLeft:"800px",position:"absolute",top:"20px",left:"21px"}}>
-                    <Skeleton circle={true} height={40} width={40} />
-                  </span> */}
-               
                 </div>
                 <div className="col-lg-12 col-sm-12 col-xs-12">
                   <div className="row">
@@ -279,13 +246,11 @@ export const MyOrdersSkeleton = () => {
                         <Skeleton height={60} width={800} />
                       </h3>
                       <p className="color_000">
-                        {/* <Skeleton height={15} width={200} /> */}
                       </p>
                     </div>
                     <div className="col-lg-2 col-sm-2 col-xs-12">
                       <p className="color_000">
                         <a className="orange_price_btn orderPriceBtn" href="#">
-                          {/* <Skeleton height={20} width={100} /> */}
                         </a>
                       </p>
                     </div>

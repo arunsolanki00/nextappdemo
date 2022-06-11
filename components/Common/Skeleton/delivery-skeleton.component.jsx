@@ -1,7 +1,6 @@
 import Link from "next/link";
 import React from "react";
 import Skeleton from "react-loading-skeleton";
-// import 'react-loading-skeleton/dist/skeleton.css'
 export const DeliverySkeleton = () => {
   return (
     <>
@@ -13,9 +12,6 @@ export const DeliverySkeleton = () => {
             </div>
             <div className="col-lg-12 tp-pickup flush col-sm-12 col-xs-12">
               <div className="col-lg-12 text-center col-sm-12 col-xs-12">
-                {/* <h1 className="margin_bottom_30">
-                  <Skeleton height={50} width={400} />
-                </h1> */}
               </div>
             </div>
           </div>
@@ -63,7 +59,6 @@ export const DeliverySkeleton = () => {
                             <Skeleton height={20} width={300} />
                           </h4>
                         </div>
-
                         <div className="col-lg-4">
                           <h4 className="size_24 color_orange weight_500 margin_top_10 margin_bottom_15">
                             &nbsp;
@@ -102,13 +97,11 @@ export const DeliverySkeleton = () => {
                             />
                       </div>
                     </div>
-
                     <div className="row in">
                       <div className="row in margin_top_30">
                         <div className="col-lg-4 col-sm-4 col-xs-12">
                         <Skeleton height={50} width={200} />
                         </div>
-
                         <div className="col-lg-4 col-sm-4 col-xs-12">
                         <Skeleton height={50} width={200} />
                         </div>
@@ -136,7 +129,6 @@ export const DeliverySkeleton = () => {
                     <div className="row margin_top_20">
                       <div className="col-lg-10 column-centered flush col-sm-10 col-xs-12">
                         <div className="col-lg-2"></div>
-
                         <>
                           <div className="col-lg-4 text-center col-sm-4 col-xs-12">
                           <Skeleton
@@ -145,7 +137,6 @@ export const DeliverySkeleton = () => {
                               style={{ borderRadius: "20px" }}
                             />
                           </div>
-
                           <div className="col-lg-4 text-center col-sm-4 col-xs-12">
                           <Skeleton
                               height={60}
@@ -154,10 +145,8 @@ export const DeliverySkeleton = () => {
                             />
                           </div>
                         </>
-
                         <div className="col-lg-12 margin_top_30 cal text-center col-sm-12 col-xs-12">
                           <div className="col-lg-2"></div>
-
                           <div className="col-lg-4 text-center col-sm-4 col-xs-12">
                           <Skeleton
                               height={60}
@@ -165,7 +154,6 @@ export const DeliverySkeleton = () => {
                               style={{ borderRadius: "20px" }}
                             />
                           </div>
-
                           <div className="col-lg-4 text-center col-sm-4 col-xs-12">
                           <Skeleton
                               height={60}

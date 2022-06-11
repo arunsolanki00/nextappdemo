@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useMountEffect } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import Image from "next/image";
 import { OrderServices } from '../../redux/order/order.services';
@@ -26,9 +25,7 @@ const useStyles = makeStyles((theme) => ({
         fontWeight: '300 !important',
         letterSpacing: '0 !important',
         textTransform: 'uppercase !important',
-        // paddingTop: '0px !important',
         paddingRight: '0px !important',
-        // paddingBottom: '0px !important',
         paddingLeft: '8px !important',
         border: '0px none !important',
         width:'75px !important',
@@ -36,49 +33,38 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ChooseTimeConfirm = (props) => {
-    // console.log(props.ordertime,"propstime");
     const dispatch = useDispatch();
     const restaurantinfo = props.restaurantinfo; //useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const restaurantWindowTime = props.restaurantWindowTime; //useSelector(({ main }) => main.restaurantWindowTime);
-    // console.log(restaurantWindowTime)
-
     const pickupWindow = (restaurantWindowTime && restaurantWindowTime.pickupTime) && restaurantWindowTime.pickupTime;
     const deliveryWindow = (restaurantWindowTime && restaurantWindowTime.deliveryTime) && restaurantWindowTime.deliveryTime;
     const pickupordelivery = useSelector(({ selecteddelivery }) => selecteddelivery.pickupordelivery);
     const isasap = useSelector(({ order }) => order.isasap);
     const ordertype = props?.ordertype;
     let hh, mm, meridian;
-
     if (props.ordertime !== null) {
         let time = props.ordertime.split(' ');
         let hhmm = time[0].split(':');
-
         hh = hhmm[0];
         mm = hhmm[1];
         meridian = time[1];
     }
-
-
     const [hour, setHour] = useState(hh);
     const [minute, setMinute] = useState(mm);
     const [meridiem, setMeridiem] = useState(meridian);
     const [timeErrorMessage, setTimeErrorMessage] = useState("");
     const [successMessage, setsuccessMessage] = useState("");
     const [isdisable, setisdisable] = useState(false)
-
     const pickuptime = [];
     const deliverytime = [];
-
     pickupWindow && pickupWindow.map((data) => {
         pickuptime.push(<> {data} <br /> </>);
     })
     deliveryWindow && deliveryWindow.map((data) => {
         deliverytime.push(<>{data} <br /> </>);
     })
-
     // Arun code
     const handleIncreaseHour = (e) => {
-        
         setTimeErrorMessage("")
         setisdisable(false)
         if (e != undefined) {
@@ -149,7 +135,6 @@ const ChooseTimeConfirm = (props) => {
 
     const handlesave = (e) => {
         e.preventDefault()
-        // setfullTime(hour + ':' + minute + ' ' + meridiem);
         OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, parseInt(hour) + ':' + parseInt(minute), meridiem, ordertype)
             .then((response) => {
                 console.log(response)
@@ -202,7 +187,6 @@ const ChooseTimeConfirm = (props) => {
             setMinute('');
             return;
         }
-
         if (!numberValidate(mm) || mm > 59) {
             return;
         }
@@ -219,13 +203,11 @@ const ChooseTimeConfirm = (props) => {
         if (!numberValidate(hh) || hh > 12) {
             return;
         }
-
         setHour(hh);
         setisdisable(false)
     }
     const classes = useStyles();
     return (
-
         <div id="myModal-timer" className="modal choose-time fade" role="dialog">
             <div className="modal-dialog">
                 <div className="modal-content">
@@ -261,11 +243,9 @@ const ChooseTimeConfirm = (props) => {
                                             </div>
                                          
                                               <div className="col-md-2">
-                                                {/* <span className={classes.timepickerFont}> {hour} </span> */}
                                                 <input type="text" name="hour" onChange={(e) => onChangeHour(e)} value={hour} className={classes.timepickerFont} />
                                             </div>
                                             <div className="col-md-2">
-                                                {/* <span className={classes.timepickerFont}> {minute} </span> */}
                                                 <input type="text" name="minute" onChange={(e) => onChangeMinute(e)} value={minute} className={classes.timepickerFont} />
                                             </div>
                                             <div className="col-md-2">
@@ -274,7 +254,6 @@ const ChooseTimeConfirm = (props) => {
                                             <div className="col-md-3">
                                             </div>
                                         </div>
-
                                         <div className="col-md-12">
                                             <div className="col-md-3">
                                             </div>
@@ -293,8 +272,6 @@ const ChooseTimeConfirm = (props) => {
 
                                     </div>
                                 </form>
-
-
                             </div>
                         </div>
                         <div className="row in">
@@ -316,25 +293,20 @@ const ChooseTimeConfirm = (props) => {
                                 </div>
                             }
                         </div>
-
                         {timeErrorMessage && timeErrorMessage !== "" && <h5 className="size_18 weight_300 margin_bottom_20 text-align-center" style={{ color: "red" }}> {timeErrorMessage} </h5>}
                         {successMessage && successMessage !== "" && <h5 className="size_18 weight_300 margin_bottom_20 text-align-center" style={{ color: "green" }}> {successMessage}  </h5>}
-
                         <div className="row">
                             <div className="col-lg-12 text-center col-sm-12 col-xs-12">
                                 {
                                     isdisable ? <a className="blue_btn nextbtn customdisable">Save</a>
                                         : <a className="blue_btn nextbtn" onClick={handlesave}>Save</a>
                                 }
-
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-
     )
 }
 

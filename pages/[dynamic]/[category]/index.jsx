@@ -2,7 +2,6 @@ import React from 'react'
 import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
-
 import MenuCategoryWrapperNew from '../../../components/MenucategoryNew/menucategorywrapper-new.component'
 import LeftMenuComponent from '../../../components/LeftMenu/leftmenu.component';
 import { MemoizedMenuItemHeaderLogoComponent } from '../../../components/Header/menuitemheaderlogo.component';
@@ -40,7 +39,6 @@ const DynamicCategoryNew = () => {
                 <div className="container-fluid">
                     <div className="row row-eq-height">
                         <LeftMenuComponent />
-                        {/* <div className="col-lg-9 pull-right right-content col-sm-9 col-xs-12"> */}
                         <div className="col-lg-11 pull-right s-c right-content col-sm-9 col-xs-12">
                             <div className="row">
                                 <div className="col-lg-12 pull-right flush xsnoflush col-sm-12 col-xs-12">
@@ -59,7 +57,6 @@ const DynamicCategoryNew = () => {
                                             </a>
                                         </Link>
                                     </div>
-
                                     <MemoizedMenuItemHeaderLogoComponent />
                                     <div className="col-lg-5 flush xsnoflush small-text-center col-sm-12 col-xs-12">
                                         <DeliveryDropdownComponent />
@@ -68,26 +65,15 @@ const DynamicCategoryNew = () => {
                                 </div>
                             </div>
                             {/* <MenuCategoryWrapper /> */}
-
                             <div className="row eq_none_medium row-eq-height">
                                 <MenuCategoryWrapperNew />
-
-                                
                                 {/* <MenuItemIntroComponentNew /> */}
-
                                 <MenuCategoryCart />
-                                
                             </div>
-
-
                         </div>
                     </div>
                 </div>
             </section>
-
-
-
-
         </>
     )
 }
