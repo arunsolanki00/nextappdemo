@@ -9,7 +9,7 @@ import RestaurantTimmingComponent from "../../components/Common/restaurant-timmi
 import SaveAddressPopup from "../../components/Common/Address/save-address.component";
 import { MemoizedHeaderLogoComponent } from "../../components/Header/headerlogo.component";
 import { OrderServices } from "../../redux/order/order.services";
-import { emptyorder, isasap, isRedirectToCheckout, setorderId, setordertime } from "../../redux/order/order.action";
+import { emptyorder, emptyordertime, isasap, isRedirectToCheckout, setorderId, setordertime } from "../../redux/order/order.action";
 import { emptycart,  updateCartItemCount } from "../../redux/cart/cart.action";
 import handleNotify from "../../components/helpers/toaster/toaster-notify";
 import { ToasterPositions } from "../../components/helpers/toaster/toaster-positions";
