@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "engines": {
-    "node": "16.15.1",
+    "node": "16.15.x",
     "yarn": "1.22.4"
   },
   "scripts": {
@@ -64,6 +64,7 @@
   },
   "devDependencies": {
     "eslint": "^8.15.0",
-    "netlify-cli": "^2.37.0"
+    "netlify-cli": "^8.14.1",
+    "typescript": "^4.7.3"
   }
 }
