@@ -37,6 +37,9 @@ const Choosepayment = () => {
     const order = useSelector(({ order }) => order);
     let carttotal = cart?.carttotal && cart.carttotal;
     const [grandtotal, setgrandtotal] = useState(carttotal?.grandTotal != undefined ? parseFloat(carttotal.grandTotal) : 0);
+
+    let promotionData = carttotal?.PromotionData && carttotal.PromotionData;
+
     let currencySymbol = GetCurrency();
 
     const handleCardPayment = () => {
@@ -157,6 +160,7 @@ const Choosepayment = () => {
             paymentType: paymentType,  //1 for cash payment    2 for card payment
             locationId: restaurantinfo.defaultlocationId,
             restaurantId: restaurantinfo.restaurantId,
+            promotionData:promotionData,
         };
 
         OrderServices.addOrder(placeOrder, restaurantinfo.restaurantId).then(response => {

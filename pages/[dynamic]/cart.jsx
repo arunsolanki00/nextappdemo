@@ -234,7 +234,6 @@ const ShoppingCart = () => {
         });
 
       }
-    
     }
   }, [carttotal?.grandTotal, grandtotal || grandtotal]);
 
@@ -391,7 +390,7 @@ const ShoppingCart = () => {
               (<SmallLoader />)}
             </a>
           </Link>
-                )
+        )
       } else {
         return (
           <>
@@ -671,15 +670,15 @@ const ShoppingCart = () => {
                                       {
                                         promotionData !== null && promotionData !== undefined && promotionData?.promotionpercentagecal > 0 &&
                                         <div className="row">
-                                        <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
-                                          <p className="margin_0 margin_top_15 size_19">
-                                            Promotion  
-                                            {`${promotionData?.promotionruletype === 2 
-                                              ? '('+ promotionData?.promotionpercentage.toFixed(2) + currency + ')' 
-                                              : '('+ promotionData?.promotionpercentagecal.toFixed(2) + '% '} `} :
-                                          </p>
-                                        </div>
-                                        
+                                          <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
+                                            <p className="margin_0 margin_top_15 size_19">
+                                              Promotion
+                                              {`${promotionData?.promotionruletype === 2
+                                                ? '(' + promotionData?.promotionpercentage.toFixed(2) + currency + ')'
+                                                : '(' + promotionData?.promotionpercentagecal.toFixed(2) + '% '} `} :
+                                            </p>
+                                          </div>
+
                                           <div className="col-lg-4 col-sm-4 col-xs-4 text-right">
                                             <p className="margin_0 margin_top_15 size_19">
                                               <span>
@@ -687,7 +686,8 @@ const ShoppingCart = () => {
                                               </span>
                                             </p>
                                           </div>
-                                      </div>
+                                        </div>
+
                                       }
                                       <div className="row">
                                         <div className="col-lg-8 col-sm-8 col-xs-8 text-left">

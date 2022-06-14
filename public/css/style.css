@@ -4841,5 +4841,6 @@ label.label-normal {
 	border-radius:10%
 }
 .itemdetailimage{
-	border-radius:10%
+	border-radius:10%;
+	max-height: 205px;
 }

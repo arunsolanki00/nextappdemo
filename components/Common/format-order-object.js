@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getSessionKey } from "../../components/Common/auth";
 import store from '../../redux/store';
-export const FormatOrderObject = (objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid) => {
+export const FormatOrderObject = (objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid, orderType) => {
     // let sessionid = useSelector(({ session }) => session?.sessionid);
     let selectedsize = menuItemDetail != undefined && menuItemDetail.size != undefined && menuItemDetail.size.length > 0 && menuItemDetail.size.find(x => x.sizeselected === true);
     let selectedtopping = menuItemDetail != undefined && menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && menuItemDetail.topping.find(x => x.subparameterId == selectedsize.subparameterId);
@@ -55,7 +55,8 @@ export const FormatOrderObject = (objrestaurant, objselectedItem, menuItemDetail
         "locationId": parseInt(objrestaurant.defaultlocationId),
         "removecart": "",
         // "cartsessionId": getSessionKey(objrestaurant.restaurantId, customerId,objrestaurant.defaultlocationId)
-        "cartsessionId": sessionid
+        "cartsessionId": sessionid,
+        "orderType":orderType
 
     }
 
