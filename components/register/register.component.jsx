@@ -31,30 +31,23 @@ export const RegisterComponent=(props)=> {
     ({ deliveryaddress }) => deliveryaddress.registeraddress
   );
   const [loadComplete, setLoadComplete] = useState(false);
-
   function reloadAddressList() {
     setLoadComplete(false);
   }
-
   const dispatch = useDispatch();
   const router = useRouter();
-
   const [addadresspopup, setaddadresspopup] = useState(false);
   const handleaddAddressPopup = () => {
     setaddadresspopup(true);
   };
-
   const [showLogin, setshowLogin] = useState(false);
   const handleShowLogin = () => setshowLogin(true);
   const handleCloseLogin = () => setshowLogin(false);
-
   const [showAddress, setshowAddress] = useState(false);
   const handleShowAddress = () => setshowAddress(true);
   const handleCloseAddress = () => setshowAddress(false);
-
   const [IsShowReSend, setIsShowReSend] = useState(false);
   const [OTPDetail, setOTPDetail] = useState();
-
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -70,19 +63,13 @@ export const RegisterComponent=(props)=> {
     otp: "",
     isVerifiedPhone:"",
   });
-
   const [dialCode,setDialCode]=useState("");
-  const styleconfig = {
-    backgroundColor: "grey",
-  };
-
   const [countries, setcountries] = useState();
   const [selectedCountryCode, setselectedCountryCode] = useState();
 
   useEffect(() => {
     OrderServices.getAllCountry().then((response) => {
       if (response && response.result.countryList.length > 0) {
-        // setselectedCountryCode(response.result.countryList[0].ISDCode);
         setcountries(response.result.countryList);
       }
     });
@@ -116,9 +103,7 @@ export const RegisterComponent=(props)=> {
   const handlechange = (event) => {
     event.preventDefault();
     const { name, value } = event.target;
-    //formatin start
    if(name==="phone"){
-
     errors.phone="";
     if(
       ( errors.firstname=== "" || errors.firstname=== undefined) &&
@@ -131,7 +116,6 @@ export const RegisterComponent=(props)=> {
       setisdisable(false)
     }
   }
-    
     let regex1=/(\(?\d{1,2})/;
     let regex2=/^(\(?\d{1,})\)?(\d{1,}?)(\-?\d{1,})$/;
     let regex3=/^\($/;
@@ -146,7 +130,6 @@ export const RegisterComponent=(props)=> {
     });
 
     if((regex1.test(phoneno) || regex2.test(phoneno) || (regex3.test(phoneno) ))  && validdigit.test(phoneno)){
-        // setSubmitting(false)
                setValues({
          ...values,
          [name]: value,
@@ -158,7 +141,6 @@ export const RegisterComponent=(props)=> {
         });
        }
        if(phoneno.length < 10){
-        // setUsername(e.target.value.replace('(','').replace(')','').replace('-','').replace(' ',''));
         setValues({
           ...values,
           [name]: value.replace('(','').replace(')','').replace('-','').replace(' ',''),
@@ -177,24 +159,6 @@ export const RegisterComponent=(props)=> {
     ...errors,
     [name]: "",
   });
-   //formating end
-
-
-   
-    // if (name === "phone" && !Number(value) && value !== "") {
-    //   return;
-    // } else {
-      // setValues({
-      //   ...values,
-      //   [name]: value.replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3"),
-      // });
-    // }
-    // setErrors({
-    //   ...errors,
-    //   [name]: "",
-    // });
-    // console.log(...errors);
-
     if (
       (errors.firstname && errors.firstname.length > 0) ||
       (errors.lastname && errors.lastname.length > 0) ||
@@ -255,12 +219,9 @@ else{
       addresstype: registerAddressdata.addresstype,
       businessname: registerAddressdata.businessname,
     };
-
     setErrorMessage("");
-
     if (validateForm(event)) {
       if (addressmodel.address1 != undefined && addressmodel.address1 != "") {
-
         console.log(usermodel);
         RegisterServices.registerUser(
           usermodel,
@@ -315,7 +276,6 @@ else{
               if (url.includes("register")) {
                 router.push("/" + restaurantinfo.restaurantURL+"/pickup");
               }
-
               return;
             }
           }
@@ -356,7 +316,6 @@ else{
       }
       const auth = getAuth();
       auth.languageCode='en'
-   
       window.recaptchaVerifier = new RecaptchaVerifier('recaptcha-container', {
         'size': 'normal',
         'callback': (response) => {
@@ -373,7 +332,6 @@ else{
         recaptchaVerifier.render().then((widgetId) => {
           window.recaptchaWidgetId = widgetId;
         });
-        
         $("#recaptcha-container").css('transform', 'scale(' + 0.77 + ')');
         $("#recaptcha-container").css('-webkit-transform', 'scale(' + 0.77 + ')');
         $("#recaptcha-container").css('transform-origin', '0 0');
@@ -383,38 +341,16 @@ else{
 
     }
   }, [OTPDetail]);
-
-  // const firebaseConfig = {
-  //   apiKey: "AIzaSyBccyPYUu1uQHKtoJpMTouyyz82E8_Lmhc",
-  //   authDomain: "testfudme.firebaseapp.com",
-  //   databaseURL: "https://testfudme.firebaseio.com",
-  //   projectId: "testfudme",
-  //   storageBucket: "testfudme.appspot.com",
-  //   messagingSenderId: "79422260346",
-  //   appId: "1:79422260346:web:f9770d5f595664f1a9e7c3",
-  //   measurementId: "G-T3E1EP58C9"
-  // }
-
   const handleSendOTP = (e) => {
     e.preventDefault();
     if (restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true) {
-      // const vphone = firebase.auth().signInWithPhoneNumber(dialCode.toString() + values.phone, window.recaptchaVerifier).then(function (confirmationResult) {
-      //   window.confirmationResult = confirmationResult;
-        // setIsShowReSend(true);
-        // handleNotify("OTP sent Successfully", ToasterPositions.TopRight, ToasterTypes.Success);
-      // }).catch(function (error) {
-        // handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
-      // });
       const auth = getAuth();
      signInWithPhoneNumber(auth, dialCode.toString() + values.phone, window.recaptchaVerifier)
     .then((confirmationResult) => {
-      // SMS sent. Prompt user to type the code from the message, then sign the
-      // user in with confirmationResult.confirm(code).
       window.confirmationResult = confirmationResult;
       setIsShowReSend(true);
       handleNotify("OTP sent Successfully", ToasterPositions.TopRight, ToasterTypes.Success);
     }).catch((error) => {
-      // Error; SMS not sent
       handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
     });
     }
@@ -437,32 +373,14 @@ else{
     e.preventDefault();
     var code = values.otp;
     if (restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true) {
-      // var credential = firebase.auth.PhoneAuthProvider.credential(window.confirmationResult.verificationId, code);
-      // window.confirmationResult.confirm(code).then(function (result) {
-        // setValues({
-        //   ...values,
-        //   ["isVerifiedPhone"]: "true"
-        // });
-        // values.isVerifiedPhone="true";
-
-        // setIsShowReSend(false);
-        // handleNotify("Successfully verified", ToasterPositions.TopRight, ToasterTypes.Success);
-      // }).catch(function (error) {
-        // handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
-      // });
-      // *******NEW**********
       confirmationResult.confirm(code).then((result) => {
-        // User signed in successfully.
-        // const user = result.user;
         setValues({
           ...values,
           ["isVerifiedPhone"]: "true"
         });
         values.isVerifiedPhone="true";
-
         setIsShowReSend(false);
         handleNotify("Successfully verified", ToasterPositions.TopRight, ToasterTypes.Success);
-        // ...
       }).catch((error) => {
         // User couldn't sign in (bad verification code?)
         handleNotify(error.message, ToasterPositions.TopRight, ToasterTypes.Error);
@@ -478,13 +396,11 @@ else{
       ).then((response) => {
         if (response && response != null) {
           setIsShowReSend(true);
-           
           if (response.Valid && response.Valid === true) {
             setValues({
               ...values,
               ["isVerifiedPhone"]: "true"
             });
-            
             values.isVerifiedPhone="true";
             handleNotify("Successfully verified", ToasterPositions.TopRight, ToasterTypes.Success);
           }
@@ -507,14 +423,8 @@ else{
     let errorsvalue = {};
     let valid = true;
     if (!values.phone) {
-      // setisdisable(true)
       errorsvalue.phone = UserDetailsErrormessage.PHONE_NO_ERROR;
     }
-    //   if(values.phone){
-    //   if(!validateNo.test(values.phone)){
-    //     errorsvalue.phone = "only numeric allowed";
-    //   }
-    //  }
     if( values.phone && values.phone.length<10){
       errorsvalue.phone=UserDetailsErrormessage.PHONE_NO_LENGTH_ERROR;
     }
@@ -538,8 +448,6 @@ else{
     if (!values.confirmpassword) {
       errorsvalue.confirmpassword = UserDetailsErrormessage.CONFIRM_PASSWORD_ERROR;
     }
-    //  if (values.confirmpassword !== values.password)
-    //     errorsvalue.password = "Password and confirm password must be same";
     if (values.confirmpassword) {
       if (!values.password) {
         errorsvalue.password = UserDetailsErrormessage.PASSWORD_ERROR;
@@ -547,9 +455,7 @@ else{
         errorsvalue.password = UserDetailsErrormessage.PASSWORD_MISMATCH_ERROR;
       }
     }
-
     setErrors(errorsvalue);
-
     if (
       (errorsvalue.firstname && errorsvalue.firstname.length > 0) ||
       (errorsvalue.lastname && errorsvalue.lastname.length > 0) ||
@@ -565,16 +471,6 @@ else{
       return valid;
     }
   };
-  // const registerUser = async (user, address) => {
-  //   const getResponse = await registerUserService(user, address);
-  //   return getResponse;
-  // };
-
-  // const handleCountryCodeChange = (event) => {
-  //   event.preventDefault();
-  //   setselectedCountryCode(event.target.value);
-  // }
-
   return (
     <>
       <div className="row">
@@ -676,27 +572,12 @@ else{
                       </span>
                     )}
                   </div>
-
                   {restaurantinfo.smsapigateway !== 0 &&
                     <>
                       <div className="col-lg-2 col-sm-2 col-xs-6"
                         style={{ marginBottom: "20px" }}>
-                        {/* <select name="country" value={selectedCountryCode} id="billingCountry" defaultValue={selectedCountryCode} onChange={handleCountryCodeChange}>
-                          {countries && countries.map((option) => {
-                            // if(!dialCode){
-                            return (
-                              <>
-                                <option selected={dialCode} key={Math.random()} value={option.ISDCode} name={option.ISDCode} >{option.ISDCode}</option>
-                              </>
-                            )
-                          }
-                          )}
-                        </select> */}
-
 {/* https://codesandbox.io/s/frosty-waterfall-jhtxq?file=/src/index.js:972-1020 */}
                         <IntlTelInput
-
-                                // preferredCountries={['us']}
                                 css={['intl-tel-input', 'form-control']}
                                 utilsScript={'libphonenumber.js'}
                                 value={dialCode ==="" ? "+1" : dialCode}
@@ -704,31 +585,12 @@ else{
                                     console.log('onSelectFlag', country);
                                     setDialCode("+"+country.dialCode)
                                 }}
-                                
                                 placeholder=""
                                 className="dialCode"
-                                // telInputProps={"style"="margin-left:50px"}
-                                // onPhoneNumberChange={(status, value, countryData, number, id) => {
-                                //     console.log('onPhoneNumberChange value', value);
-                                //     console.log('onPhoneNumberChange number', number);
-                                // }}
-                                // onPhoneNumberBlur={(status, value, countryData, number, id) => {
-                                //     console.log('onPhoneNumberBlur value', value);
-                                //     console.log('onPhoneNumberBlur number', number);
-                                // }}
                                  format={false}
-                                // formatOnInit={true}
-                                // separateDialCode={true}
                                  autoFocus={false}
-                                // placeholder={false}
                                 readonly={true}
-                                
                             />
-                            {/* <IntlTelInput
-  containerClassName="intl-tel-input"
-  inputClassName="form-control"
-  separateDialCode={true}
-/> */}
                       </div>
                       <div className="col-lg-4 col-sm-4 col-xs-6"
                         style={{ marginBottom: "20px" }}>
@@ -777,8 +639,6 @@ else{
                     </div>
                     
                     }
-
-                    
                   {restaurantinfo.smsapigateway === 1 && restaurantinfo.enableotpauthentication === true &&
                     <div className="col-lg-2 col-sm-2 col-xs-12">
                       <a
@@ -828,16 +688,6 @@ else{
                         </a>
                       </div>}
                   </div>
-                  {/* <div className="col-lg-4 col-sm-4 col-xs-12" style={{ marginBottom: "20px" }}>
-                    <input
-                      style={{ marginBottom: "-1px" }}
-                      className
-                      type="text"
-                      placeholder="Extension"
-                      required
-                    />
-                    <label className="formlabel">Extension</label>
-                  </div> */}
                   <div
                     className="col-lg-6 col-sm-6 col-xs-12"
                     style={{ marginBottom: "20px" }}
@@ -884,9 +734,6 @@ else{
                           {errors.confirmpassword}
                         </span>
                       )}
-                    {/* {errorMessage !== null && (
-                      <span className="error">{errorMessage}</span>
-                    )} */}
                   </div>
                   {registerAddressdata && (
                     <AddressesListComponent
@@ -906,14 +753,6 @@ else{
                         </a>
                       </div>
                       <div className="col-lg-12 col-sm-12 col-xs-12">
-                        {/* <button
-                          className="blue_btn font_18px blue_btn_porder orange_submit"
-                          type="submit"
-                          defaultValue="Register"
-                          value="Register"
-                        >`
-                          Register
-                        </button> */}
                         <Custombutton
                           buttonText="Register"
                           buttonType="submit"
@@ -943,65 +782,6 @@ else{
                   {addadresspopup === true && (
                     <AddAddress reloadAddressList={reloadAddressList} />
                   )}
-                  {/* <Modal
-                    show={showLogin}
-                    onHide={handleCloseLogin}
-                    className="modal fade in"
-                    style={styleconfig}
-                  >
-                    <Modal.Body>
-                      <div className="col-lg-12 text-center col-sm-12 col-xs-12">
-                        <button
-                          type="button"
-                          className="close"
-                          data-dismiss="modal"
-                        >
-                          <img
-                            src="/images/close.svg"
-                            alt=""
-                            onClick={handleCloseLogin}
-                          />
-                        </button>
-                        <h3>Login</h3>
-                      </div>
-                      {
-                        <LoginMainComponent
-                          handleLoginClose={handleCloseLogin}
-                        />
-                      }
-                    </Modal.Body>
-                  </Modal> */}
-
-                  {/* <Modal
-                    show={showAddress}
-                    onHide={handleCloseAddress}
-                    className="modal fade in"
-                    style={styleconfig}
-                  >
-                    <Modal.Body>
-                      <div className="col-lg-12 text-center col-sm-12 col-xs-12">
-                        <button
-                          type="button"
-                          className="close"
-                          data-dismiss="modal"
-                        >
-                          <img
-                            src="/images/close.svg"
-                            alt=""
-                            onClick={handleCloseAddress}
-                          />
-                        </button>
-                        <h3>Add address</h3>
-                      </div>
-                      {
-                        <AddressComponent
-                          handleGetAddress={(addressresponse) =>
-                            handleGetAddress(addressresponse)
-                          }
-                        />
-                      }
-                    </Modal.Body>
-                  </Modal> */}
                 </Form>
               </div>
             </div>

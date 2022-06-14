@@ -3,7 +3,6 @@ import { TestimonialServices } from "../../redux/testimonial/testimonial.service
 
 const TestimonialListComponent = (props) => {
   const [testimonialList, setTestimonialList] = useState([]);
-
   useEffect(() => {
     TestimonialServices.getTestimonialList(props.restaurantId).then((response) => {
       if (response) {

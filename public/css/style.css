@@ -525,7 +525,7 @@ a {
 }
 
 .modal hr {
-	display:inline-block;
+	/* display:inline-block; */
 	width:100%;
 	margin:10px 0;
 }
@@ -4841,5 +4841,6 @@ label.label-normal {
 	border-radius:10%
 }
 .itemdetailimage{
-	border-radius:10%
+	border-radius:10%;
+	max-height: 205px;
 }

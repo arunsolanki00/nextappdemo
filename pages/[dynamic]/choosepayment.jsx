@@ -6,17 +6,15 @@ import { MemoizedHeaderLogoComponent } from '../../components/Header/headerlogo.
 import handleNotify from '../../components/helpers/toaster/toaster-notify';
 import { ToasterPositions } from '../../components/helpers/toaster/toaster-positions';
 import { ToasterTypes } from '../../components/helpers/toaster/toaster-types';
-import { GetCurrency, MonthList } from '../../components/helpers/utility';
+import { GetCurrency } from '../../components/helpers/utility';
 import { emptycart, updateCartItemCount } from '../../redux/cart/cart.action';
 import { CartTypes } from '../../redux/cart/cart.types';
 import { addCalculatedTotal, addCardShowMessage, emptyorder, isRedirectToCheckout, setorderId, setordertime } from '../../redux/order/order.action';
 import { OrderServices } from '../../redux/order/order.services';
-import { OrderTypes } from '../../redux/order/order.types';
 
 const Choosepayment = () => {
     const dispatch = useDispatch();
     const router = useRouter();
-    // let objrestaurant = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser);
     const customerId = userinfo.customerId;
@@ -37,14 +35,12 @@ const Choosepayment = () => {
     let sessionid = useSelector(({ session }) => session?.sessionid);
     let cart = useSelector(({ cart }) => cart);
     const order = useSelector(({ order }) => order);
-    const [ordertimedisplay, setordertimedisplay] = useState(order.checktime);
     let carttotal = cart?.carttotal && cart.carttotal;
     const [grandtotal, setgrandtotal] = useState(carttotal?.grandTotal != undefined ? parseFloat(carttotal.grandTotal) : 0);
     
     let promotionData = carttotal?.PromotionData && carttotal.PromotionData;
 
     let currencySymbol = GetCurrency();
-    let subtotal = carttotal?.subTotal && carttotal.subTotal;
 
     const handleCardPayment = () => {
         setpaymentType(2)
@@ -53,7 +49,6 @@ const Choosepayment = () => {
         setoptionSelected(true)
         setcashselcted(false)
         setshowinvalidpopup(false)
-        // addorders(order.isasap, paymenttype.CARD);
     }
     const handleCashPayment = () => {
         setpaymentType(1)
@@ -62,7 +57,6 @@ const Choosepayment = () => {
         setoptionSelected(true)
         setcashselcted(true)
         setshowinvalidpopup(false)
-        // addorders(order.isasap, paymenttype.CASH);
     }
     const handleClickPlaceOrder = () => {
         if (optionSelected === false) {
@@ -78,33 +72,23 @@ const Choosepayment = () => {
         setIsDisableOrder(true)
     }
 
-    // const paymenttype = {
-    //     CASH: 1,
-    //     CARD: 2
-    // }
-
     const [currentDate, setcurrentDate] = useState();
     useEffect(() => {
         let date = new Date();
         setcurrentDate(date);
     }, []);
     useEffect(() => {
-        
         if ((order && order.checktime && order.isasap === true) || (order.checktime === "")) {
-
             OrderServices.getOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, ordertype).then((response) => {
-                
                 if (response.result != undefined && response.result !== null) {
                     if (response.result.ordertime != undefined && response.result.ordertime !== null && response.result.ordertime !== "") {
                         let ordertimeArray = response.result.ordertime && response.result.ordertime.split(":");
                         if (ordertimeArray.length > 0) {
-                            // setordertimedisplay(ordertimeArray[0] + ":" + ordertimeArray[1] + " " + ordertimeArray[2]);
                             setIsDisableOrder(false);
                             dispatch(setordertime(ordertimeArray[0] + ":" + ordertimeArray[1] + " " + ordertimeArray[2]));
                         }
                     }
                     else if (response.result.isAvailable === false) {
-                        // setActiveButtonClass("");
                         setordertimeerrormessage(response.result.message);
                         dispatch(setordertime(""));
                         setIsDisableOrder(true);
@@ -113,10 +97,6 @@ const Choosepayment = () => {
 
             });
         }
-        // else if (order.isasap === undefined) {
-        //     router.push("/" + dynamic + "/restaurant-close");
-        //     return;
-        // }
     }, []);
     useEffect(()=>{
         if (selecteddelivery.selecteddeliveryaddress) {
@@ -127,20 +107,11 @@ const Choosepayment = () => {
 
     function refreshCart(orderId) {
         let rewardpoint = cart?.rewardpoints;
-
-        // dispatch(getCartItem(cartsessionId, restaurantinfo.defaultlocationId, restaurantinfo.restaurantId, 0, userinfo && userinfo.customerId,
-        //     rewardpoint.redeemPoint,
-        //     rewardpoint.redeemPoint / rewardpoint.rewardvalue, deliveryaddressinfo && pickupordelivery === "Delivery" ? deliveryaddressinfo.deliveryaddressId : 0,cart.carttotal.tipPercentage > 0 ? parseFloat(cart.carttotal.tipPercentage) : 0,cart.carttotal.tipAmount > 0 ? parseFloat(cart.carttotal.tipAmount) : 0));
-
         dispatch(updateCartItemCount());
-
         OrderServices.getOrderInfo(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, customerId).then((response) => {
-            
             if (response) {
-
                 const result = response.result.orderDetailInfo;
                 if (result != undefined && result.OrderDetailCal !== undefined) {
-
                     dispatch(addCalculatedTotal(result.OrderDetailCal?.calculatedTotal))
                     dispatch(addCardShowMessage(result.OrderDetailCal?.cardShowMessage))
                     dispatch({
@@ -151,14 +122,7 @@ const Choosepayment = () => {
                         type: CartTypes.UPDATE_CART_DATA,
                         payload: null
                     });
-
-                    // dispatch({
-                    //     type: CartTypes.SET_ORDER_INFO,
-                    //     payload: result.OrderDetailCal
-                    // });
-
                     if (userinfo) {
-
                         let rewardpoints = {
                             rewardvalue: rewardpoint?.rewardvalue,
                             rewardamount: rewardpoint?.rewardamount,
@@ -171,13 +135,12 @@ const Choosepayment = () => {
                             payload: rewardpoints,
                         });
                     }
-
-                    // setOrderdetails(result.OrderDetails);
                 }
             }
         });
         return;
     }
+
     const addorders = (isAsap, paymentType) => {
         let placeOrder = {
             redeemPoints: cart.rewardpoints?.redeemPoint > 0 ? cart.rewardpoints.redeemPoint : 0,
@@ -189,7 +152,6 @@ const Choosepayment = () => {
             deliveryCharges: cart.carttotal.deliveryAmount > 0 ? parseFloat(cart.carttotal.deliveryAmount) : 0,
             orderTotal: cart.carttotal.grandTotal > 0 ? parseFloat(cart.carttotal.grandTotal) : 0,
             ordertype: ordertype,
-            // cartsessionId: cartsessionId, //getSessionKey(restaurantinfo.restaurantId, userinfo.customerId),
             cartsessionId: sessionid, //getSessionKey(restaurantinfo.restaurantId, userinfo.customerId),
             customerId: parseInt(customerId),
             addressId: deliveryaddressId,
@@ -202,29 +164,23 @@ const Choosepayment = () => {
         };
 
         OrderServices.addOrder(placeOrder, restaurantinfo.restaurantId).then(response => {
-            console.log("response " + response)
             if (response.status === 1) {
                 if (response.result.orderId && response.result.orderId > 0) {
                     dispatch(setorderId(response.result.orderId));
                     handleNotify('Order complete successfully! with OrderId: ' + response.result.orderId, ToasterPositions.TopRight, ToasterTypes.Success);
-
                     if (paymentType === 1) {
                         dispatch(emptycart());
                         dispatch(emptyorder());
-                        //dispatch(isRedirectToCheckout(false));
-                        //refreshCart();
                         router.push("/" + restaurantinfo.restaurantURL + "/main");
                     }
                     if (paymentType === 2) {
                         dispatch(isRedirectToCheckout(true));
-                        // setIsredirect(true);
                         refreshCart(response.result.orderId);
                         router.push("/" + restaurantinfo.restaurantURL + "/checkout");
                     }
                 }
             } else if (response.status == 2) {
                 handleNotify(response.message, ToasterPositions.TopRight, ToasterTypes.Error);
-                // setisdisable(false);
             }
         });
         return;
@@ -253,7 +209,6 @@ const Choosepayment = () => {
                     </div>
                     <div className="col-lg-2 text-right  flush col-sm-4 col-xs-6">
                         <div className="col-lg-12 rt-total col-sm-12 col-xs-12" style={{ marginTop: 11 }}>
-                            {/* <span className="color_grey size_24">Total: <span className="price size_24 bgg_orange color_white">$ {calculatedTotal && calculatedTotal > 0 ? calculatedTotal : 0 }</span></span> */}
                         </div>
                     </div>
                 </div>
@@ -279,14 +234,11 @@ const Choosepayment = () => {
                      }
                       </div>
                     }
-
                     {cashselected && <div className="col-lg-12 margin_top_30 cal text-center col-sm-12 col-xs-12" >
-                        {/* <h1>You will need to pay at the restaurant when you pickup your order.</h1> */}
                         <h5 className="size_22  weight_300 margin_bottom_20" >You will need to pay at the restaurant when you pickup your order. </h5>
                     </div>
                     }
                     {showinvalidpopup === true && <div className="col-lg-12 margin_top_30 cal text-center col-sm-12 col-xs-12" >
-                        {/* <h1>You will need to pay at the restaurant when you pickup your order.</h1> */}
                         <h5 className="size_22 color_red weight_300 margin_bottom_20" >Please select Payment mode first</h5>
                     </div>
                     }

@@ -1,5 +1,5 @@
 import { useRouter } from "next/router";
-import React, { Component, useState, useEffect, useRef } from "react";
+import React, {  useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from 'next/link';
 import { restaurantsdetail, restaurantsLocation, restaurantstiming } from "../../redux/restaurants/restaurants.action";
@@ -9,14 +9,12 @@ import RestaurantTimmingComponent from "../../components/Common/restaurant-timmi
 import { getAddress } from "../../redux/delivery-address/delivery-address.action";
 import { RestaurantsTypes } from "../../redux/restaurants/restaurants.types";
 import { OrderServices } from "../../redux/order/order.services";
-// import { getSessionKey } from "../../components/Common/auth";
 import { emptyordertime, emptyorder, isRedirectToCheckout, setorderId, setordertime, isasap } from "../../redux/order/order.action";
-import { emptycart, getCartItem, getCartItemCount, updateCartItemCount } from "../../redux/cart/cart.action";
+import { emptycart, updateCartItemCount } from "../../redux/cart/cart.action";
 import { ToasterPositions } from "../../components/helpers/toaster/toaster-positions";
 import { ToasterTypes } from "../../components/helpers/toaster/toaster-types";
 import handleNotify from "../../components/helpers/toaster/toaster-notify";
 import Choosetime from "../../components/Common/choose-time.component";
-import { DeliveryConfirmationMessage, PickUpConfirmationMessage } from "../../components/helpers/static-message/pickupconfirmation2-message";
 import { CartTypes } from "../../redux/cart/cart.types";
 import { RestaurantsServices } from "../../redux/restaurants/restaurants.services";
 import { getLocationIdFromStorage } from "../../components/Common/localstore";
@@ -24,6 +22,7 @@ import ChooseTimeConfirm from "../../components/Common/choose-time-confirm.compo
 import { MonthList } from "../../components/helpers/utility";
 import LoginMainComponent from "../../components/login/login.component";
 import { DeliveryPickupButton } from "../../components/Common/delivery-pickup-button.component";
+import { DeliveryConfirmationMessage, PickUpConfirmationMessage } from "../../components/helpers/static-message/pickupconfirmation2-message";
 
 const PickupConfirmation = () => {
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
@@ -44,42 +43,29 @@ const PickupConfirmation = () => {
     const pickupWindow = (restaurantWindowTime && restaurantWindowTime.pickupTime) && restaurantWindowTime.pickupTime;
     const isDeliveryAsap = defaultLocation.isDeliveryAsap;
     const isDeliveryPickupTime = defaultLocation.isDeliveryPickupTime;
-
     const dispatch = useDispatch();
     const router = useRouter();
     const { query: { dynamic }, } = router
     const [ordertimedisplay, setordertimedisplay] = useState(order.checktime);
     const [ordertimeerrormessage, setordertimeerrormessage] = useState("")
-
     const [isDisableOrder, setIsDisableOrder] = useState(true)
     const [locationpopup, setlocationpopup] = useState(false);
     const [restaurantHoursPopup, setrestaurantHoursPopup] = useState(false);
     const [isPayActive, setisPayActive] = useState(false);
     const [deliveryaddressId, setDeliveryaddressId] = useState(0);
-
     const [timestate, settimestate] = useState(false);
     const [isdisable, setisdisable] = useState(false);
     const [paybyCash, setpaybyCash] = useState('')
     const [paybycard, setpaybycard] = useState('')
-    // const [isredirect, setIsredirect] = useState(false);
     const [isOrdering, setIsOrdering] = useState(false);
     const [activeButtonClass, setActiveButtonClass] = useState("");
     const [displayASAPTime, setDisplayASAPTime] = useState(false);
     const [isDisabled, setisDisabled] = useState(true)
-     const [showLogin, setShowLogin] = useState(false)
-    const deliveryaddressinfo = useSelector(
-        ({ selecteddelivery }) => selecteddelivery.selecteddeliveryaddress
-    );
-    const pickupordelivery = useSelector(
-        ({ selecteddelivery }) => selecteddelivery.pickupordelivery
-    );
-
+    const [showLogin, setShowLogin] = useState(false)
     const paymenttype = {
         CASH: 1,
         CARD: 2
     }
-    // const cartsessionId = getSessionKey(restaurantinfo.restaurantId, customerId, restaurantinfo.defaultlocationId);
-
     const [currentDate, setcurrentDate] = useState();
     useEffect(() => {
         if(order?.isasap=== true){
@@ -91,17 +77,14 @@ const PickupConfirmation = () => {
 
     useEffect(() => {
         if (dynamic && dynamic !== undefined) {
-
             let restauranturl = dynamic.toLowerCase().toString().replace(/ /g, "-");
             let locationId = getLocationIdFromStorage(); 
             RestaurantsServices.getRestaurantsList(restauranturl, locationId).then(response => {
                 if (response) {
                     let newselectedRestaurant = response[0];
-
                     if (newselectedRestaurant) {
                         dispatch(restaurantsdetail(newselectedRestaurant));
                     }
-
                     if (newselectedRestaurant.defaultLocation.isOrderingDisable === true) {
                         router.push("/" + newselectedRestaurant.restaurantURL + "/restaurant-close");
                         return;
@@ -114,7 +97,6 @@ const PickupConfirmation = () => {
 
     useEffect(() => {
         const fetchData = async () => {
-
             const getResponse = await restaurantsLocation(restaurantinfo && restaurantinfo.restaurantId, "0", "0");
             dispatch({
                 type: RestaurantsTypes.RESTAURANT_LOCATION_LIST,
@@ -128,7 +110,6 @@ const PickupConfirmation = () => {
 
     useEffect(() => {
         if ((order && order.checktime && order.isasap === true) || (order.checktime === "")) {
-
             OrderServices.getOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, ordertype).then((response) => {
                 if (response.result != undefined && response.result !== null) {
                     if (response.result.ordertime != undefined && response.result.ordertime !== null && response.result.ordertime !== "") {
@@ -146,21 +127,13 @@ const PickupConfirmation = () => {
                         setIsDisableOrder(true);
                     }
                 }
-
             });
         }
-
-        // else if (order.isasap === undefined) {
-        //     router.push("/" + dynamic + "/restaurant-close");
-        //     return;
-        // }
     }, []);
 
     useEffect(() => {
-
         if (order && order.checktime && order.isasap === false) {
             setActiveButtonClass('lateron')
-
             if (order.checktime.includes('AM') || order.checktime.includes('PM')) {
                 setordertimedisplay(order.checktime);
                 let otime = order.checktime.split(' ');
@@ -181,13 +154,6 @@ const PickupConfirmation = () => {
             }
         }
     }, [order?.checktime]);
-    // useEffect(()=>{
-    //     if(order?.isasap=== true){
-    //         setActiveButtonClass("asap");
-    //         console.log("active")
-    //     }
-    // },[])
-
     const handleLocationPopup = () => setlocationpopup(true);
     const handlerestaurantHoursPopup = () => setrestaurantHoursPopup(true);
 useEffect(()=>{ 
@@ -197,7 +163,6 @@ useEffect(()=>{
 })
 
     const handlePaymentActive = () => {
-        // 
         if (userinfo === undefined || userinfo === null) {
             setShowLogin(true);
         }
@@ -205,30 +170,12 @@ useEffect(()=>{
             router.push("/" + restaurantinfo.restaurantURL+"/cart");
             setShowLogin(false);
         }
-        // if (order.checktime.includes('AM') || order.checktime.includes('PM')) {
-        //     let otime = order.checktime.split(' ');
-        //     OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, otime[0], otime[1], ordertype)
-        //         .then((response) => {
-        //             if (response.result != undefined && response.result !== null) {
-        //                 if (response.result.status === 'fail' || response.result.status === 'error') {
-        //                     setordertimeerrormessage(response.result.message);
-        //                     dispatch(setordertime(""));
-        //                     setIsDisableOrder(true);
-        //                 }
-        //                 if (response.result.status === 'success') {
-        //                     setIsDisableOrder(false);
-        //                     setisPayActive(true);
-        //                 }
-        //             }
-        //         });
-        // }
     }
     const handleCardPayment = () => {
         setpaybycard("Processing...")
         setpaybyCash("Pay By Cash")
         setisdisable(true);
         addorders(order.isasap, paymenttype.CARD);
-
     }
     const handleCashPayment = () => {
         setisdisable(true)
@@ -238,8 +185,6 @@ useEffect(()=>{
     }
 
     const handleChooseTime = () => { settimestate(true) }
-
-    //call from child to parent for set selected time
     function checktimeselected(selecetdtime, errorMessage) {
         if (selecetdtime !== "") {
             setordertimedisplay(selecetdtime);
@@ -250,7 +195,6 @@ useEffect(()=>{
         }
         if (errorMessage !== "") {
             setordertimeerrormessage(errorMessage);
-            //setordertimedisplay("");
             setIsDisableOrder(true);
             dispatch(setordertime(""))
             setisPayActive(false);
@@ -286,12 +230,9 @@ useEffect(()=>{
                 if (response.result.orderId && response.result.orderId > 0) {
                     dispatch(setorderId(response.result.orderId));
                     handleNotify('Order complete successfully! with OrderId: ' + response.result.orderId, ToasterPositions.TopRight, ToasterTypes.Success);
-
                     if (paymentType === paymenttype.CASH) {
                         dispatch(emptycart());
                         dispatch(emptyorder());
-                        //dispatch(isRedirectToCheckout(false));
-                        //refreshCart();
                         router.push("/" + restaurantinfo.restaurantURL + "/main");
                     }
                     if (paymentType === paymenttype.CARD) {
@@ -310,26 +251,12 @@ useEffect(()=>{
     }
 
     function refreshCart(orderId) {
-         
         let rewardpoint = cart.rewardpoints;
-
-        // dispatch(getCartItem(cartsessionId, restaurantinfo.defaultlocationId, restaurantinfo.restaurantId, 0, userinfo && userinfo.customerId,
-        //     rewardpoint.redeemPoint,
-        //     rewardpoint.redeemPoint / rewardpoint.rewardvalue, deliveryaddressinfo && pickupordelivery === "Delivery" ? deliveryaddressinfo.deliveryaddressId : 0,cart.carttotal.tipPercentage > 0 ? parseFloat(cart.carttotal.tipPercentage) : 0,cart.carttotal.tipAmount > 0 ? parseFloat(cart.carttotal.tipAmount) : 0));
-
         dispatch(updateCartItemCount());
-
         OrderServices.getOrderInfo(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, customerId).then((response) => {
             if (response) {
                 const result = response.result.orderDetailInfo;
                 if (result != undefined && result.OrderDetailCal !== undefined) {
-                    
-                    console.log("test")
-                    console.log(result.OrderDetailCal.cardShowMessage)
-                    // dispatch({
-                    //     type: CartTypes.CART_DATA,
-                    //     payload: result.OrderDetailCal
-                    // });
                     dispatch({
                         type: CartTypes.EMPTY_CART_TOTAL,
                         payload: null
@@ -338,14 +265,11 @@ useEffect(()=>{
                         type: CartTypes.UPDATE_CART_DATA,
                         payload: null
                     });
-
                     dispatch({
                         type: CartTypes.SET_ORDER_INFO,
                         payload: result.OrderDetailCal
                     });
-
                     if (userinfo) {
-                         
                         let rewardpoints = {
                             rewardvalue: rewardpoint.rewardvalue,
                             rewardamount: rewardpoint.rewardamount,
@@ -358,8 +282,6 @@ useEffect(()=>{
                             payload: rewardpoints,
                         });
                     }
-
-                    // setOrderdetails(result.OrderDetails);
                 }
             }
         });
@@ -370,16 +292,12 @@ useEffect(()=>{
         setordertimeerrormessage("");
         setDisplayASAPTime(!displayASAPTime);
         setActiveButtonClass('asap');
-
         OrderServices.getOrderTiming(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, ordertype).then((gettimeresponse) => {
             if (gettimeresponse?.result) {
-
                 if (gettimeresponse.result?.time) {
                     let time = gettimeresponse.result.time.split(' ');
-
                     OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, time[0], time[1], ordertype)
                         .then((response) => {
-                             
                             if (response.result.message && response.result.message.length > 0 && response.result.status !== "success") {
                                 setordertimeerrormessage(response.result.message);
                                 settimestate(false);
@@ -388,12 +306,9 @@ useEffect(()=>{
                                 setisDisabled(true)
                                 return;
                             }
-
                             if (response.result != undefined && response.result !== null) {
                                 if (response.result?.status === "success") {
-
                                     let newtime = time[0] + ' ' + time[1];
-                                     
                                     setordertimedisplay(newtime);
                                     dispatch(setordertime(newtime));
                                     setisDisabled(false);
@@ -405,9 +320,7 @@ useEffect(()=>{
                                     setisDisabled(true)
                                     setActiveButtonClass("");
                                 }
-
                                 setDisplayASAPTime(!displayASAPTime);
-
                                 dispatch(isasap(true));
                             }
                         });
@@ -476,16 +389,8 @@ useEffect(()=>{
                                                                 <span className="size_20 color_grey">
                                                                     {restaurantinfo && restaurantinfo.defaultLocation.phone}
                                                                 </span></h5>
-                                                             
                                                     </div>
                                                     <div className="col-lg-6 text-left col-sm-6 col-xs-12">
-                                                        {/* <a
-                                                        className="light_orange_btn  padding_left_20 padding_right_20 clock_more_btn"
-                                                        onClick={handleLocationPopup}
-                                                        data-toggle="modal"
-                                                        data-target="#myModal"
-                                                    ><i className="fa fa-map-marker"></i> Change Location</a>
-                                                    <p className="size_12 margin_top_10">Changing location may affect your <br />added items in cart.</p> */}
                                                     </div>
                                                 </div>
                                                 {defaultLocation.istakeaway && defaultLocation.isOrderingDisable === false && pickupWindow && pickupWindow.length > 0 ?
@@ -568,30 +473,19 @@ useEffect(()=>{
                                                                 data-target="#myModal-timer">Later On</a>
                                                         }
                                                     </div>
-                                                  
-                                                    {/* <div className="col-lg-5 text-center col-sm-5 col-xs-12">
-                                                        <a
-                                                            className="light_orange_btn padding_left_20 padding_right_20 clock_more_btn"
-                                                            onClick={handlerestaurantHoursPopup}
-                                                            data-toggle="modal"
-                                                            data-target="#myModal-2"
-                                                        ><i className="fa fa-clock-o"></i> Restaurant Time</a>
-                                                    </div> */}
                                                     < br />< br />
                                                 </div>
-
                                                 <div className="col-lg-3 dd margin_top_10 col-sm-3 col-xs-12"></div>
-
                                                 {(ordertimedisplay || ordertimeerrormessage) &&
                                                     <>
                                                        <div className="col-lg-6 dd margin_top_10 col-sm-6 col-xs-12">
-                                                           
                                                             {(ordertimedisplay && ordertimeerrormessage === "" && (isAsapSelected === true || isAsapSelected === false) ) &&
                                                                 <h5 className="removembottom color_black">
                                                                     Today {ordertimedisplay && <> {MonthList(currentDate.getMonth())} {currentDate.getDate()}, {ordertimedisplay} </>}
                                                                 </h5>
                                                             }
-                                                        </div> : <>
+                                                        </div>
+                                                        <>
                                                             {
                                                                 ordertimeerrormessage !== "" &&
                                                                 <div className="col-lg-12 col-sm-12 col-xs-12">
@@ -599,7 +493,6 @@ useEffect(()=>{
                                                                 </div>
                                                             }
                                                         </>
-
                                                     </>
                                                 }
                                             </div>
@@ -616,7 +509,6 @@ useEffect(()=>{
                                                         </div>
                                                 }
                                             </div>
-
                                             {isPayActive &&
                                                 <div className="row " >
                                                     <div className="col-lg-12 margin_top_30 cal text-center col-sm-12 col-xs-12">
@@ -657,17 +549,13 @@ useEffect(()=>{
             {locationpopup === true && (
                 <RestaurantLocationsComponent restaurantId={restaurantinfo && restaurantinfo.restaurantId} />
             )}
-
             {restaurantHoursPopup === true && (
                 <RestaurantTimmingComponent
                     locationId={restaurantinfo && restaurantinfo.defaultlocationId}
                     restaurantId={restaurantinfo && restaurantinfo.restaurantId}
                 />
             )}
-
-            {/* {timestate === true && ordertimedisplay !== "" && <Choosetime ordertime={ordertimedisplay.split(' ').join(':')} ordertype={ordertype} checktimeselected={checktimeselected} />} */}
             {timestate === true && <ChooseTimeConfirm ordertype={ordertype} restaurantinfo={restaurantinfo} restaurantWindowTime={restaurantWindowTime} ordertime={ordertimedisplay} isTakeAway={location.istakeaway} isDelivery={location.isdelivery} checktimeselected={checktimeselected} />}
-            {/* {showLogin === true && <LoginMainComponent restaurantinfo={restaurantinfo} />} */}
             {showLogin === true && <LoginMainComponent restaurantinfo={restaurantinfo} />}
         </>
     )

@@ -15,13 +15,7 @@ function MenuCategoryWrapperNew() {
                 {mainCategory && <MenuCategoryComponent categories={mainCategory} selectedCat={selectedCategory} />}
             </div>
             <>
-                {/* {(!loader && !loadingstate) ? */}
                     <MenuItemIntroComponentNew />
-                     {/* :
-                    <div className="col-lg-6 pull-right pizza-in col-sm-12 col-xs-12">
-                    </div> 
-                } */}
-                 
             </>
         </>
     )

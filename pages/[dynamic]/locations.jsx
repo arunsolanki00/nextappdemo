@@ -13,7 +13,6 @@ const Locations = () => {
         shallowEqual
       );
       const restaurantId = restaurantinfo.restaurantId;
-
     return (
     <>
       <Head>
@@ -36,7 +35,6 @@ const Locations = () => {
                 <h1 className="margin_top_0px">Locations</h1>
               </div>
             </div>
-
             <div className="row">
               <div className="col-lg-12 pull-right pizza-in col-sm-12 col-xs-12">
                 <LocationListComponent restaurantId={restaurantId}/>

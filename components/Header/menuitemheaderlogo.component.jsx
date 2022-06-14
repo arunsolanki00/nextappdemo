@@ -9,17 +9,12 @@ import { shallowEqual, useSelector } from "react-redux";
 const MenuItemHeaderLogoComponent=({ restaurantinfo }) =>{
     const restaurantinfodetail = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
     const { logo, restaurantURL } = !restaurantinfo ? restaurantinfodetail:restaurantinfo;
-
     return (
         <>
             <div className="col-lg-3 logo-wid hidden-xs hidden-sm text-center col-sm-12 col-xs-12">
                 <Link href="/[dynamic]/" as={`/${restaurantURL}/`}>
                     <a>
                         {logo ? (
-                            // <Image src={logo}
-                            //     alt="Picture of the author"
-                            //     width={180}
-                            //     height={100} ></Image>
                             <img src={logo} alt="" width={180} height={100} />
                         ) : ('')}
                     </a>

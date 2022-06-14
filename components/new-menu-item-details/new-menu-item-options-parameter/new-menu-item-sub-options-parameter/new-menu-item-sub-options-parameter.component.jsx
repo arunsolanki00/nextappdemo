@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, {  useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   removeMenuItem,
@@ -24,12 +24,10 @@ const NewMenuItemSubOptionsParameter = () => {
     menuItemDetail.topping.find(
       (x) => x.subparameterId == selectedsize.subparameterId
     );
-
   let selectedoption =
     selectedtopping != undefined &&
     selectedtopping.list.length > 0 &&
     selectedtopping.list.filter((x) => x.optionselected == true);
-
   let lstoption = [];
   let optiontype =
     selectedoption != undefined &&
@@ -43,7 +41,6 @@ const NewMenuItemSubOptionsParameter = () => {
       )
         lstoption.push(data);
     });
-
   let defaultselected =
     selectedoption != undefined &&
     selectedoption.length > 0 &&
@@ -52,7 +49,6 @@ const NewMenuItemSubOptionsParameter = () => {
     defaultselected != undefined &&
     defaultselected.length > 0 &&
     defaultselected[0].defaultSelection;
-
   let lstcategory =
     categoryname != undefined &&
     selectedoption != undefined &&
@@ -131,19 +127,15 @@ const NewMenuItemSubOptionsParameter = () => {
     const newArray = tdata.map((a) => Object.assign({}, a));
     tdata.map((data) => {
       if (data.suboptionId === suboptionId) {
-        //TO DO 
         if(data.subOptionselected === false){
           data.subOptionToppingQuantity = 0;
         }else{
           data.subOptionToppingQuantity = quantity;
         }
-        
         if (quantity === 0) data.subOptionselected = false;
       }
-
       lstdefault.push(data);
     });
-
     let finalcount = 0;
     var toppingcount = lstdefault.filter((x) => x.subOptionselected === true);
     toppingcount.map((tc) => {
@@ -181,7 +173,6 @@ const NewMenuItemSubOptionsParameter = () => {
         subparameterId: selectedtopping.subparameterId,
         list: selectedtopping.list,
       };
-
       menuItemDetail.topping.map((data) => {
         if (data.subparameterId === selectedsize.subparameterId)
           data = objtopping;
@@ -198,13 +189,11 @@ const NewMenuItemSubOptionsParameter = () => {
         maxSelection: selectedoption[0].maxSelection,
         type: newArray,
       };
-
       selectedtopping?.list.length > 0 &&
         selectedtopping?.list.map((data) => {
           if (data.optionselected === true) Object.assign(data, lstobj);
           else Object.assign(data, data);
         });
-
       let objtopping = {
         subparameterId: selectedtopping.subparameterId,
         list: selectedtopping.list,
@@ -215,10 +204,8 @@ const NewMenuItemSubOptionsParameter = () => {
           Object.assign(data, objtopping);
         else Object.assign(data, data);
       });
-
       dispatch(removeMenuItem());
       dispatch(selectedItemSize(menuItemDetail));
-
       handleNotify(
         "Topping value is exceed " +
           selectedoption[0].maxSelection +
@@ -230,20 +217,16 @@ const NewMenuItemSubOptionsParameter = () => {
   };
 
   const halfpizzaclick = (item, side, clickidenty) => {
-
     selectedOptionClick(item, clickidenty);
-
     let lstdefault = [];
     let tdata = selectedoption[0].type;
     const newArray = tdata.map((a) => Object.assign({}, a));
-
     tdata.map((data) => {
       if (data.suboptionId === item.suboptionId) {
         data.pizzaside = side;
       }
       lstdefault.push(data);
     });
-
     let finalcount = 0;
     var toppingcount = lstdefault.filter((x) => x.subOptionselected === true);
     toppingcount.map((tc) => {
@@ -263,7 +246,6 @@ const NewMenuItemSubOptionsParameter = () => {
       finalcount =
         finalcount + tc.subOptionToppingQuantity * calculatedtopvalue;
     });
-
     if (finalcount <= selectedoption[0].maxSelection) {
       settoppingremaining(selectedoption[0].maxSelection - finalcount);
       let lstobj = {
@@ -281,7 +263,6 @@ const NewMenuItemSubOptionsParameter = () => {
         subparameterId: selectedtopping.subparameterId,
         list: selectedtopping.list,
       };
-
       menuItemDetail.topping.map((data) => {
         if (data.subparameterId === selectedsize.subparameterId)
           data = objtopping;
@@ -290,7 +271,6 @@ const NewMenuItemSubOptionsParameter = () => {
       dispatch(removeMenuItem());
       dispatch(selectedItemSize(menuItemDetail));
       dispatch(updateitemoption());
-
     } else {
       let lstobj = {
         optionselected: selectedoption[0].optionselected,
@@ -299,26 +279,21 @@ const NewMenuItemSubOptionsParameter = () => {
         maxSelection: selectedoption[0].maxSelection,
         type: newArray,
       };
-
       selectedtopping.list.map((data) => {
         if (data.optionselected === true) Object.assign(data, lstobj);
         else Object.assign(data, data);
       });
-
       let objtopping = {
         subparameterId: selectedtopping.subparameterId,
         list: selectedtopping.list,
       };
-
       menuItemDetail.topping.map((data) => {
         if (data.subparameterId === selectedsize.subparameterId)
           Object.assign(data, objtopping);
         else Object.assign(data, data);
       });
-
       dispatch(removeMenuItem());
       dispatch(selectedItemSize(menuItemDetail));
-
       handleNotify(
         "Topping value is exceed " +
           selectedoption[0].maxSelection +
@@ -328,56 +303,10 @@ const NewMenuItemSubOptionsParameter = () => {
       );
     }
   };
-
-  // const selectedOptionClick = (item) => {
-  //      
-  //     let lstdefault = [];
-  //     selectedoption[0].type.map((data) => {
-  //         if (item.suboptioncategoryname == data.suboptioncategoryname)
-  //             data.defaultSelection = item.suboptioncategoryname;
-  //         else
-  //             data.defaultSelection = null;
-
-  //         lstdefault.push(data);
-  //     })
-  //     let lstobj = {
-  //         optionselected: selectedoption[0].optionselected, subparameterId: selectedoption[0].subparameterId,
-  //         name: selectedoption[0].name, maxSelection: selectedoption[0].maxSelection, type: lstdefault
-  //     }
-  //     selectedtopping.list.map((data) => {
-  //         if (data.optionselected === true)
-  //             data = lstobj;
-  //         else
-  //             data = data;
-  //     })
-  //     let objtopping = { subparameterId: selectedtopping.subparameterId, list: selectedtopping.list }
-
-  //     menuItemDetail.topping.map((data) => {
-  //         if (data.subparameterId === selectedsize.subparameterId)
-  //             data = objtopping;
-  //         else
-  //             data = data;
-  //     })
-  //     dispatch(removeMenuItem());
-  //     dispatch(selectedItemSize(menuItemDetail));
-  // }
-
-  // const unselectedOption = () => {
-  //         
-  //         // data.subOptionselected = false;
-  //         // data.pizzaside = "";
-  //         dispatch(removeMenuItem());
-  //         //dispatch(selectedItemSize(menuItemDetail));
-
-  // }
   const selectedOptionClick = (item, selection) => {
     let lstdefault = [];
     let tdata = selectedoption[0].type;
-
     const newArray = tdata.map((a) => Object.assign({}, a));
-    //const cloneSheeps = Array.from(ddata);
-    //const deepCopyObj = JSON.parse(JSON.stringify(ddata));
-    //   if(clickidenty === "pizza"){
 // UPDATE THE OPTIONSELECTED ON CLICKED SUBOPTIONPARAMETER IN THE TYPE ARRAY 
     tdata.map((data) => {
       if (item.name === data.name && item.subOptionselected === true) {
@@ -391,7 +320,6 @@ const NewMenuItemSubOptionsParameter = () => {
             selectedoption[0].isHalfPizza === true ? true : false;
           data.subOptionToppingQuantity = 0;
           data.pizzaside = "";
-
           //if pizza side selected then set quantity 1
           if (selectedoption[0].isHalfPizza === true) {
             data.subOptionToppingQuantity = 1;
@@ -408,14 +336,12 @@ const NewMenuItemSubOptionsParameter = () => {
         data.subOptionselected = false;
         data.pizzaside = "";
       }
-
       lstdefault.push(data);
     });
      console.log("lstdefault",lstdefault)
     let finalcount = 0;
     var toppingcount = lstdefault.filter((x) => x.subOptionselected === true);
     toppingcount.map((tc) => {
-       
       var topvalue =
         tc.toppingValue === "" || parseInt(tc.toppingValue) === 0
           ? 1
@@ -432,7 +358,6 @@ const NewMenuItemSubOptionsParameter = () => {
       finalcount =
         finalcount + tc.subOptionToppingQuantity * calculatedtopvalue;
     });
-
     //Add last 1/2 (half) topping changes
     if (
       finalcount - parseInt(selectedoption[0].maxSelection) > 0 &&
@@ -448,7 +373,6 @@ const NewMenuItemSubOptionsParameter = () => {
         lstdefault.push(data);
       });
     }
-//TO DO
     if (
       (item.subOptionselected === true &&
         parseInt(selectedoption[0].maxSelection) === 1) ||
@@ -474,7 +398,6 @@ const NewMenuItemSubOptionsParameter = () => {
         subparameterId: selectedtopping.subparameterId,
         list: selectedtopping.list,
       };
-
       menuItemDetail.topping.map((data) => {
         if (data.subparameterId === selectedsize.subparameterId)
           data = objtopping;
@@ -491,12 +414,10 @@ const NewMenuItemSubOptionsParameter = () => {
         maxSelection: selectedoption[0].maxSelection,
         type: newArray,
       };
-
       selectedtopping.list.map((data) => {
         if (data.optionselected === true) Object.assign(data, lstobj);
         else Object.assign(data, data);
       });
-
       let objtopping = {
         subparameterId: selectedtopping.subparameterId,
         list: selectedtopping.list,
@@ -506,10 +427,8 @@ const NewMenuItemSubOptionsParameter = () => {
           Object.assign(data, objtopping);
         else Object.assign(data, data);
       });
-
       dispatch(removeMenuItem());
       dispatch(selectedItemSize(menuItemDetail));
-
       handleNotify(
         "Please choose only " + selectedoption[0].maxSelection + " toppings",
         ToasterPositions.TopRight,
@@ -517,15 +436,12 @@ const NewMenuItemSubOptionsParameter = () => {
       );
     }
   };
-
   // topping increment decrement
   const increment = (data) => {
       const plusState = data.subOptionToppingQuantity + 1;
       selectedquantityClick(plusState, data.suboptionId);
       if (data.subOptionselected !== true) selectedOptionClick(data);
-
   };
-
   const decrement = (data) => {
     if (minQty === data.subOptionToppingQuantity) {
       selectedquantityClick(minQty, data.suboptionId);
@@ -534,13 +450,6 @@ const NewMenuItemSubOptionsParameter = () => {
     const minusState = data.subOptionToppingQuantity - 1;
     selectedquantityClick(minusState, data.suboptionId);
   };
-  // let optiontype = selectedoption != undefined && selectedoption.length > 0 &&
-  //     selectedoption[0].type.map((data) => {
-  //         if (lstoption.length === 0 || lstoption.find(x => x.suboptioncategoryname === data.suboptioncategoryname) === undefined)
-
-  //             lstoption.push(data);
-  //     })
-
   function gcd(a, b) {
     if (a == 0) return b;
     else if (b == 0) return a;
@@ -549,21 +458,16 @@ const NewMenuItemSubOptionsParameter = () => {
   }
 
   function improperFractionToMixedNumber(n, d) {
-     
     let i = parseInt(n / d);
     n -= i * d;
     return [i, n, d];
   }
 
   function decimalToFraction(number) {  
-     ;
     let letVal = Math.floor(number); //1
     let fVal = number - letVal; //0
-
-    // let pVal = 1000000000;
     let pVal = 10;
     let gcdVal = gcd(Math.round(fVal * pVal), pVal);
-
     let num = Math.round(fVal * pVal) / gcdVal;
     let deno = pVal / gcdVal;
     let numberVal = letVal * deno + num;
@@ -581,7 +485,6 @@ const NewMenuItemSubOptionsParameter = () => {
   }
 
   const RemainingToppingCount = () => {
-    console.log("rendered counte compo")
     return (
       <div className="col-lg-6 text-right free pull-right col-sm-6 col-xs-12 flush">
         <p className="mt-0 mb-0">
@@ -595,7 +498,6 @@ const NewMenuItemSubOptionsParameter = () => {
   };
 
   const DisplaySubOption = () => {
-
     return(
       lstcategory != undefined &&
         lstcategory.length > 0 &&
@@ -708,123 +610,12 @@ const NewMenuItemSubOptionsParameter = () => {
     )
   }
   return (
-
     <div className="tab-content">
       <div id="meat-dough" className="tab-pane fade in active">
-        {/* {(selectedtopping && selectedtopping.list && selectedtopping.list.length > 0) ?
-                    <div className="col-lg-6 text-right free pull-right col-sm-6 col-xs-12 flush">
-                        <p className="mt-0 mb-0">Free toppings remaining: <span className="active">{toppingremaining && decimalToFraction(toppingremaining)}</span></p>
-                    </div>
-                     :
-                    <></>
-                }  */}
         <RemainingToppingCount />
         <div className="col-lg-12 col-sm-12 col-xs-12">
           <div className="row">
-          {/* <Suspense fallback={<LoadingComponent />}> */}
             <DisplaySubOption />
-          {/* </Suspense> */}
-            {/* {lstcategory != undefined &&
-              lstcategory.length > 0 &&
-              lstcategory.map((data, index) => (
-                <div key={index} className="col-lg-3 col-sm-3 col-xs-12">
-                  <div
-                    className={`card ${
-                      data.subOptionselected === true ? "selectedoption" : ""
-                    }`}
-                    style={{ backgroundImage: `url(${data.image})` }}
-                    onClick={() =>
-                      selectedoption[0].isHalfPizza === true ||
-                      selectedoption[0].maxSelection > 1
-                        ? ""
-                        : selectedOptionClick(data)
-                    }
-                  >
-                    <div
-                      onClick={() =>
-                        data.subOptionselected === true
-                          ? selectedOptionClick(data, "deselect")
-                          : selectedOptionClick(data, "select")
-                      }
-                    >
-                      <h6>{data.name}</h6>
-                      <h6>
-                        {data.price > 0 ? (
-                          <em>
-                            {" "}
-                            {data.currency}
-                            {data.price.toFixed(2)}{" "}
-                          </em>
-                        ) : (
-                          ""
-                        )}
-                      </h6>
-                      <p>{data.cals > 0 ? data.cals + " cals" : ""} </p>
-                    </div>
-                    {selectedoption[0].isHalfPizza === true && (
-                      <div className="sun">
-                        <a
-                          className={
-                            data.pizzaside === "L" &&
-                            data.subOptionselected === true
-                              ? "ft active"
-                              : "ft"
-                          }
-                          onClick={() => halfpizzaclick(data, "L", "pizza")}
-                        ></a>
-                        <a
-                          className={
-                            (data.pizzaside === "F" || data.pizzaside === "") &&
-                            data.subOptionselected === true
-                              ? "sd active"
-                              : "sd"
-                          }
-                          onClick={() => halfpizzaclick(data, "F", "pizza")}
-                        ></a>
-                        <a
-                          className={
-                            data.pizzaside === "R" &&
-                            data.subOptionselected === true
-                              ? "td active"
-                              : "td"
-                          }
-                          onClick={() => halfpizzaclick(data, "R", "pizza")}
-                        ></a>
-                      </div>
-                    )}
-                    {selectedoption[0].maxSelection > 1 && (
-                      <div className="quantity">
-                        <button
-                          onClick={() => decrement(data)}
-                          className={
-                            data.subOptionToppingQuantity > 0 ||
-                            data.subOptionselected === true
-                              ? "active"
-                              : "disabled"
-                          }
-                        >
-                          -
-                        </button>
-                        <input
-                          data-value
-                          readOnly
-                          value={data.subOptionToppingQuantity}
-                        />
-                        <button
-                          onClick={() => increment(data)}
-                          className={
-                            data.subOptionselected === true
-                              ? "active"
-                              : "lightgrey"
-                          }
-                        >
-                          +
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                </div>
-              ))} */}
           </div>
         </div>
       </div>

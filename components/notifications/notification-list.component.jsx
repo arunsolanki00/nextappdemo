@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { NotificationsServices } from "../../redux/notifications/notifications.services";
 import { shallowEqual, useSelector } from "react-redux";
-import Loader from "../Common/loader/loader.component";
 
 const NotificationListComponent = (props) => {
   const [notificationList, setNotificationList] = useState([]);
@@ -10,7 +9,6 @@ const NotificationListComponent = (props) => {
   const customerId = userinfo ? userinfo.customerId : 0;
 
   useEffect(() => {
-
     NotificationsServices.getNotifications(props.restaurantId, customerId).then(
       (response) => {
         if (response) {
@@ -23,15 +21,12 @@ const NotificationListComponent = (props) => {
   const notificationArrayList = [];
   if (notificationList && notificationList.length > 0) {
     for (let i = 0; i < notificationList.length; i += 2) {
-
       const evenItem = notificationList[i];
       const oddItem = notificationList[i + 1];
-
       notificationArrayList.push(
         <div className="col-lg-12 notification col-sm-12 col-xs-12" key={i}>
           <div className="row">
             {oddItem ? (
-
               <div className="col-lg-6 col-sm-6 col-xs-12">
                 <div className={oddItem.isread === true ? "bd active" : "bd"} >
                   <h5>

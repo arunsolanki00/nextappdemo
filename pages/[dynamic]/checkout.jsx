@@ -1,43 +1,22 @@
 import React, { useState, useEffect } from "react";
-import Head from "next/head";
 import Image from "next/image";
 import { MemoizedHeaderLogoComponent } from '../../components/Header/headerlogo.component'
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import RestaurantInfoComponent from "../../components/pickup/restaurant-info.component";
-import CalenderTimeComponent from "../../components/Common/calender-time.component";
+import { useSelector, shallowEqual } from "react-redux";
 import Link from 'next/link';
-import CheckoutForm from "../../components/checkout/checkout-form.component";
-import Stripe from "stripe";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import { useRouter } from "next/router";
-import { CartServices } from "../../redux/cart/cart.services";
-import stripepaymentintentid from '../../redux/cart/cart.action'
-import { CartTypes } from "../../redux/cart/cart.types";
 import StripeCheckoutComponent from "../../components/checkout/stripe-checkout.component";
-
-// const stripePromise = loadStripe("pk_test_0bKCpEeD8pBkxBspkPe0uX8800lh61abUd");
-
 const stripePromise = loadStripe(process.env.STRIPE_SANDBOX_PUBLISH_API_KEY);
-//let stripekey = process.env.STRIPE_LIVE_PUBLISH_API_KEY;
 
 const Checkout = () => {
-
     const router = useRouter();
-    const dispatch = useDispatch();
-     
-    const { query: { dynamic, id, category, items } } = router;
-
-    // let orderinfo = useSelector(({ cart }) => cart?.orderinfo);
-    // let calculatedTotal =orderinfo && orderinfo?.calculatedTotal;
-    // let order = useSelector(({ order }) => cart?.calculatedTotal);
-
+    const { query: { dynamic } } = router;
     let restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const order = useSelector(({ order }) => order, shallowEqual);
     const calculatedTotal =order && order?.calculatedTotal;
     const cardShowMessage =order && order?.cardShowMessage;
-
     const [isenable, setisenable] = useState(false)
     const selecteddelivery = useSelector(({ selecteddelivery }) => selecteddelivery);
     const location = restaurantinfo.defaultLocation;
@@ -49,7 +28,6 @@ const Checkout = () => {
         if(restaurantinfo && location && location.isOrderingDisable == true) {
             router.push("/" + restaurantinfo.restaurantURL + "/restaurant-close");
           }
-
           if (order === undefined || order.isRedirectToCheckout === false) {
             if (ordertype === 1)
                 return router.push("/" + restaurantinfo.restaurantURL + "/pickupconfirmation");
@@ -57,9 +35,11 @@ const Checkout = () => {
                 return router.push("/" + restaurantinfo.restaurantURL + "/deliveryconfirmation");
         }
         }, []);
+
   const changeClickCheckout=()=>{
     setisenable(true);
   }
+
     if (userinfo != undefined && userinfo != null)
         return (
             <>
@@ -81,7 +61,6 @@ const Checkout = () => {
                                     </a>
                                     </Link>
                                 </div>
-
                                 <div className="col-lg-8 hidden-xs text-center col-sm-4 col-xs-6">
                                     <MemoizedHeaderLogoComponent />
                                 </div>
@@ -116,14 +95,10 @@ const Checkout = () => {
                                                     <div className="col-lg-12 sp-d col-sm-12 col-xs-12">
                                                         <div className="row">
                                                             <div className="col-lg-8 column-centered flush col-sm-10 col-xs-12">
-
-                                                                {/* <CheckoutForm /> */}
                                                                {
                                                                    ((calculatedTotal && calculatedTotal > 0 ) || isenable=== true) &&
                                                                    <StripeCheckoutComponent orderId={order.orderId} calculatedTotal={calculatedTotal} changeOnCheckout={changeClickCheckout} cardShowMessage={cardShowMessage}/>
                                                                }
-                                                                   {/* <StripeCheckoutComponent orderId={order.orderId} calculatedTotal={calculatedTotal}/> */}
-
                                                             </div>
                                                         </div>
                                                     </div> 

@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import NumberFormat from 'react-number-format';
 import { useRouter } from "next/router"
-import { addFavorite, deleteFavorite, getMenuItemList, selectedMenuItem } from '../../redux/menu-item/menu-item.action';
+import { addFavorite, deleteFavorite, getMenuItemDetailes, selectedMenuItem } from '../../redux/menu-item/menu-item.action';
 import { shallowEqual, useDispatch, useSelector } from 'react-redux';
 import { getCategoryItemList, removeCategoryList, setCategoryList } from '../../redux/category/category.action';
 import { useState } from 'react';
@@ -22,11 +22,11 @@ function MenuItemIntroComponent({ menuitems }) {
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const [showLogin, setShowLogin] = useState(false);
-
+    let sessionid = useSelector(({ session }) => session?.sessionid);
     const selectedItemClick = (item) => {
         if (item != undefined) {
             dispatch(selectedMenuItem(item));
-            dispatch(getMenuItemList(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, item.menuitemId));
+            dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, item.menuitemId,sessionid,0));
         }
     }
 

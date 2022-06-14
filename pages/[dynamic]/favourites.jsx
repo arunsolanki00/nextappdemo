@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from "react";
-// import {pizza1} from "../../public/images/pizza-1.png";
-// import {pizza2} from "../../public/images/pizza-2.png";
 import { FavouritesServices } from "../../redux/favourites/favourites.services";
 import Image from "next/image";
 import LeftMenuComponent from "../../components/LeftMenu/leftmenu.component";
@@ -20,14 +18,6 @@ const Favourites=()=> {
   const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
   const [favourites, setFavourites] = useState([]);
   const [loadingState, setloadingState] = useState(false)
-
-  // useEffect(() => {
-  //    FavouritesServices.getFavouritesList(restaurantinfo.restaurantId, userinfo.customerId, restaurantinfo.defaultlocationId).then((response) => {
-  //     if (response) {
-  //       setFavourites(response);
-  //     }
-  //   });
-  // }, []);
   useEffect(() => {
     setloadingState(true);
     const timer = setTimeout(() => {
@@ -64,7 +54,6 @@ const Favourites=()=> {
               </div>
             </div>
             <>
-            {/* <FavouritesSkeleton/> */}
               {!loadingState || favourites.length > 0 ? (
                 <FavouritesComponent favouriteList={favourites} restaurantinfo={restaurantinfo} />
               ) :

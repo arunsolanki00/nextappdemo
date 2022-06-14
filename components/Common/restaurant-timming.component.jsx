@@ -9,18 +9,15 @@ const RestaurantTimmingComponent = (props) => {
   const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
   const defaultLocation = restaurantinfo ? restaurantinfo.defaultLocation : null;
   const [opencloseTimmingObj, setopencloseTimmingObj] = useState([]);
-
   const deliveryExtraTime = restaurantinfo?.defaultLocation?.ordersubmittime;
   const takeawayExtraTime = restaurantinfo?.defaultLocation?.takeawayextratime;
-
   const isTakeOutAsap = defaultLocation.isTakeOutAsap;
   const isTakeOutPickupTime = defaultLocation.isTakeOutPickupTime;
   const isDeliveryAsap = defaultLocation.isDeliveryAsap;
   const isDeliveryPickupTime = defaultLocation.isDeliveryPickupTime;
-
   const [isTakeoutClosed, setIsTakeoutClosed] = useState((defaultLocation.istakeaway === false || (isTakeOutAsap === false && isTakeOutPickupTime === false)) ? true : false)
   const [isDeliveryClosed, setIsDeliveryClosed] = useState((defaultLocation.isdelivery === false || (isDeliveryAsap === false && isDeliveryPickupTime === false)) ? true : false)
-
+  
   useEffect(() => {
     dataSet(restauranttiming)
   }, [restauranttiming, restauranttiming?.length])

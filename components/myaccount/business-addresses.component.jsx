@@ -1,25 +1,16 @@
 import { React, useState, useEffect } from "react";
 import Image from "next/image";
-import { shallowEqual, useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { DeliveryAddressServices } from "../../redux/delivery-address/delivery-address.services";
 import { DeliveryAddressTypes } from "../../redux/delivery-address/delivery-address.types";
-import { getAddress } from "../../redux/delivery-address/delivery-address.action";
-import { element } from "prop-types";
 
 const BusinessAddressesComponent = (props) => {
   const [businessaddress, setbusinessaddress] = useState();
-  // const businessaddress = props.businessAddressList;
-  const reloadAddressList = props.reloadAddressList;
   const restaurantId = props.restaurantinfo.restaurantId;
-  const locationId = props.restaurantinfo.defaultlocationId;
-  const customerId = props.userinfo.customerId;
-
   const dispatch = useDispatch();
   useEffect(() => {
     setbusinessaddress(props.businessAddressList);
   }, [props.businessAddressList]);
-
-  const [updatestate, setupdatestate] = useState(null);
 
   const handledeleteAddressPopup = (addressId, index) => {
     if (addressId != undefined) {

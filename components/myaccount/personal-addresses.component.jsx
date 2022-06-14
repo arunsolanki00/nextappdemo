@@ -2,35 +2,27 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { DeliveryAddressTypes } from "../../redux/delivery-address/delivery-address.types";
 import { DeliveryAddressServices } from "../../redux/delivery-address/delivery-address.services";
-import { shallowEqual, useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 
 const PersonalAddressesComponent = (props) => {
   const [personaladdress, setpersonaladdress] = useState();
   const restaurantId = props.restaurantinfo.restaurantId;
-  const locationId = props.restaurantinfo.defaultlocationId;
-  const customerId = props.userinfo.customerId;
-
   const dispatch = useDispatch();
 
   useEffect(() => {
     setpersonaladdress(props.personalAddressList);
   }, [props.personalAddressList]);
-
-  console.log("address list " + props.personalAddressList);
-   ;
   const handledeleteAddressPopup = (addressId) => {
     if (addressId != undefined) {
       DeliveryAddressServices.deleteDeliveryAddress(
         addressId,
         restaurantId
       ).then((response) => {
-         ;
         if (response) {
           dispatch({
             type: DeliveryAddressTypes.DELETE_ADDRESS,
             payload: response,
           });
-
           if (props.personalAddressList.length > 0) {
             let newlist = props.personalAddressList.filter(
               (element) => element?.deliveryaddressId === addressId

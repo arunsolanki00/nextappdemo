@@ -100,9 +100,7 @@ const ShoppingCartItem = (cartdata) => {
                     dispatch({ type: CartTypes.DELETE_CART_ITEM, payload: response });
                     dispatch(updateCartItem());
                     dispatch(updateCartItemCount());
-
                     orderinstruction("");
-
                     let redeemPoint = rewardpoints?.redeemPoint > 0 ? parseInt(rewardpoints?.redeemPoint) : 0;
                     let redeemAmount = 0;
                     if (redeemPoint > 0) {

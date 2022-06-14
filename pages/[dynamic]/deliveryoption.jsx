@@ -1,11 +1,8 @@
-import React, { useState, useEffect } from "react";
-import Head from "next/head";
+import React, { useState} from "react";
 import Image from "next/image";
 import RestaurantInfoComponent from "../../components/pickup/restaurant-info.component";
 import { MemoizedRegisterHeaderLogoComponent } from "../../components/Header/registerheaderlogo.component";
 import CalenderTimeComponent from "../../components/Common/calender-time.component";
-import { LocationServices } from "../../redux/location/location.services";
-import { LocationTypes } from "../../redux/location/location.types";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
 import LoginMainComponent from "../../components/login/login.component";
 import Link from "next/link"
@@ -16,21 +13,16 @@ const DeliveryOption = ({ restaurant }) => {
     ({ restaurant }) => restaurant.restaurantdetail,
     shallowEqual
   );
-
   const timminginfo = useSelector(
     ({ todaytimming }) => todaytimming,
     shallowEqual
   );
-
   const router = useRouter();
   const { query: { dynamic }, } = router;
-
   const [timepopup, settimepopup] = useState(false);
   const handleTimePopup = () => settimepopup(true);
   const [showLogin, setShowLogin] = useState(false);
-
   const selectTime = (locationId) => { };
-
   const handleLogin = () => setShowLogin(true);
 
   return (
@@ -174,7 +166,6 @@ const DeliveryOption = ({ restaurant }) => {
                           </a>
                         </div>
                         <div className="col-lg-4 text-center col-sm-4 col-xs-12">
-                          {/* <a className="blue_btn skipbtn active">Skip</a> */}
                           <Link
                             shallow={false}
                             href="/[dynamic]"
@@ -193,7 +184,6 @@ const DeliveryOption = ({ restaurant }) => {
           </div>
         </div>
         {timepopup === true && <CalenderTimeComponent />}
-
         {showLogin === true && <LoginMainComponent restaurantinfo={restaurantinfo} />}
       </section>
     </>

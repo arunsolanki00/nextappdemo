@@ -2,9 +2,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { MenuItemServices } from "./menu-item.services";
 import { MenuItemTypes } from "./menu-item.types";
 
-export const getMenuItemList = (restaurantId,locationId,customerId,menuitemId,cartsessionId,cartId) => {        
+export const getMenuItemDetailes = (restaurantId,locationId,customerId,menuitemId,cartsessionId,cartId) => {   
+         
     return async dispatch => {        
-        MenuItemServices.getMenuItemList(restaurantId,locationId,customerId,menuitemId,cartsessionId,cartId).then(response => {            
+        MenuItemServices.getMenuItemList(restaurantId,locationId,customerId,menuitemId,cartsessionId,cartId).then(response => { 
             if (response) {                
                 dispatch({
                     type: MenuItemTypes.MENU_ITEM_DETAIL_LIST,
@@ -15,7 +16,7 @@ export const getMenuItemList = (restaurantId,locationId,customerId,menuitemId,ca
     }
 }
 
-export const selectedMenuItem = (item) => {     
+export const selectedMenuItem = (item) => { 
     return (dispatch) => {                                                     
         dispatch({
             type: MenuItemTypes.SELECTED_MENU_ITEM_DATA,

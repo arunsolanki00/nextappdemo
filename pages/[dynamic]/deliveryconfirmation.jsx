@@ -1,19 +1,16 @@
 import { useRouter } from "next/router";
-import React, { Component, useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Link from 'next/link';
-import { restaurantsdetail, restaurantsLocation, restaurantstiming } from "../../redux/restaurants/restaurants.action";
+import { restaurantsdetail,  restaurantstiming } from "../../redux/restaurants/restaurants.action";
 import { getAddress } from "../../redux/delivery-address/delivery-address.action";
 import RestaurantLocationsComponent from "../../components/Common/restaurant-locations.component";
 import RestaurantTimmingComponent from "../../components/Common/restaurant-timming.component";
 import SaveAddressPopup from "../../components/Common/Address/save-address.component";
 import { MemoizedHeaderLogoComponent } from "../../components/Header/headerlogo.component";
-import { RestaurantsTypes } from "../../redux/restaurants/restaurants.types";
 import { OrderServices } from "../../redux/order/order.services";
-import Choosetime from "../../components/Common/choose-time.component";
 import { emptyorder, emptyordertime, isasap, isRedirectToCheckout, setorderId, setordertime } from "../../redux/order/order.action";
-// import { getSessionKey } from "../../components/Common/auth";
-import { emptycart, getCartItem, updateCartItemCount } from "../../redux/cart/cart.action";
+import { emptycart,  updateCartItemCount } from "../../redux/cart/cart.action";
 import handleNotify from "../../components/helpers/toaster/toaster-notify";
 import { ToasterPositions } from "../../components/helpers/toaster/toaster-positions";
 import { ToasterTypes } from "../../components/helpers/toaster/toaster-types";
@@ -26,10 +23,7 @@ import { DeliveryConfirmationMessage, PickUpConfirmationMessage } from "../../co
 import { DeliveryPickupButton } from "../../components/Common/delivery-pickup-button.component";
 import { selecteddeliveryaddress } from "../../redux/selected-delivery-data/selecteddelivery.action";
 import LoginMainComponent from "../../components/login/login.component";
-import { GoogleAutoComplete } from "../../components/Common/google.map.component";
-
 const scrollToRef = (ref) => window.scrollTo(0, ref.current.offsetTop)
-
 const DeliveryConfirmation = () => {
     let sessionid = useSelector(({ session }) => session?.sessionid);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
@@ -41,18 +35,14 @@ const DeliveryConfirmation = () => {
     const restaurantWindowTime = useSelector(({ main }) => main.restaurantWindowTime);
     const pickupWindow = (restaurantWindowTime && restaurantWindowTime.pickupTime) && restaurantWindowTime.pickupTime;
     const deliveryWindow = (restaurantWindowTime && restaurantWindowTime.deliveryTime) && restaurantWindowTime.deliveryTime;
-
     const [saveaddresspopup, setsaveaddresspopup] = useState(false);
     const location = restaurantinfo.defaultLocation;
     const isTakeOutAsap = location.isTakeOutAsap;
     const isTakeOutPickupTime = location.isTakeOutPickupTime;
-    const [selectedPaymentType, setselectedPaymentType] = useState("");
     const [ordertimedisplay, setordertimedisplay] = useState(order.checktime);
     const [isDisableOrder, setIsDisableOrder] = useState(true)
-
     const [ordertimeerrormessage, setordertimeerrormessage] = useState("")
     const [timestate, settimestate] = useState(false);
-
     const [isdisable, setisdisable] = useState(false);
     const [paybyCash, setpaybyCash] = useState('')
     const [paybycard, setpaybycard] = useState('')
@@ -64,7 +54,6 @@ const DeliveryConfirmation = () => {
     const [locationpopup, setlocationpopup] = useState(false);
     const [restaurantHoursPopup, setrestaurantHoursPopup] = useState(false);
     const [isPayActive, setisPayActive] = useState(false);
-
     const cart = useSelector(({ cart }) => cart);
     const ordertype = selecteddelivery.pickupordelivery === "Delivery" ? 2 : 1;
     const pickupordelivery = selecteddelivery.pickupordelivery === "Delivery" ? 2 : 1;
@@ -74,19 +63,13 @@ const DeliveryConfirmation = () => {
     const deliveryaddress = useSelector(({ deliveryaddress }) => deliveryaddress);
     let deliveryaddressdata = deliveryaddress?.deliveryaddressdata;
     const deliveryid = useSelector(({ deliveryaddress }) => deliveryaddress?.addressId.customerAddressId);
-    const deliveryaddressinfo = useSelector(
-        ({ selecteddelivery }) => selecteddelivery.selecteddeliveryaddress
-    );
-
     const dispatch = useDispatch();
     const router = useRouter();
     const { query: { dynamic }, } = router;
-
     const paymenttype = {
         CASH: 1,
         CARD: 2
     }
-
     const [currentDate, setcurrentDate] = useState();
     useEffect(() => {
         let date = new Date();
@@ -104,7 +87,6 @@ const DeliveryConfirmation = () => {
                     if (newselectedRestaurant) {
                         dispatch(restaurantsdetail(newselectedRestaurant));
                     }
-
                     if (newselectedRestaurant.defaultLocation.isOrderingDisable === true)
                         router.push("/" + newselectedRestaurant.restaurantURL + "/restaurant-close");
                     else setIsOrdering(true);
@@ -119,14 +101,10 @@ const DeliveryConfirmation = () => {
     }, [restaurantinfo, userinfo, deliveryid]);
 
     useEffect(() => {
-
-        // if (order && order.checktime !== undefined && order.checktime !== null && order.checktime !== "" && order?.isasap === true) {
         if ((order && order.checktime && order.isasap === true) || (order.checktime === "")) {
             OrderServices.getOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, ordertype).then((response) => {
-
                 if (response.result != undefined && response.result !== null) {
                     if (response.result.ordertime != undefined && response.result.ordertime !== null && response.result.ordertime !== "") {
-
                         let ordertimeArray = response.result.ordertime && response.result.ordertime.split(":");
                         if (ordertimeArray.length > 0) {
                             setordertimedisplay(ordertimeArray[0] + ":" + ordertimeArray[1] + " " + ordertimeArray[2]);
@@ -146,16 +124,12 @@ const DeliveryConfirmation = () => {
         if (order?.isasap === true) {
             setActiveButtonClass("asap");
         }
-
     }, []);
 
     useEffect(() => {
-        // if (order && order.checktime !== undefined && order.checktime !== null && order.checktime !== "" && order?.isasap === false) {
         if (order && order.checktime && order.isasap === false) {
             setActiveButtonClass('lateron')
-
             if (order.checktime.includes('AM') || order.checktime.includes('PM')) {
-                // setordertimedisplay(order.checktime);
                 let otime = order.checktime.split(' ');
                 OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, otime[0], otime[1], ordertype)
                     .then((response) => {
@@ -175,16 +149,10 @@ const DeliveryConfirmation = () => {
         }
     }, [order?.checktime]);
     if (selecteddeliveryAddress === null && deliveryaddressdata !== null) {
-        // dispatch(selecteddeliveryaddress(deliveryaddressdata[0]));  
         dispatch(selecteddeliveryaddress(deliveryaddressdata[0]))
-
     }
-
-
-
     const handleLocationPopup = () => setlocationpopup(true);
     const handlerestaurantHoursPopup = () => setrestaurantHoursPopup(true);
-
     const handlePaymentActive = () => {
         if (userinfo === null) {
             setShowLogin(true)
@@ -201,25 +169,6 @@ const DeliveryConfirmation = () => {
                 router.push("/" + restaurantinfo.restaurantURL + "/cart");
             }
         }
-
-        // if (order.checktime.includes('AM') || order.checktime.includes('PM')) {
-        //     let otime = order.checktime.split(' ');
-
-        //     OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, otime[0], otime[1], ordertype)
-        //         .then((response) => {
-        //             if (response.result != undefined && response.result !== null) {
-        //                 if (response.result.status === 'fail' || response.result.status === 'error') {
-        //                     setordertimeerrormessage(response.result.message);
-        //                     dispatch(setordertime(""));
-        //                     setIsDisableOrder(true);
-        //                 }
-        //                 if (response.result.status === 'success') {
-        //                     setIsDisableOrder(false);
-        //                     setisPayActive(!isPayActive);
-        //                 }
-        //             }
-        //         });
-        // }
     }
 
     const handlechangePopup = () => {
@@ -242,7 +191,6 @@ const DeliveryConfirmation = () => {
     }
 
     const handleChooseTime = () => { settimestate(true) }
-
     //call from child to parent for set selected time
     function checktimeselected(selecetdtime, errorMessage) {
         if (selecetdtime !== "") {
@@ -254,7 +202,6 @@ const DeliveryConfirmation = () => {
         }
         if (errorMessage !== "") {
             setordertimeerrormessage(errorMessage);
-            //setordertimedisplay("");
             setIsDisableOrder(true);
             dispatch(setordertime(""))
             setisPayActive(false);
@@ -263,24 +210,12 @@ const DeliveryConfirmation = () => {
         }
     }
     function refreshCart(orderId) {
-
         let rewardpoint = cart.rewardpoints;
-        // dispatch(getCartItem(cartsessionId, restaurantinfo.defaultlocationId, restaurantinfo.restaurantId, 0, userinfo && userinfo.customerId,
-        //     rewardpoint.redeemPoint,
-        //     rewardpoint.redeemPoint / rewardpoint.rewardvalue, deliveryaddressinfo && pickupordelivery === "Delivery" ? deliveryaddressinfo.deliveryaddressId : 0,cart.carttotal?.tipPercentage > 0 ? parseFloat(cart.carttotal?.tipPercentage) : 0,cart.carttotal?.tipAmount > 0 ? parseFloat(cart.carttotal?.tipAmount) : 0));
-
         dispatch(updateCartItemCount());
-
         OrderServices.getOrderInfo(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, userinfo.customerId).then((response) => {
             if (response) {
-
                 const result = response.result.orderDetailInfo;
                 if (result != undefined && result.OrderDetailCal !== undefined) {
-
-                    // dispatch({
-                    //     type: CartTypes.CART_DATA,
-                    //     payload: result.OrderDetailCal
-                    // });
                     dispatch({
                         type: CartTypes.EMPTY_CART_TOTAL,
                         payload: null
@@ -310,27 +245,10 @@ const DeliveryConfirmation = () => {
                             payload: rewardpoints,
                         });
                     }
-
-                    // setOrderdetails(result.OrderDetails);
                 }
             }
         });
 
-
-        // if (userinfo) {
-        //      
-        //     let rewardpoints = {
-        //         rewardvalue: rewardpoint.rewardvalue,
-        //         rewardamount: rewardpoint.rewardamount,
-        //         rewardPoint: rewardpoint.rewardPoint,
-        //         totalRewardPoints: rewardpoint.rewardPoint,
-        //         redeemPoint: rewardpoint.redeemPoint,
-        //     };
-        //     dispatch({
-        //         type: CartTypes.SET_REWARD_POINT,
-        //         payload: rewardpoints,
-        //     });
-        // }
         return;
     }
     const addorders = (isAsap, paymentType) => {
@@ -352,7 +270,6 @@ const DeliveryConfirmation = () => {
             paymentType: paymentType,  //1 for cash payment    2 for card payment
             locationId: restaurantinfo.defaultlocationId,
             restaurantId: restaurantinfo.restaurantId,
-            
         };
 
         OrderServices.addOrder(placeOrder, restaurantinfo.restaurantId).then(response => {
@@ -378,7 +295,6 @@ const DeliveryConfirmation = () => {
             } else if (response.status == 2) {
                 handleNotify(response.message, ToasterPositions.TopRight, ToasterTypes.Error);
                 setisdisable(false);
-                // setsaveaddresspopup(true)
             }
         });
 
@@ -389,16 +305,12 @@ const DeliveryConfirmation = () => {
         setordertimeerrormessage("");
         setDisplayASAPTime(!displayASAPTime);
         setActiveButtonClass('asap');
-
         OrderServices.getOrderTiming(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, ordertype).then((gettimeresponse) => {
             if (gettimeresponse?.result) {
-
                 if (gettimeresponse.result?.time) {
                     let time = gettimeresponse.result.time.split(' ');
-
                     OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, time[0], time[1], ordertype)
                         .then((response) => {
-
                             if (response.result.message && response.result.message.length > 0 && response.result.status !== "success") {
                                 setordertimeerrormessage(response.result.message);
                                 settimestate(false);
@@ -407,12 +319,9 @@ const DeliveryConfirmation = () => {
                                 setisDisabled(true)
                                 return;
                             }
-
                             if (response.result != undefined && response.result !== null) {
                                 if (response.result?.status === "success") {
-
                                     let newtime = time[0] + ' ' + time[1];
-
                                     setordertimedisplay(newtime);
                                     dispatch(setordertime(newtime));
                                     setisDisabled(false);
@@ -424,9 +333,7 @@ const DeliveryConfirmation = () => {
                                     setisDisabled(true)
                                     setActiveButtonClass("");
                                 }
-
                                 setDisplayASAPTime(!displayASAPTime);
-
                                 dispatch(isasap(true));
                             }
                         });
@@ -486,13 +393,6 @@ const DeliveryConfirmation = () => {
                                                         </h5>
                                                     </div>
                                                     <div className="col-lg-6 text-left col-sm-6 col-xs-12">
-                                                        {/* <a
-                                                        className="light_orange_btn  padding_left_20 padding_right_20 clock_more_btn"
-                                                        onClick={handleLocationPopup}
-                                                        data-toggle="modal"
-                                                        data-target="#myModal"
-                                                    ><i className="fa fa-map-marker"></i> Change Location</a>
-                                                    <p className="size_12 margin_top_10">Changing location may affect your <br />added items in cart.</p> */}
                                                     </div>
                                                 </div>
                                                 {defaultLocation.istakeaway && defaultLocation.isOrderingDisable === false && pickupWindow && pickupWindow.length > 0 ?
@@ -564,7 +464,6 @@ const DeliveryConfirmation = () => {
 
                                                     <div className="col-lg-8 col-sm-8 col-xs-12">
                                                         <h5 className="size_22 color_black weight_300 margin_bottom_20"><img src="/images/pin.png" alt="" />
-                                                            {/* <span className="size_20 color_grey margin_top_0">949 Eglinton Ave W,<br />949 Eglinton Ave W <br />New York, 92010</span> */}
                                                             {selecteddeliveryAddress && selecteddeliveryAddress.addresstype === 0 &&
                                                                 <span className="size_20 color_grey margin_top_0">{selecteddeliveryAddress.address1},<br />{selecteddeliveryAddress.city} <br />{selecteddeliveryAddress.landmark}, {selecteddeliveryAddress.zipcode}</span>
                                                             }
@@ -576,7 +475,6 @@ const DeliveryConfirmation = () => {
                                                     <div className="col-lg-4 text-center col-sm-4 col-xs-12">
                                                         <a
                                                             className="light_orange_btn  padding_left_20 padding_right_20 clock_more_btn"
-                                                            // id="adressopenpopup"
                                                             data-dismiss="modal"
                                                             data-toggle="modal"
                                                             data-target="#mysaveModal"
@@ -598,53 +496,6 @@ const DeliveryConfirmation = () => {
                                                     <h3>Select Delivery Time</h3>
                                                 </div>
                                             </div>
-                                            {/* <div className="row">
-                                                <div className="col-lg-12 flush col-sm-12 col-xs-12">
-                                                    <div className="col-lg-6 dd margin_top_10 col-sm-6 col-xs-12">
-                                                        <h3 className="removembottom color_red">
-                                                            {location.isOrderingDisable === true && location.orderingMessage ?
-                                                                location.orderingMessage
-                                                                :
-                                                                (pickupWindow.length === 0 && deliveryWindow.length === 0) ?
-                                                                    PickUpConfirmationMessage.PICKUP_DELIVERY_TIME_CLOSED
-                                                                    :
-                                                                    DeliveryConfirmationMessage.CLOSE_TODAY
-                                                            }
-                                                        </h3>
-
-                                                        {location.isOrderingDisable === false && deliveryWindow.length > 0 && ordertimedisplay &&
-                                                            <h5 className="removembottom color_black margin_top_0 pickupTime"><a data-toggle="modal" data-target="#myModal-timer">Today at {ordertimedisplay && <> {MonthList(currentDate.getMonth())} {currentDate.getDate()}, {ordertimedisplay} </>}</a></h5>
-                                                        }
-                                                    </div>
-                                                    {order.isasap === false ?
-                                                        <div className="col-lg-6 text-left col-sm-6 col-xs-12">
-                                                            <a
-                                                                className="light_orange_btn padding_left_20  padding_right_20 clock_more_btn"
-                                                                onClick={handleChooseTime}
-                                                                data-toggle="modal"
-                                                                data-target="#myModal-timer"
-                                                            ><i className="fa fa-clock-o"></i> Change Time </a>
-                                                        </div>
-                                                        :
-                                                        <div className="col-lg-6 text-left col-sm-6 col-xs-12">
-                                                            <a
-                                                                className="light_orange_btn padding_left_20 padding_right_20 clock_more_btn"
-                                                                onClick={handlerestaurantHoursPopup}
-                                                                data-toggle="modal"
-                                                                data-target="#myModal-2"
-                                                            ><i className="fa fa-clock-o"></i> Restaurant Time</a>
-                                                            <p className="size_12 margin_top_10">Changing time may affect your<br />added items in cart.</p>
-                                                        </div>
-                                                    }
-                                                </div>
-
-                                                {ordertimeerrormessage && ordertimeerrormessage !== "" &&
-                                                    <div className="col-lg-12 col-sm-12 col-xs-12">
-                                                        <h5 className="size_24 color_red weight_500 margin_top_0 margin_bottom_15">{ordertimeerrormessage}</h5>
-                                                    </div>
-                                                }
-                                            </div> */}
-
                                             <div className="row">
                                                 <div className="col-lg-8 column-centered flush margin_top_10 col-sm-10 col-xs-12">
                                                     <br />
@@ -662,24 +513,18 @@ const DeliveryConfirmation = () => {
                                                                 data-target="#myModal-timer">Later On</a>
                                                         }
                                                     </div>
-
-    
                                                 </div>
-
                                                 <div className="col-lg-3 dd margin_top_10 col-sm-3 col-xs-12"></div>
                                                 {(ordertimedisplay || ordertimeerrormessage) &&
                                                     <>
-
                                                         {(ordertimedisplay && ordertimeerrormessage === "") ?
                                                             <div className="col-lg-6 dd margin_top_10 col-sm-6 col-xs-12">
-                                                                
                                                                 {
                                                                     (isAsapSelected === true || isAsapSelected === false) &&
                                                                     <h5 className="removembottom color_black">
                                                                         Today {ordertimedisplay && <> {MonthList(currentDate.getMonth())} {currentDate.getDate()}, {ordertimedisplay} </>}
                                                                     </h5>
                                                                 }
-
                                                             </div>
                                                             : <>
                                                                 {ordertimeerrormessage !== "" &&
@@ -701,7 +546,6 @@ const DeliveryConfirmation = () => {
                                                             {
                                                                 userinfo === null ? <a className="blue_btn blue_btn_porder"
                                                                     id="popupsave"
-                                                                    // data-dismiss="modal"
                                                                     data-toggle="modal"
                                                                     data-target="#myModal-logintest"
                                                                 >Looks Good</a> :
@@ -719,21 +563,10 @@ const DeliveryConfirmation = () => {
                                                         </div>
                                                 }
                                             </div>
-
                                             {
                                                 isPayActive &&
-                                                // <div className="row" ref={myRef}>
                                                 <div className="row" >
                                                     <div className="col-lg-12 margin_top_30 cal text-center col-sm-12 col-xs-12">
-
-                                                        {/* {location && location.isOrderingDisable == false &&
-                                                        <>
-                                                            <div className="col-lg-12 col-sm-12 col-xs-12"><h4 className="size_24 color_orange weight_500 margin_top_0 margin_bottom_30">Payment Type</h4></div>
-                                                            {location.IsPayByCash === true && <> <a className="orange_side_btn orange_bord_btn" onClick={handleCashPayment}>Pay By Cash</a> </>}
-                                                            {location.IsPayByCard === true && <> <a className="orange_side_btn orange_bord_btn" onClick={handleCardPayment}>Pay By Card</a> </>}
-                                                        </>
-                                                    } */}
-
                                                         {location && location.isOrderingDisable == false &&
                                                             <>
                                                                 <div className="col-lg-12 col-sm-12 col-xs-12"><h4 className="size_24 color_orange weight_500 margin_top_0 margin_bottom_30">Payment Type</h4></div>
@@ -778,12 +611,7 @@ const DeliveryConfirmation = () => {
                     restaurantId={restaurantinfo && restaurantinfo.defaultLocation.restaurantId}
                 />
             )}
-
             {saveaddresspopup === true && <SaveAddressPopup />}
-            {/* { selecteddeliveryAddress===null && <SaveAddressPopup />} */}
-
-            {/* {timestate === true && ordertimedisplay !== "" && <Choosetime ordertime={ordertimedisplay.split(' ').join(':')} ordertype={ordertype} checktimeselected={checktimeselected} />} */}
-
             {timestate === true && <ChooseTimeConfirm ordertype={ordertype} restaurantinfo={restaurantinfo} restaurantWindowTime={restaurantWindowTime} ordertime={ordertimedisplay} isTakeAway={location.istakeaway} isDelivery={location.isdelivery} checktimeselected={checktimeselected} />}
             {showLogin === true && <LoginMainComponent restaurantinfo={restaurantinfo}   />}
         </>
