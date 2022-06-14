@@ -37,7 +37,7 @@ const Choosepayment = () => {
     const order = useSelector(({ order }) => order);
     let carttotal = cart?.carttotal && cart.carttotal;
     const [grandtotal, setgrandtotal] = useState(carttotal?.grandTotal != undefined ? parseFloat(carttotal.grandTotal) : 0);
-    
+
     let promotionData = carttotal?.PromotionData && carttotal.PromotionData;
 
     let currencySymbol = GetCurrency();

@@ -65,8 +65,6 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 		}
 	}
 
-
-
 	const addtocartclick = () => {
 		if (deliveryaddressinfo && (
 			deliveryaddressinfo.pickupordelivery === "Pickup" ||
@@ -74,6 +72,7 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 			let selectedoption = selectedtopping.length > 0 && selectedtopping[0].list.filter(x => x.isCompulsory == true);
 			if (menuItemDetail.topping != undefined && menuItemDetail.topping.length === 0) {
 				let itemobj = FormatOrderObject(objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid,ordertype);
+
 				if (itemobj != undefined) {
 					MenuItemServices.addItemToCart(itemobj, objrestaurant.restaurantId).then(response => {
 						if (response) {
@@ -98,6 +97,7 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 				}
 				if (result.length > 0 && result.filter(x => x.text == false).length === 0) {
 					let itemobj = FormatOrderObject(objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid,ordertype);
+
 					if (itemobj != undefined) {
 						MenuItemServices.addItemToCart(itemobj, objrestaurant.restaurantId).then(response => {
 							if (response) {
@@ -110,7 +110,9 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 				}
 			}
 			else if (menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && selectedoption.length === 0) {
+
 				let itemobj = FormatOrderObject(objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid,ordertype);
+
 				if (itemobj != undefined) {
 					MenuItemServices.addItemToCart(itemobj, objrestaurant.restaurantId).then(response => {
 						if (response) {

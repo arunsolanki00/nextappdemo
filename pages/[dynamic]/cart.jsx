@@ -211,7 +211,7 @@ const ShoppingCart = () => {
             );
             settipamount(tipamountcal);
             dispatch(
-              carttotaldata(sessionid,
+              carttotaldata( sessionid,
                 restaurantinfo.defaultlocationId,
                 restaurantinfo.restaurantId,
                 customerId,
@@ -234,7 +234,6 @@ const ShoppingCart = () => {
         });
 
       }
-
     }
   }, [carttotal?.grandTotal, grandtotal || grandtotal]);
 
@@ -688,6 +687,7 @@ const ShoppingCart = () => {
                                             </p>
                                           </div>
                                         </div>
+
                                       }
                                       <div className="row">
                                         <div className="col-lg-8 col-sm-8 col-xs-8 text-left">
