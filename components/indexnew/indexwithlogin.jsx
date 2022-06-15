@@ -37,7 +37,7 @@ function IndexWithLogin() {
     const [showLogin, setShowLogin] = useState(false);
     const [addressdetail, setaddressdetail] = useState({ address1: '', city: '', state: '', country: '', zipcode: '', latitude: '', longitude: '' });
     const tempDeliveryAddress = useSelector(({ deliveryaddress }) => deliveryaddress.tempDeliveryAddress);
-
+   const [load, setLoad] = useState(true)
     const isTakeOutAsap = restaurantinfo.defaultLocation.isTakeOutAsap;
     const isTakeOutPickupTime = restaurantinfo.defaultLocation.isTakeOutPickupTime;
     // const isDeliveryPickupTime = defaultLocation.isDeliveryPickupTime;
@@ -107,6 +107,8 @@ function IndexWithLogin() {
             setLoadComplete(true);
         }
     }, [userinfo, userinfo?.customerId]);
+ 
+    
 
     const handleSelectDelivery = (item) => {
         if (item) {
@@ -117,6 +119,7 @@ function IndexWithLogin() {
 
     const handleClick = async (lid) => {
         if (lid) {
+            setLoad(false)
             setselectedAddressId(lid);
             setDisplayNext(true);
 
@@ -145,6 +148,7 @@ function IndexWithLogin() {
             });
             dispatch(restaurantsdetail(restaurantinfo));
             setLocationIdInStorage(restaurantinfo.defaultlocationId);
+            setLoad(true)
         }
     }
     const handlemoreclick = (item) => setismore(!item);
@@ -475,10 +479,11 @@ function IndexWithLogin() {
                                                     </div>
 
                                                     <div className="col-lg-6 text-center col-sm-6 col-xs-12">
-                                                        {displayNext === false ?
+                                                        {
+                                                        displayNext === false && !load ?
                                                             <a className="blue_btn blue_btn_porder disabled" disabled>Next</a>
                                                             :
-                                                            <Link href="/[dynamic]/pickup" as={`/${restaurantinfo.restaurantURL}/pickup`}>
+                                                            <Link href="/[dynamic]/[location]" as={`/${restaurantinfo.restaurantURL}/${restaurantinfo.defaultLocation.locationURL.toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")}`}>
                                                                 <a className="blue_btn blue_btn_porder ">Next</a>
                                                             </Link>
                                                         }

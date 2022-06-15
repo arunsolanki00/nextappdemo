@@ -29,7 +29,7 @@ const ShoppingCartItem = (cartdata) => {
     const pickupordelivery = useSelector(({ selecteddelivery }) => selecteddelivery.pickupordelivery);
 
     const router = useRouter();
-    const { query: { dynamic, id, category, index }, } = router;
+    const { query: { dynamic, location,id, category, index }, } = router;
 
     const editcartclick = async (item, menucategoryitem, menuitemnameurl) => {
         if (item != undefined) {
@@ -44,10 +44,10 @@ const ShoppingCartItem = (cartdata) => {
                     });
                     dispatch(selectedMenuItem(item));
                     if(item.isdefaultprice === true && item.pricetypeid === 0){
-                        router.push("/" + dynamic + "/" + menucategoryitem)
+                        router.push("/" + dynamic + "/"+location+"/" + menucategoryitem)
 
                     }else{
-                        router.push("/" + dynamic + "/" + menucategoryitem + "/" + menuitemnameurl);
+                        router.push("/" + dynamic+ "/"+location+ "/" + menucategoryitem + "/" + menuitemnameurl);
                     }
                 }
             });

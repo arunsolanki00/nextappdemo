@@ -9,7 +9,7 @@ function CategorySlideComponent({ slides }) {
     const dispatch = useDispatch();
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     const {
-        query: { dynamic, id, category },
+        query: { dynamic,location,id, category },
     } = router
 
     const selectedCategoryClick = (item) => {
@@ -24,7 +24,7 @@ function CategorySlideComponent({ slides }) {
                 <ul>
                     {slides && slides.map((item, index) => {
                         return (
-                            <Link key={Math.random()} href="/[dynamic]/[category]" as={`/${dynamic}/${item.catName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-")}`}>
+                            <Link key={Math.random()} href="/[dynamic]/[location]/[category]" as={`/${dynamic}/${location}/${item.catName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-")}`}>
                                 <a onClick={() => selectedCategoryClick(item)}>
                                     <li key={Math.random()} style={{ background: item.cardBackgroundColor }} >
                                         <h4 className="text-overflow">{item.catName}</h4>

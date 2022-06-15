@@ -16,6 +16,7 @@ const LoginMainComponent = (props) => {
   const { restaurantinfo } = props;
   const dispatch = useDispatch();
   const router = useRouter()
+  const { query: { dynamic,location ,id, category, items } } = router;
   const selecteddelivery = useSelector(({ selecteddelivery }) => selecteddelivery);
   const selecteddeliveryaddress = selecteddelivery.selecteddeliveryaddress;
   const [username, setUsername] = useState("");
@@ -85,14 +86,14 @@ const LoginMainComponent = (props) => {
     $('.modal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-    router.push("/" + restaurantinfo.restaurantURL + "/register");
+    router.push("/" + restaurantinfo.restaurantURL +"/"+location+ "/register");
   }
 
   const handleForgotPassword = () => {
     $('.modal').modal('hide');
     $('body').removeClass('modal-open');
     $('.modal-backdrop').remove();
-    router.push("/" + restaurantinfo.restaurantURL + "/forgot-password");
+    router.push("/" + restaurantinfo.restaurantURL+"/"+location + "/forgot-password");
   }
 
   const handlePaste = (e) => {
@@ -133,10 +134,10 @@ const LoginMainComponent = (props) => {
           }
           let url = window.location.href;
           if (url.includes("pickupconfirmation") || (url.includes("deliveryconfirmation") && selecteddeliveryaddress !== null)) {
-            router.push("/" + restaurantinfo.restaurantURL + "/cart");
+            router.push("/" + restaurantinfo.restaurantURL +"/"+location+ "/cart");
           }
           if (url.includes("register")) {
-            router.push("/" + restaurantinfo.restaurantURL + "/pickup");
+            router.push("/" + restaurantinfo.restaurantURL +"/"+location+"/pickup");
           }
           CloseAddress();
         } else {
@@ -233,7 +234,7 @@ const LoginMainComponent = (props) => {
                     {/* <Link href="/[dynamic]/register" as={`/${restaurantinfo.restaurantURL}/register`}  onClick={handleLogin}>
                     <a className="regi" >Register</a>
                   </Link> */}
-                    <a className="regi" onClick={handleLogin} >Register</a>
+                    <a className="orange_btn_submit" onClick={handleLogin} >Register</a>
                   </div>
 
                 </form>

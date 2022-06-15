@@ -15,7 +15,7 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
   const dispatch = useDispatch();
   const router = useRouter();
   const {
-    query: { dynamic },
+    query: { dynamic,location},
   } = router;
   const userinfo = useSelector(
     ({ userdetail }) => userdetail.loggedinuser,
@@ -96,8 +96,8 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
                             <Link
                               shallow={false}
                               key={Math.random()}
-                              href="/[dynamic]/orderdetail/[orderId]"
-                              as={`/${dynamic}/orderdetail/${details.orderId}`}
+                              href="/[dynamic]/[location]/orderdetail/[orderId]"
+                              as={`/${dynamic}/${location}/orderdetail/${details.orderId}`}
                             >
                               <a
                                 className="blue_btn edit_btn margin_left_10 d-inline-block edit"
@@ -148,8 +148,8 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
                         <Link
                           shallow={false}
                           key={Math.random()}
-                          href="/[dynamic]/orderdetail/[orderId]"
-                          as={`/${dynamic}/orderdetail/${history.orderId}`}
+                          href="/[dynamic]/[location]/orderdetail/[orderId]"
+                          as={`/${dynamic}/${location}/orderdetail/${history.orderId}`}
                         >
                           <a onClick={() => selectedItemClick(details)}>
                             <span className="fa angle size_15 angle-round bg_green color_white fa-angle-right right_0"></span>
@@ -170,8 +170,8 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
                             <Link
                               shallow={false}
                               key={Math.random()}
-                              href="/[dynamic]/orderdetail/[orderId]"
-                              as={`/${dynamic}/orderdetail/${details.orderId}`}
+                              href="/[dynamic]/[location]/orderdetail/[orderId]"
+                              as={`/${dynamic}/${location}/orderdetail/${details.orderId}`}
                             >
                               <a
                                 className="blue_btn edit_btn margin_left_10 d-inline-block edit"
@@ -222,8 +222,8 @@ const MyOrdersComponent = ({ restaurantinfo }) => {
                         <Link
                           shallow={false}
                           key={Math.random()}
-                          href="/[dynamic]/orderdetail/[orderId]"
-                          as={`/${dynamic}/orderdetail/${history.orderId}`}
+                          href="/[dynamic]/[location]/orderdetail/[orderId]"
+                          as={`/${dynamic}/${location}/orderdetail/${history.orderId}`}
                         >
                           <a onClick={() => selectedItemClick(details)}>
                             <span className="fa angle size_15 angle-round bg_green color_white fa-angle-right right_0"></span>

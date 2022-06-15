@@ -12,6 +12,16 @@ import { RestaurantsServices } from '../../redux/restaurants/restaurants.service
 import { restaurantsdetail } from '../../redux/restaurants/restaurants.action';
 import { CartTypes } from '../../redux/cart/cart.types';
 import { getLocationIdFromStorage } from '../Common/localstore';
+import Image from 'next/image';
+import stripimage from "../../public/images/strip.svg";
+import card1 from "../../public/images/card-1.png";
+import card2 from "../../public/images/card-2.png";
+import card3 from "../../public/images/card-3.png";
+import card4 from "../../public/images/card-4.png";
+import cardi1 from "../../public/images/cardi-1.svg";
+import cardi2 from "../../public/images/cardi-2.svg";
+import cardi3 from "../../public/images/cardi-3.svg";
+import cardi4 from "../../public/images/cardi-4.svg";
 
 const StripeCheckoutComponent = (props) => {
 
@@ -33,7 +43,7 @@ const StripeCheckoutComponent = (props) => {
     const [errors, setErrors] = useState({});
     const dispatch = useDispatch();
     const router = useRouter();
-    const { query: { dynamic }, } = router;
+    const { query: { dynamic,location }, } = router;
     const [cardType, setCardType] = useState(0);
     const [ischecked, setischecked] = useState(false)
     const [isOrdering, setIsOrdering] = useState(false);
@@ -49,7 +59,7 @@ const StripeCheckoutComponent = (props) => {
                         dispatch(restaurantsdetail(newselectedRestaurant));
                     }
                     if (newselectedRestaurant.defaultLocation.isOrderingDisable === true)
-                        router.push("/" + newselectedRestaurant.restaurantURL + "/restaurant-close");
+                        router.push("/" + newselectedRestaurant.restaurantURL+"/"+location + "/restaurant-close");
                     else setIsOrdering(true);
                 }
             });
@@ -151,7 +161,7 @@ const StripeCheckoutComponent = (props) => {
                         type: CartTypes.EMPTY_ORDER_INFO,
                         payload: null,
                     });
-                    return router.push("/" + restaurantinfo.restaurantURL + "/orderconfirmation");
+                    return router.push("/" + restaurantinfo.restaurantURL+"/"+location+ "/orderconfirmation");
                 } else {
                     setischecked(false)
                     setisDisabled(true);
@@ -293,13 +303,13 @@ const StripeCheckoutComponent = (props) => {
                     <div className="customForm" >
                         <div className="col-lg-12 cards text-center col-sm-12 col-xs-12">
                             <div className="col-lg-12 text-center col-sm-12 col-xs-12" style={{ height: "35px" }}>
-                                {cardType === 1 && <span><img src="/images/card-1.png" alt="" /></span>}
-                                {cardType === 2 && <span><img src="/images/card-2.png" alt="" /></span>}
-                                {cardType === 3 && <span><img src="/images/card-3.png" alt="" /></span>}
-                                {cardType === 4 && <span><img src="/images/card-4.png" alt="" /></span>}
+                                {cardType === 1 && <span><Image src={card1} alt="" /></span>}
+                                {cardType === 2 && <span><Image src={card2} alt="" /></span>}
+                                {cardType === 3 && <span><Image src={card3} alt="" /></span>}
+                                {cardType === 4 && <span><Image src={card4} alt="" /></span>}
                             </div>
                             <div className="col-lg-12 strip text-center col-sm-12 col-xs-12">
-                                <a href="#"><img src="/images/strip.svg" alt="" /></a>
+                                <a href="#"><Image src={stripimage} alt="" /></a>
                             </div>
                         </div>
                         {cardShowMessage ? <div className="col-lg-12 strip text-center col-sm-12 col-xs-12" style={{ height: "40px" }}>
@@ -325,10 +335,10 @@ const StripeCheckoutComponent = (props) => {
                             <input className="marginbottom_0" type="text" placeholder="1234 1234 1234 1234" required onKeyDown={handleCardNumberPress} value={values.cardnumber} name="cardnumber" />
                             {errors.cardnumber && <span className="error">{errors.cardnumber}</span>}
                             <div className="card-imgs">
-                                {cardType === 1 && <span><img src="/images/cardi-1.svg" /></span>}
-                                {cardType === 2 && <span><img src="/images/cardi-2.svg" /></span>}
-                                {cardType === 3 && <span><img src="/images/cardi-3.svg" /></span>}
-                                {cardType === 4 && <span><img src="/images/cardi-4.svg" /></span>}
+                                {cardType === 1 && <span><Image src={cardi1} /></span>}
+                                {cardType === 2 && <span><Image src={cardi2} /></span>}
+                                {cardType === 3 && <span><Image src={cardi3} /></span>}
+                                {cardType === 4 && <span><Image src={cardi4} /></span>}
                             </div>
                         </div>
                         <div className="col-lg-6 flush-right left-input-style col-sm-6 col-xs-6 marginbottom_12">

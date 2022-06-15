@@ -5,7 +5,9 @@ import DeliveryDropdownComponent from "../Header/delivery-dropdown.component";
 import { MemoizedMenuItemHeaderLogoComponent } from "../Header/menuitemheaderlogo.component";
 import Head from "next/head";
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
+import arrowleft from "../../public/images/arrow-left.svg"
 import { useDispatch, useSelector,shallowEqual } from 'react-redux';
 import { getSessionKey } from '../Common/auth';
 import { getLocationIdFromStorage } from '../Common/localstore';
@@ -461,7 +463,7 @@ import SmallLoader from '../Common/small-loader.component';
                     >
                       <a className="size_24 weight_500 color_grey">
                         <span className="bg_grey">
-                          <img src="/images/arrow-left.svg" />
+                          <Image src={arrowleft} />
                         </span>{" "}
                         Back
                       </a>

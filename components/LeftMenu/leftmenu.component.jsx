@@ -24,7 +24,7 @@ function LeftMenuComponent() {
   );
   const router = useRouter();
   const { logo, restaurantURL } = restaurantinfo;
-  const { query: { dynamic, id, category, index } } = router;
+  const { query: { dynamic, location,id, category, index } } = router;
   const handleClick = () => {
     dispatch(leftMenuToggle(!isOpen));
   };
@@ -49,7 +49,7 @@ function LeftMenuComponent() {
       let id=uuidv4()
       dispatch(createSessionId(id));
       handleNotify('logout successfully!', ToasterPositions.TopRight, ToasterTypes.Success);
-      router.push("/" + restaurantinfo.restaurantURL+"/pickup");
+      router.push("/" + restaurantinfo.restaurantURL+"/"+location);
     }
     else {
       handleNotify('please login first, before logout!', ToasterPositions.TopRight, ToasterTypes.Info);
@@ -76,7 +76,7 @@ function LeftMenuComponent() {
               <img src="/images/alarm-bell.svg" alt="" />
 
               {(userinfo !== undefined && userinfo !== null) &&
-                <Link href="/[dynamic]/notifications" as={`/${restaurantURL}/notifications`}>
+                <Link href="/[dynamic]/[location]/notifications" as={`/${restaurantURL}/${location}/notifications`}>
                   <span>
                     <em>2</em>
                   </span>
@@ -103,7 +103,7 @@ function LeftMenuComponent() {
             </li>
             <li id={"accountid"} className={router.pathname.includes("/myaccount") ? "active" : ""} >
               {(userinfo != undefined && userinfo != null) &&
-                <Link href="/[dynamic]/myaccount" as={`/${restaurantURL}/myaccount`} >
+                <Link href="/[dynamic]/[location]/myaccount" as={`/${restaurantURL}/${location}/myaccount`} >
                   <a><em> <i className="fa fa-user"></i> <span>{LeftMenuName.MYACCOUNT}</span> </em> </a>
                 </Link>
               }
@@ -118,8 +118,8 @@ function LeftMenuComponent() {
             <li id={"orderid"} className={router.pathname.includes("/myorders") || router.pathname.includes("/orderdetail") ? "active" : ""}>
               {(userinfo != undefined && userinfo != null) &&
                 <Link
-                  href="/[dynamic]/myorders"
-                  as={`/${restaurantURL}/myorders`} >
+                  href="/[dynamic]/[location]/myorders"
+                  as={`/${restaurantURL}/${location}/myorders`} >
                   <a> <em> <i className="fa fa-cutlery"></i> <span>{LeftMenuName.MYORDERS}</span> </em> </a>
                 </Link>}
 
@@ -135,8 +135,8 @@ function LeftMenuComponent() {
             <li id="favouriteid" className={router.pathname.includes("/favourites") ? "active" : ""}>
               {(userinfo != undefined && userinfo != null) &&
                 <Link
-                  href="/[dynamic]/favourites"
-                  as={`/${restaurantURL}/favourites`} >
+                  href="/[dynamic]/[location]/favourites"
+                  as={`/${restaurantURL}/${location}/favourites`} >
                   <a> <em> <i className="fa fa-heart-o"></i> <span>{LeftMenuName.FAVOURITES}</span> </em> </a>
                 </Link>
               }
@@ -152,15 +152,15 @@ function LeftMenuComponent() {
 
             <li className={router.pathname.includes("/testimonial") ? "active" : ""}>
               <Link
-                href="/[dynamic]/testimonial"
-                as={`/${restaurantURL}/testimonial`}>
+                href="/[dynamic]/[location]/testimonial"
+                as={`/${restaurantURL}/${location}/testimonial`}>
                 <a> <em> <i className="fa fa-quote-left"></i> <span>{LeftMenuName.TESTIMONIALS}</span> </em> </a>
               </Link>
             </li>
             <li className={router.pathname.includes("/locations") ? "active" : ""}>
               <Link
-                href="/[dynamic]/locations"
-                as={`/${restaurantURL}/locations`}>
+                href="/[dynamic]/[location]/locations"
+                as={`/${restaurantURL}/${location}/locations`}>
                 <a> <em> <i className="fa fa-spoon"></i> <span>{LeftMenuName.LOCATIONS}</span> </em> </a>
               </Link>
             </li>

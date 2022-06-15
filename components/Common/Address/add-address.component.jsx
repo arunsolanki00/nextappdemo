@@ -15,6 +15,7 @@ const AddAddress = (props) => {
         }
     }
     const router = useRouter();
+    const { query: { dynamic,location ,id, category, items } } = router;
     const [loadaddress, setloadaddress] = useState(true);
 
     const CloseAddress = () => {
@@ -45,7 +46,7 @@ const AddAddress = (props) => {
                 addresspopupclose.click();
                 let addresspersonaltab = document.getElementById("addresspersonaltab");
                 addresspersonaltab.click();
-                return router.push("/" + restaurantinfo.restaurantURL + "/myaccount");
+                return router.push("/" + restaurantinfo.restaurantURL +"/"+location+"/myaccount");
             }
         }
 

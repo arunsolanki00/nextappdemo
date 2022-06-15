@@ -5,7 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { carttransactionid } from "../../redux/cart/cart.action";
 import { useRouter } from 'next/router'
 import Loader from "../Common/loader/loader.component";
-
+import Image from "next/image";
+import card1 from "../../public/images/card-1.png";
+import card2 from "../../public/images/card-2.png";
+import card3 from "../../public/images/card-3.png";
+import card4 from "../../public/images/card-4.png";
+import stripimage from "../../public/images/strip.svg";
 const CARD_OPTIONS = {
     iconStyle: "default",
     hidePostalCode: true,
@@ -223,13 +228,13 @@ const CheckoutForm = () => {
                     <fieldset>
                         <div className="col-lg-12 cards text-center col-sm-12 col-xs-12">
                             <div className="col-lg-12 text-center col-sm-12 col-xs-12">
-                                <a><img src="/images/card-1.png" alt="" /></a>
-                                <a><img src="/images/card-2.png" alt="" /></a>
-                                <a><img src="/images/card-3.png" alt="" /></a>
-                                <a><img src="/images/card-4.png" alt="" /></a>
+                                <a><Image src={card1} alt="" /></a>
+                                <a><Image src={card2} alt="" /></a>
+                                <a><Image src={card3} alt="" /></a>
+                                <a><Image src={card4} alt="" /></a>
                             </div>
                             <div className="col-lg-12 strip text-center col-sm-12 col-xs-12">
-                                <a><img src="/images/strip.svg" alt="" /></a>
+                                <a><Image src={stripimage} alt="" /></a>
                             </div>
                         </div>
                         <div className="col-lg-12 col-sm-12 col-xs-12">

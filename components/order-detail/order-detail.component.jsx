@@ -20,7 +20,7 @@ const OrderDetailComponent = (props) => {
   const restaurantId = restaurantinfo.restaurantId;
   const locationId = restaurantinfo.defaultlocationId;
   const router = useRouter();
-  const { query: { dynamic, id, category, index } } = router;
+  const { query: { dynamic, location,id, category, index } } = router;
   useEffect(() => {
     OrderServices.getOrderInfo(restaurantId, locationId, props.orderId, customerId).then((response) => {
       if (response) {
@@ -38,7 +38,7 @@ const OrderDetailComponent = (props) => {
     OrderServices.repeatOrder(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, orderId, orderDetailId, false, customerId).then((response) => {
       if (response.status === 1) {
         handleNotify("Your Order placed successfully", ToasterPositions.TopRight, ToasterTypes.Success);
-        router.push("/" + restaurantinfo.restaurantURL + "/cart");
+        router.push("/" + restaurantinfo.restaurantURL +"/"+location+ "/cart");
       } else {
         handleNotify("Something went wrong", ToasterPositions.TopRight, ToasterTypes.Error);
       }

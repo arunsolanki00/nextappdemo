@@ -5,7 +5,6 @@ import Link from "next/link";
 import { useState } from "react";
 import { shallowEqual, useSelector } from "react-redux";
 
-
 const MenuItemHeaderLogoComponent=({ restaurantinfo }) =>{
     const restaurantinfodetail = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
     const { logo, restaurantURL } = !restaurantinfo ? restaurantinfodetail:restaurantinfo;
@@ -15,7 +14,7 @@ const MenuItemHeaderLogoComponent=({ restaurantinfo }) =>{
                 <Link href="/[dynamic]/" as={`/${restaurantURL}/`}>
                     <a>
                         {logo ? (
-                            <img src={logo} alt="" width={180} height={100} />
+                           <Image src={logo} alt="" width={180} height={100} />
                         ) : ('')}
                     </a>
                 </Link>
