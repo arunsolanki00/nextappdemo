@@ -9,13 +9,13 @@ const LocationDisplay = () => {
 //     // let oddlocations = [];
 //     // let evenlocations = [];
 
-//     debugger
+//      
 //     const [oddlocations, setoddlocations] = useState([])
 //     const [evenlocations, setevenlocations] = useState([])
    
 
 //     // useEffect(() => {
-//     //     debugger
+//     //      
 //     //     let oddlocation = [];
 //     //     let evenlocation = [];
 //     //     items.locationDetails.map((location, index) => {

@@ -15,7 +15,7 @@ const FavouritesComponent = (props) => {
   const router = useRouter();
   const dispatch = useDispatch();
   const {
-    query: { dynamic, id, category, index },
+    query: { dynamic, location,id, category, index },
   } = router;
   const [favourites, setFavourites] = useState(props.favouriteList);
   var restaurantinfo = props.restaurantinfo;
@@ -39,10 +39,10 @@ const FavouritesComponent = (props) => {
                 <Link
                   shallow={false}
                   key={Math.random()}
-                  href="/[dynamic]/[category]/[items]"
+                  href="/[dynamic]/[location]/[category]/[items]"
                   as={`${
                     window.location.origin
-                  }/${dynamic}/${oddMenuItem.categoryName
+                  }/${dynamic}/${location}/${oddMenuItem.categoryName
                     .toLowerCase()
                     .toString()
                     .replace(/ /g, "-")}/${oddMenuItem.menuItemName
@@ -96,10 +96,10 @@ const FavouritesComponent = (props) => {
                 <Link
                   shallow={false}
                   key={Math.random()}
-                  href="/[dynamic]/[category]/[items]"
+                  href="/[dynamic]/[location]/[category]/[items]"
                   as={`${
                     window.location.origin
-                  }/${dynamic}/${evenMenuItem.categoryName
+                  }/${dynamic}/${location}/${evenMenuItem.categoryName
                     .toLowerCase()
                     .toString()
                     .replace(/ /g, "-")}/${evenMenuItem.menuItemName

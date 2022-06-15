@@ -1,6 +1,6 @@
 import React from 'react'
 import Image from "next/image";
-
+import closeImage from "../../public/images/close.svg"
 const CalenderTimeComponent = () => {
   return (
     <div
@@ -13,7 +13,7 @@ const CalenderTimeComponent = () => {
           <div className="modal-body">
             <div className="col-lg-12 text-center col-sm-12 col-xs-12">
               <button type="button" className="close" data-dismiss="modal">
-                <img src="/images/close.svg" alt="" />
+                <Image src={closeImage} alt="" />
               </button>
               <h3>Choose time</h3>
             </div>

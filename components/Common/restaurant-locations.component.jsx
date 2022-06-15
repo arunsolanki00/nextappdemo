@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import Loader from "../Common/loader/loader.component";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
@@ -16,8 +17,11 @@ const RestaurantLocationsComponent = (props) => {
   const defaultLocation=restaurantinfo?.defaultLocation;
   const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
   const dispatch = useDispatch();
+  const router =useRouter();
+  const { query: { dynamic,location ,id, category, items } } = router;
   let sessionid = useSelector(({ session }) => session?.sessionid);
   const handleClick = async (lid) => {
+     
           const request = await fetch(ENDPOINTS.LOCATION_BY_ID, {
       method: 'POST',
       headers: {
@@ -31,7 +35,9 @@ const RestaurantLocationsComponent = (props) => {
       })
     });
     const response = await request.json();
+     
     var data = await JSON.parse(response.d);
+     
     Object.keys(restaurantinfo).map((session) => {
       if (session === 'defaultLocation') {
         Object.assign(restaurantinfo.defaultLocation, data.result);
@@ -43,6 +49,10 @@ const RestaurantLocationsComponent = (props) => {
     dispatch(restaurantsdetail(null));
     dispatch(restaurantsdetail(restaurantinfo));
     setLocationIdInStorage(restaurantinfo.defaultlocationId);
+     
+    if(restaurantinfo.defaultLocation.locationURL !== undefined){
+      router.push(`/${dynamic}/${restaurantinfo.defaultLocation.locationURL.toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")}`)
+    }
     if (userinfo && userinfo?.customerId) {
       deleteCartItemFromSessionId(sessionid, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId);
       dispatch(emptycart());

@@ -452,7 +452,7 @@ a {
 
 
 /* login component */
-#myModal-logintest input{
+#myModal-logintest, input{
 	margin-bottom: 12px !important;
 }
 #myModal-logintest,.customForm .error {
@@ -2941,6 +2941,10 @@ html,body {
     font-size: 18px;
     font-weight: 300;
     margin-right: 15px;
+}
+
+.tip_select{
+    color: white !important;
 }
 
 .pers input {

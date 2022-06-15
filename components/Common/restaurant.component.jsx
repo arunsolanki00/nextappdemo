@@ -10,12 +10,15 @@ import { logout } from '../../redux/login/login.action';
 import { getSelectedRestaurantTime } from '../../redux/main/main.action';
 import { MainServices } from '../../redux/main/main.services';
 import { MainTypes } from '../../redux/main/main.types';
-import { restaurantsdetail } from '../../redux/restaurants/restaurants.action';
+import { restaurantsdetail, restaurantsLocation, restaurantstiming } from '../../redux/restaurants/restaurants.action';
 import { RestaurantsServices } from '../../redux/restaurants/restaurants.services';
 import { clearSessionId, createSessionId } from '../../redux/session/session.action';
 import { ENDPOINTS } from "../config";
 import { getLocationIdFromStorage, getRestaurantIdFromStorage, setLocationIdInStorage, setRestaurantIdInStorage } from './localstore';
 import { v4 as uuidv4 } from 'uuid';
+import { selecteddeliveryaddress, setpickupordelivery } from '../../redux/selected-delivery-data/selecteddelivery.action';
+import { RestaurantsTypes } from '../../redux/restaurants/restaurants.types';
+import { emptyordertime } from '../../redux/order/order.action';
 
 const Restaurant =({ children }) => {
    console.log("Restaurant compo call");
@@ -23,14 +26,15 @@ const Restaurant =({ children }) => {
     const dispatch = useDispatch();
     let newselectedRestaurant = null;
     let categoryresponse = [];
-    const { query: { dynamic }, } = router;
+    const { query: { dynamic,location}, } = router;
     const [loadrestaurant, setLoadrestaurant] = useState(false);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
     let restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
+    let restaurantslocationlist = useSelector(({ restaurant }) => restaurant.restaurantslocationlist);
+    const [adresslist, setadresslist] = useState(false)
     const customerId = userinfo ? userinfo.customerId : 0;
     let cart = useSelector(({ cart }) => cart);
-
     let sessionId = useSelector(({ session }) => session.sessionid);
     // const setLocation = (restaurantId,defaultlocationId) => {
     //     localStorage.setItem('defaultlocationId', defaultlocationId > 0 ? defaultlocationId : 0);
@@ -163,6 +167,7 @@ const Restaurant =({ children }) => {
                                 //       let id = uuidv4();
                                 //       dispatch(createSessionId(id)) 
                                 // }
+                                //TO DO
                                 setLoadrestaurant(true);
                             })
                         }
@@ -177,6 +182,42 @@ const Restaurant =({ children }) => {
             }
         }
     }, [dynamic]);
+    // IF ADDRESSLIST IS IS EMPTY AND USER DIRECT PUT THE WRONG LOCATION IN THE URL THEN CHECK THE LOCATION IS EXIST IN THE RESTAURANT
+    useEffect(()=>{
+      if(location !== undefined && restaurantinfo.defaultLocation !== undefined &&restaurantinfo.defaultLocation !== null && restaurantslocationlist.length===0  ){
+        const fetchData = async () => {
+            setLoadrestaurant(false)
+            const getResponse = await restaurantsLocation(restaurantinfo && restaurantinfo.restaurantId, "0", "0");
+            dispatch(setpickupordelivery('Pickup'));
+            dispatch(selecteddeliveryaddress(null));// as we do not need delivery address selected            
+            dispatch(restaurantstiming(restaurantinfo && restaurantinfo.defaultlocationId, restaurantinfo && restaurantinfo.restaurantId));
+            dispatch({
+                type: RestaurantsTypes.RESTAURANT_LOCATION_LIST,
+                payload: getResponse
+            })
+            dispatch(getSelectedRestaurantTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
+            dispatch(emptyordertime());
+            setadresslist(true) 
+        };
+           fetchData();
+      }
+    },[restaurantinfo])
+    
+    useEffect(() => {
+     if(adresslist === true){
+        let addressList=restaurantslocationlist.addressList;
+        if(restaurantslocationlist.addressList !== undefined){
+            let linkLoacationurl=location.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "") 
+            addressList.map(locations=>{
+                let locationURL=locations.locationURL.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")  
+                if(linkLoacationurl === locationURL){
+                  setLoadrestaurant(true)
+                }
+            })
+        } 
+     }
+    }, [adresslist])
+    
 
     console.log(router.pathname)
 

@@ -5,7 +5,6 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getCategoryItemList, selectedCategory } from "../../redux/category/category.action";
 
 function MenuCategoryComponent({ categories, selectedCat }) {
-  
     const router = useRouter();
     const dispatch = useDispatch();
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
@@ -14,7 +13,7 @@ function MenuCategoryComponent({ categories, selectedCat }) {
     const [slides, setslides] = useState([]);
 
     const {
-        query: { dynamic, id, category, index },
+        query: { dynamic, location,id, category, index },
     } = router
 
     console.log("category :"+category);
@@ -43,8 +42,8 @@ function MenuCategoryComponent({ categories, selectedCat }) {
                 <li key={Math.random()}>
                     <Link
                         shallow={false}
-                        key={Math.random()} href="/[dynamic]/[category]"
-                        as={`/${dynamic}/${categoryRow.catName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-")}`}>
+                        key={Math.random()} href="/[dynamic]/[location]/[category]"
+                        as={`/${dynamic}/${location}/${categoryRow.catName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-")}`}>
                         <a onClick={() => selectedCategoryClick(categoryRow)} className={categoryRow.catSelected ? "active" : ""}>
                             {categoryRow.catName}
                         </a>

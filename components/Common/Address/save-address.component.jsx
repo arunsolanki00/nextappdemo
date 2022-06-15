@@ -19,7 +19,7 @@ const SaveAddressPopup = () => {
     }    
     const router = useRouter()
     const {
-        query: { dynamic, id, category, index },
+        query: { dynamic,location, id, category, index },
       } = router;
     const handledeleteAddressPopup = (item) => {
         if (item != undefined) {
@@ -32,8 +32,8 @@ const SaveAddressPopup = () => {
         if (item != undefined) {
             popupClose();
             dispatch(selecteddeliveryaddress(item));
-            if(router.pathname === "/[dynamic]/deliveryconfirmation"){
-                router.push("/" + restaurantinfo.restaurantURL + "/cart");
+            if(router.pathname === "/[dynamic]/[location]/deliveryconfirmation"){
+                router.push("/" + restaurantinfo.restaurantURL+"/"+location + "/cart");
             }
         }
     }

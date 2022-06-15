@@ -6,6 +6,9 @@ import { OrderServices } from '../../redux/order/order.services';
 import { setordertime } from '../../redux/order/order.action';
 import { numberValidate } from '../helpers/validate';
 import { DeliveryMessage } from '../helpers/static-message/delivery-message';
+import closeImage from "../../public/images/close.svg"
+import arrowUp from "../../public/images/arrow-up.png";
+import arrowDown from "../../public/images/arrow-down.svg"
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -214,7 +217,7 @@ const ChooseTimeConfirm = (props) => {
                     <div className="modal-body" id="pickup">
                         <div className="row">
                             <div className="col-lg-12 text-center col-sm-12 col-xs-12">
-                                <button type="button" className="close" onClick={handleclose} data-dismiss="modal" id="choosetimeclose"><img src="/images/close.svg" alt="" /></button>
+                                <button type="button" className="close" onClick={handleclose} data-dismiss="modal" id="choosetimeclose"><Image src={closeImage} alt="" /></button>
                                 <h3> {pickupordelivery !== '' ?'Choose '+ pickupordelivery : 'Choose'} time</h3>
                             </div>
                             <div className="col-lg-12 text-center col-sm-12 col-xs-12">
@@ -226,13 +229,13 @@ const ChooseTimeConfirm = (props) => {
                                             <div className="col-md-3">
                                             </div>
                                             <div className="col-md-2" onClick={handleIncreaseHour}>
-                                                <img src="/images/arrow-up.png" height={16} width={30}/>
+                                                <Image src={arrowDown} height={18} width={30} />
                                             </div>
                                             <div className="col-md-2" onClick={handleIncreaseMinute}>
-                                                <img src="/images/arrow-up.png" height={16} width={30}/>
+                                                <Image src={arrowDown} height={18} width={30} />
                                             </div>
                                             <div className="col-md-2" onClick={handleMeridiem}>
-                                                <img src="/images/arrow-up.png" height={16} width={30}/>
+                                                <Image src={arrowDown} height={18} width={30} />
                                             </div>
                                             <div className="col-md-3">
                                             </div>
@@ -258,13 +261,13 @@ const ChooseTimeConfirm = (props) => {
                                             <div className="col-md-3">
                                             </div>
                                             <div className="col-md-2" onClick={handleDecreaseHour}>
-                                                <img src="/images/arrow-down.svg"  height={18}/>
+                                                <Image src={arrowDown} height={18} width={30} />
                                             </div>
                                             <div className="col-md-2" onClick={handleDecreaseMinute} >
-                                                <img src="/images/arrow-down.svg"  height={18}/>
+                                                <Image src={arrowDown} height={18} width={30} />
                                             </div>
                                             <div className="col-md-2" onClick={handleMeridiem} >
-                                                <img src="/images/arrow-down.svg"  height={18}/>
+                                                <Image src={arrowDown} height={18} width={30} />
                                             </div>
                                             <div className="col-md-3">
                                             </div>

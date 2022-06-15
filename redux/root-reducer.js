@@ -16,10 +16,12 @@ import deliveryaddressReducer from './delivery-address/delivery-address.reducer'
 import selecteddeliveryReducer from './selected-delivery-data/selecteddelivery.reducer';
 import orderReducer from "./order/order.reducer";
 import sessionReducer from './session/session.reducer';
+import studentReducer from './student/student.reducer';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['userdetail', 'selecteddelivery','cart','order','selecteddelivery','menuitem','main','restaurantWindowTime','deliveryaddress','session']
+    whitelist: ['userdetail', 'selecteddelivery','cart','order','menuitem','main','restaurantWindowTime',
+    'deliveryaddress','session','studentname']
 }
 
 const rootReducer = combineReducers({
@@ -37,7 +39,8 @@ const rootReducer = combineReducers({
     order:orderReducer,
     deliveryaddress: deliveryaddressReducer,
     selecteddelivery: selecteddeliveryReducer,
-    session:sessionReducer
+    session:sessionReducer,
+    studentname:studentReducer
 });
 
 export default persistReducer(persistConfig, rootReducer);

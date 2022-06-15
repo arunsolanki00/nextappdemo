@@ -2,10 +2,16 @@ import { shallowEqual, useSelector } from "react-redux";
 import MenuCategoryComponent from "../MenuCategory/menu-category.component";
 import MenuItemIntroComponentNew from "./menuitemintro-new.component";
 
-function MenuCategoryWrapperNew() {
+function MenuCategoryWrapperNew(props) {
     const selectedCategory = useSelector(({ category }) => category.selectedcategorydetail, shallowEqual);
     const mainCategory = useSelector(({ main }) => main.maincategoryList, shallowEqual);
-     
+
+    let category=props.category;
+    const handleDomenicsClick=()=>{
+
+    }
+
+
     return (
         <>
             <div className="col-lg-3 cate col-sm-12 col-xs-12">
@@ -14,9 +20,9 @@ function MenuCategoryWrapperNew() {
                 </div>
                 {mainCategory && <MenuCategoryComponent categories={mainCategory} selectedCat={selectedCategory} />}
             </div>
-            <>
+                <>
                     <MenuItemIntroComponentNew />
-            </>
+                </>
         </>
     )
 }

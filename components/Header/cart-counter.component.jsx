@@ -12,6 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 function CartCounterComponent() {
     const dispatch = useDispatch();
     const router = useRouter();
+    const { query: { dynamic,location ,id, category, items } } = router;
     let objrestaurant = useSelector(({ restaurant }) => restaurant.restaurantdetail, shallowEqual);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser);
     const customerId = userinfo ? userinfo.customerId : 0;
@@ -46,7 +47,7 @@ function CartCounterComponent() {
         <>
             <div className="col-lg-3 col-sm-3 col-xs-2">
                 {/* {(userinfo != undefined && userinfo != null) && */}
-                    <Link href="/[dynamic]/cartitems" as={`/${restaurantURL}/cartitems`}>
+                    <Link href="/[dynamic]/[location]/cartitems" as={`/${restaurantURL}/${location}/cartitems`}>
                         <a className="cart">
                             <img src="/images/cart.svg" alt="" /><em>{cartcount}</em>
                         </a>

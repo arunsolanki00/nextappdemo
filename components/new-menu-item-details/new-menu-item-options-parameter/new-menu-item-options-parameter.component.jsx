@@ -4,6 +4,7 @@ import { getMenuItemDetailes, removeMenuItem, selectedItemSize, updateitemoption
 import NewMenuItemSubOptionsParameter from './new-menu-item-sub-options-parameter/new-menu-item-sub-options-parameter.component';
 
 const NewMenuItemOptionsParameter = (props) => {
+     
     const dispatch = useDispatch();
     const [count, setCount] = useState(Math.random);
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
@@ -22,7 +23,7 @@ const NewMenuItemOptionsParameter = (props) => {
     let defaultselected = selectedoption != undefined && selectedoption.length > 0 && selectedoption[0].type.filter(x => x.defaultSelection != null);
     useEffect(() => {
         if (Object.keys(menuItemDetail).length === 0) {
-            debugger
+             
             console.log("length is 0")
             dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, selectedmenuitemdetail.menuitemId, sessionid, 0));
         }

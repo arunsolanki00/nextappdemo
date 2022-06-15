@@ -9,7 +9,7 @@ export const DeliveryPickupButton = (props) => {
     const dispatch = useDispatch();
     const router = useRouter();
     const {
-        query: { dynamic },
+        query: { dynamic,location },
     } = router;
     const { page } = props;
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
@@ -27,7 +27,7 @@ export const DeliveryPickupButton = (props) => {
         //     return;
         //  }
         dispatch(setpickupordelivery('Delivery'));
-        router.push("/" + dynamic + "/deliveryconfirmation");
+        router.push("/" + dynamic+"/"+location + "/deliveryconfirmation");
     }
     const handleClickPickup = () => {
         //  if(page === "delivery"){
@@ -36,7 +36,7 @@ export const DeliveryPickupButton = (props) => {
         //  }
         dispatch(setpickupordelivery('Pickup'));
         dispatch(selecteddeliveryaddress(null))
-        router.push("/" + dynamic + "/pickupconfirmation");
+        router.push("/" + dynamic+"/"+location + "/pickupconfirmation");
     }
     return (
         <div className="col-lg-12 btns text-center col-sm-12 col-xs-12">

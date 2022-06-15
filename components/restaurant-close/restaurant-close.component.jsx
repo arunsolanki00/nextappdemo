@@ -8,6 +8,7 @@ const RestaurantCloseComponent = () => {
 
     const router = useRouter();
     const { query: { dynamic }, } = router;
+    const locationUrl=router.query.location;
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const location = restaurantinfo.defaultLocation;
 
@@ -54,7 +55,7 @@ const RestaurantCloseComponent = () => {
                                                             </Link>
                                                         </div>
                                                         <div className="col-lg-6 col-sm-6 col-xs-6">
-                                                        <Link href="/[dynamic]/main" as={`/${restaurantinfo.restaurantURL}/main`}>
+                                                        <Link href="/[dynamic]/[location]/main" as={`/${restaurantinfo.restaurantURL}/${locationUrl}/main`}>
                                                             <button
                                                                 className="blue_btn font_18px blue_btn_porder orange_submit" 
                                                                 type="submit"

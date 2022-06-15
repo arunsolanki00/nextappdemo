@@ -1,8 +1,9 @@
 import React from 'react'
 import Link from "next/link";
-
+import  { useRouter }  from 'next/router';
 function NoItemsCartComponent(props) {
-
+    const router = useRouter();
+    const { query: { dynamic,location ,id, category, items } } = router;
     return (
         <div className="row">
             <div className="col-lg-12 col-sm-12 col-xs-12 small-text-center">
@@ -24,8 +25,8 @@ function NoItemsCartComponent(props) {
                         </div>
                         <div className="col-lg-12 margin_bottom_25 text-center col-sm-12 col-xs-12">
                             <Link
-                                href="/[dynamic]/main"
-                                as={`/${props.restaurantinfo.restaurantURL}/main`}>
+                                href="/[dynamic]/[location]/main"
+                                as={`/${props.restaurantinfo.restaurantURL}/${location}/main`}>
                                 <a className="blue_btn size_18">Shop Now</a>
                             </Link>
                         </div>

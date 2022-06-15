@@ -1,4 +1,5 @@
 import React, {  useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
 import Link from 'next/link';
 import { addAddress, DeleteTempDeliveryAddress, getAddress } from "../../redux/delivery-address/delivery-address.action";
@@ -29,6 +30,8 @@ const Deliverywithlogin = () => {
     const addressId = useSelector(({ deliveryaddress }) => deliveryaddress?.addressId?.customerAddressId);
     const restaurantWindowTime = useSelector(({ main }) => main.restaurantWindowTime);
     const dispatch = useDispatch();
+    const router = useRouter();
+    const { query: { dynamic,location,id, category, items } } = router;
     const defaultLocation = restaurantinfo ? restaurantinfo.defaultLocation : null;
     const [timestate, settimestate] = useState(false);
     const [ismore, setismore] = useState(false);
@@ -217,7 +220,7 @@ const Deliverywithlogin = () => {
                                     (isTakeOutAsap || isTakeOutPickupTime) &&
                                     <>
                                         {defaultLocation.istakeaway === true && pickupWindow && pickupWindow.length > 0 ?
-                                            <Link href="/[dynamic]/pickup" as={`/${restaurantinfo.restaurantURL}/pickup`}>
+                                            <Link href="/[dynamic]/[location]" as={`/${restaurantinfo.restaurantURL}/${location}`}>
                                                 <a className="" >
                                                     <span>
                                                         <img className="white" src="/images/icon-1-white.svg" alt="" />
@@ -507,7 +510,7 @@ const Deliverywithlogin = () => {
                                                                         <>
                                                                             {orderTime && orderTime !== "" ?
                                                                                 <div className="col-lg-4 text-center col-sm-4 col-xs-12">
-                                                                                    <Link href="/[dynamic]/main" as={`/${restaurantinfo.restaurantURL}/main`}>
+                                                                                    <Link href="/[dynamic]/[location]/main" as={`/${restaurantinfo.restaurantURL}/${location}/main`}>
                                                                                         <a className="blue_btn skipbtn disabled">Next</a>
                                                                                     </Link>
                                                                                 </div>
@@ -517,7 +520,7 @@ const Deliverywithlogin = () => {
                                                                                 </div>)
                                                                             }
                                                                             <div className="col-lg-4 text-center col-sm-4 col-xs-12">
-                                                                                <Link href="/[dynamic]/main" as={`/${restaurantinfo.restaurantURL}/main`}>
+                                                                                <Link href="/[dynamic]/[location]/main" as={`/${restaurantinfo.restaurantURL}/${location}/main`}>
                                                                                     <a className="light_orange_btn ">Skip to Menu</a>
                                                                                 </Link>
                                                                             </div>
@@ -527,7 +530,7 @@ const Deliverywithlogin = () => {
                                                                 <div className="col-lg-12 margin_top_30 cal text-center col-sm-12 col-xs-12">
                                                                     <div className="col-lg-8 margin_top_30 column-centered flush col-sm-12 col-xs-10">
                                                                         <div className="col-lg-4 text-center col-sm-4 col-xs-12">
-                                                                            <Link href="/[dynamic]/main" as={`/${restaurantinfo.restaurantURL}/main`}>
+                                                                            <Link href="/[dynamic]/[location]/main" as={`/${restaurantinfo.restaurantURL}/${location}/main`}>
                                                                                 <a className="light_orange_btn ">Skip to Menu</a>
                                                                             </Link>
                                                                         </div>

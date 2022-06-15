@@ -1,0 +1,4 @@
+export const StudentTypes={
+    SAVE_STUDENT_NAME:"SAVE_STUDENT_NAME",
+    CLEAR_STUDENT_NAME:"CLEAR_STUDENT_NAME",    
+}

@@ -12,6 +12,9 @@ import { Modal, Button, Form, FormGroup } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Image from "next/image";
+import closeImage from "../../public/images/close.svg"
+import arrowUp from "../../public/images/arrow-up.png";
+import arrowDown from "../../public/images/arrow-down.svg"
 
 const ChoosetimeNew = () => {
     const dispatch = useDispatch();
@@ -96,16 +99,16 @@ const ChoosetimeNew = () => {
                     <div className="modal-body" id="pickup">
                         <div className="row">
                             <div className="col-lg-12 text-center col-sm-12 col-xs-12">
-                                <button type="button" className="close" data-dismiss="modal"><img src="/images/close.svg" alt="" /></button>
+                                <button type="button" className="close" data-dismiss="modal"><Image src={closeImage} alt=""  /></button>
                                 <h3>{pickupordelivery !== ''? 'Choose '+ pickupordelivery : 'Choose' } time</h3>
                             </div>
                             <div className="col-lg-12 text-center col-sm-12 col-xs-12">
                                 <form>
                                     <table>
                                     <tr>
-                                        <img src="/images/arrow-up.png" onClick={handleIncreaseHour} style={{ marginLeft: 150}} />
-                                        <img src="/images/arrow-up.png" onClick={handleIncreaseMinute} style={{marginLeft: 10}} />
-                                        <img src="/images/arrow-up.png" onClick={handleMeridiem} style={{marginLeft: 10}} />
+                                        <Image src={arrowUp} height={18} width={30} onClick={handleIncreaseHour} style={{ marginLeft: 150}} />
+                                        <Image src={arrowUp} height={18} width={30} onClick={handleIncreaseMinute} style={{marginLeft: 10}} />
+                                        <Image src={arrowUp} height={18} width={30} onClick={handleMeridiem} style={{marginLeft: 10}} />
                                     </tr>
                                     <tr>
 
@@ -114,9 +117,9 @@ const ChoosetimeNew = () => {
                                         <span style={{marginLeft: 10,fontSize:30}}> {meridiem} </span>
                                     </tr>
                                     <tr>
-                                        <img src="/images/arrow-down.svg" onClick={handleDecreaseHour} style={{marginLeft: 150}} />
-                                        <img src="/images/arrow-down.svg" onClick={handleDecreaseMinute} style={{marginLeft: 10}}/>
-                                        <img src="/images/arrow-down.svg" onClick={handleMeridiem} style={{marginLeft: 10}} />
+                                        <Image src={arrowDown} height={18} width={30} onClick={handleDecreaseHour} style={{marginLeft: 150}} />
+                                        <Image src={arrowDown} height={18} width={30} onClick={handleDecreaseMinute} style={{marginLeft: 10}}/>
+                                        <Image src={arrowDown} height={18} width={30} onClick={handleMeridiem} style={{marginLeft: 10}} />
                                     </tr>
                                     </table>
                                 </form>

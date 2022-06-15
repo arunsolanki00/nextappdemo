@@ -28,7 +28,7 @@ function MenuCategoryCart({ sendDataToParent }) {
   const dispatch = useDispatch();
   const router = useRouter();
   const {
-    query: { dynamic, id, category, index },
+    query: { dynamic,location, id, category, index },
   } = router;
   const [lstcarttopping, setlstcarttopping] = useState([]);
   const [cartdeleteconfirm, setcartdeleteconfirm] = useState(false);
@@ -162,10 +162,10 @@ function MenuCategoryCart({ sendDataToParent }) {
       );
       dispatch(selectedMenuItem(item));
       if (item.isdefaultprice === true && item.pricetypeid === 0) {
-        router.push("/" + dynamic + "/" + menucategoryitem);
+        router.push("/" + dynamic+"/"+location+ "/" + menucategoryitem);
       } else {
         router.push(
-          "/" + dynamic + "/" + menucategoryitem + "/" + menuitemnameurl
+          "/" + dynamic +"/"+location+ "/" + menucategoryitem + "/" + menuitemnameurl
         );
       }
     }
@@ -203,7 +203,7 @@ function MenuCategoryCart({ sendDataToParent }) {
     }
   };
   const gotoCartclick=()=>{
-    router.push("/" + dynamic + "/"+"cartitems")
+    router.push("/" + dynamic +"/"+location+ "/"+"cartitems")
   }
 
   const addtocartclick = () => {

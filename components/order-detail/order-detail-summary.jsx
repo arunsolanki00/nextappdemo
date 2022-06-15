@@ -13,7 +13,7 @@ const OrderDetailSummary = (props) => {
   const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
   const { restaurantURL } = restaurantinfo;
   const router = useRouter();
-  const { query: { dynamic, id, category, index } } = router;
+  const { query: { dynamic,location, id, category, index } } = router;
   const [isProcessing, setIsProcessing] = useState(false)
   let sessionid = useSelector(({ session }) => session?.sessionid);
   const HandleFullOrderClick = (orderId) => {
@@ -22,7 +22,7 @@ const OrderDetailSummary = (props) => {
       if (response.status === 1) {
         handleNotify("Your Order placed successfully", ToasterPositions.TopRight, ToasterTypes.Success);
         setIsProcessing(false);
-        router.push("/" + restaurantURL + "/cart");
+        router.push("/" + restaurantURL +"/"+location+ "/cart");
       } else {
         setIsProcessing(false);
         handleNotify("Something went wrong", ToasterPositions.TopRight, ToasterTypes.Error);

@@ -9,14 +9,16 @@ import { useEffect, useState } from 'react';
 import LoginMainComponent from '../login/login.component';
 import { GetCurrency } from '../helpers/utility';
 import CartQuantityArea from './menucategory-cart-quantityarea.component';
+import StudentComponent from '../Common/student-component';
 
 function MenuItemIntroComponentNew() {
-    
+
     const router = useRouter()
     const dispatch = useDispatch();
-    const {
-        query: { dynamic, id, index },
-    } = router
+    
+    const { query: { dynamic,location, id, index, category }, } = router
+
+    console.log("category :" + category);
     const [currency, setcurrency] = useState(GetCurrency())
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
@@ -27,12 +29,11 @@ function MenuItemIntroComponentNew() {
     const menuitems = useSelector(({ category }) => category.categoryitemlist, shallowEqual);
     const slides = [];
     let menuItemDetail = useSelector(({ menuitem }) => menuitem.menuitemdetaillist);
-    let selectedmenuitemdetail= useSelector(({ menuitem }) => menuitem.selectedmenuitemdetail)
+    let selectedmenuitemdetail = useSelector(({ menuitem }) => menuitem.selectedmenuitemdetail)
     const [reload, setreload] = useState();
-    // useEffect(() => {
-    //     debugger
-    //     setreload(Math.random())
-    // }, [menuitems])
+    const [popupStudent, setPopupStudent] = useState(false);
+
+    const [selectedCategoryMenuitemName, setselectedCategoryMenuitemName] = useState('');
 
     const logindetailsclick = () => {
         if (userinfo === undefined || userinfo === null) {
@@ -66,14 +67,25 @@ function MenuItemIntroComponentNew() {
     const selectedItemClick = (item) => {
         if (item != undefined) {
             dispatch(selectedMenuItem(item));
-            dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, item.menuitemId,0,0));
+            dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, item.menuitemId, 0, 0));
             // setTimeout(() => {
             // }, 3000);
         }
     }
+
+    const handleStudentNamePopup = (menuitemname) => {
+        setselectedCategoryMenuitemName(category.toString() + '/' + menuitemname.toString())
+        setPopupStudent(true);
+    }
+
+    const handleSaveStudentName = () => {
+        setPopupStudent(true);
+    }
+
     if (menuitems) {
         for (let i = 0; i < menuitems.length; i++) {
             const categories = menuitems[i];
+            let categoryMenuItemURL = categories.menuItemName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-");
             slides.push(
                 <div key={i}>
                     {/* if price type == 0 then no option in menu item and if default price == 1 then no option in menu item */}
@@ -83,7 +95,7 @@ function MenuItemIntroComponentNew() {
                                 <div className="col-lg-12 s-piza col-sm-12 col-xs-12">
                                     <div className="row">
                                         <div className="col-lg-4 flush-right text-center col-sm-4 col-xs-12">
-                                            <a><img src={categories?.mediumimgurl === "" || categories?.mediumimgurl === null ? "/images/work-in-progress.png" : categories.mediumimgurl}  className="itemimage" alt="true" /></a>
+                                            <a><img src={categories?.mediumimgurl === "" || categories?.mediumimgurl === null ? "/images/work-in-progress.png" : categories.mediumimgurl} className="itemimage" alt="true" /></a>
                                         </div>
                                         <div className="col-lg-8 col-sm-8 col-xs-12">
                                             <div className="itembox">
@@ -94,24 +106,31 @@ function MenuItemIntroComponentNew() {
                                                 <i className="fa color_red size_24 fa-heart active" /></span>
                                             </a> */}
 
-                                                            <Link
-                                                                shallow={false}
-                                                                key={Math.random()} href="/[dynamic]/[category]/[items]"
-                                                                as={`${window.location.origin + router.asPath}/${categories.menuItemName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-")}`}>
-                                                                <a onClick={() => selectedItemClick(categories)} style={{ cursor: "pointer !important" }}>
-                                                                    {categories.menuItemName}
-                                                                </a>
-                                                            </Link>
+                                                            {/* This condition for specific domenicsslp restaurant */}
+                                                            {dynamic === 'domenicsslp' ? (
+                                                                <a
+                                                                    onClick={() => handleStudentNamePopup(categoryMenuItemURL)}
+                                                                    data-toggle="modal"
+                                                                    data-target="#studentModal"
+                                                                    style={{ cursor: "pointer !important" }}
+                                                                > {categories.menuItemName}</a>
+                                                            )
+                                                                :
+                                                                (<Link
+                                                                    shallow={false}
+                                                                    key={Math.random()} href="/[dynamic]/[location]/[category]/[items]"
+                                                                    as={`${window.location.origin + router.asPath}/${categoryMenuItemURL}`}>
+                                                                    <a onClick={() => selectedItemClick(categories)} style={{ cursor: "pointer !important" }}>
+                                                                        {categories.menuItemName}
+                                                                    </a>
+                                                                </Link>)
+                                                            }
 
                                                             {(userinfo != undefined && userinfo != null) ?
-                                                                <>
-                                                                    {/* <a onClick={() => selectedItemClick(categories)}>
-                                                                        {categories.menuItemName} </a>*/}
-                                                                    <a>
-                                                                        <span className="orange_btn remove-hover remove-bg fav" onClick={() => selectedFavoriteClick(categories, !categories.isFavoriteMenu)}>
-                                                                            <i className={categories.isFavoriteMenu === true ? "fa color_red size_24 fa-heart active" : "fa color_red size_24 fa-heart-o"} /></span>
-                                                                    </a>
-                                                                </>
+                                                                <a>
+                                                                    <span className="orange_btn remove-hover remove-bg fav" onClick={() => selectedFavoriteClick(categories, !categories.isFavoriteMenu)}>
+                                                                        <i className={categories.isFavoriteMenu === true ? "fa color_red size_24 fa-heart active" : "fa color_red size_24 fa-heart-o"} /></span>
+                                                                </a>
                                                                 :
                                                                 <a data-toggle="modal" data-target="#myModal-logintest">
                                                                     <span onClick={logindetailsclick} className="orange_btn remove-hover remove-bg fav" >
@@ -120,7 +139,6 @@ function MenuItemIntroComponentNew() {
                                                             }
                                                         </h3>
 
-                                                        {/* <a className="orange_price_btn fixed-price-box" href="#">$12.99</a> */}
                                                         <NumberFormat className="orange_price_btn fixed-price-box"
                                                             value={categories.menuItemPrice != undefined ? categories.menuItemPrice : ""}
                                                             displayType={"text"}
@@ -131,17 +149,22 @@ function MenuItemIntroComponentNew() {
                                                         />
                                                         <p>{categories.description}</p>
 
-                                                        <Link
-                                                            shallow={false}
-                                                            key={Math.random()} href="/[dynamic]/[category]/[items]"
-                                                            as={`${window.location.origin + router.asPath}/${categories.menuItemName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-")}`}>
-
-                                                            <a onClick={() => selectedItemClick(categories)} style={{ cursor: "pointer !important" }}>
-                                                            <span className="fa angle size_15 angle-round bg_green color_white fa-angle-right" />
-                                                                {/* <a onClick={() => selectedItemClick(categories)}><span className="fa angle size_15 angle-round bg_green color_white fa-angle-right" /></a> */}
-                                                                
+                                                        {dynamic === 'domenicsslp' ?
+                                                            <a onClick={() => handleStudentNamePopup(categoryMenuItemURL)}
+                                                                data-toggle="modal"
+                                                                data-target="#studentModal" style={{ cursor: "pointer !important" }}>
+                                                                <span className="fa angle size_15 angle-round bg_green color_white fa-angle-right" />
                                                             </a>
-                                                        </Link>
+                                                            :
+                                                            <Link
+                                                                shallow={false}
+                                                                key={Math.random()} href="/[dynamic]/[location]/[category]/[items]"
+                                                                as={`${window.location.origin + router.asPath}/${categoryMenuItemURL}`}>
+                                                                <a onClick={() => selectedItemClick(categories)} style={{ cursor: "pointer !important" }}>
+                                                                    <span className="fa angle size_15 angle-round bg_green color_white fa-angle-right" />
+                                                                </a>
+                                                            </Link>
+                                                        }
                                                     </div>
                                                 </div>
                                             </div>
@@ -155,7 +178,7 @@ function MenuItemIntroComponentNew() {
                                     <div className="row">
                                         <div className="col-lg-4 flush-right text-center col-sm-4 col-xs-12">
                                             {/* <a><img src="/images/work-in-progress.png" className="itemimage" alt="true" /></a> */}
-                                            <a><img src={categories?.mediumimgurl === "" || categories?.mediumimgurl === null ? "/images/work-in-progress.png" : categories.mediumimgurl}  className="itemimage" alt="true" /></a>
+                                            <a><img src={categories?.mediumimgurl === "" || categories?.mediumimgurl === null ? "/images/work-in-progress.png" : categories.mediumimgurl} className="itemimage" alt="true" /></a>
                                         </div>
                                         <div className="col-lg-8 col-sm-8 col-xs-12">
                                             <a>
@@ -186,7 +209,7 @@ function MenuItemIntroComponentNew() {
                                                             fixedDecimalScale={true}
                                                         />
                                                         <p>{categories.description}</p>
-                                                        <CartQuantityArea menuitem={categories}  cartdetails={cartdetails}/>
+                                                        <CartQuantityArea menuitem={categories} cartdetails={cartdetails} />
                                                     </div>
                                                 </div>
                                             </div>
@@ -195,8 +218,9 @@ function MenuItemIntroComponentNew() {
                                 </div>
                             </div>
 
-                        )}
-                </div>
+                        )
+                    }
+                </div >
             )
         }
     }
@@ -210,6 +234,8 @@ function MenuItemIntroComponentNew() {
                 </div>
                 {slides}
                 {showLogin === true && <LoginMainComponent restaurantinfo={restaurantinfo} />}
+
+                {popupStudent === true && <StudentComponent restaurantinfo={restaurantinfo} selectedCategoryMenuitemName={selectedCategoryMenuitemName} />}
             </div>
         </>
     )
