@@ -53,7 +53,9 @@ function IndexWithLogin() {
             const getResponse = await restaurantsLocation(restaurantinfo && restaurantinfo.restaurantId, "0", "0");
 
             if (getResponse.addressList.length === 1) {
-                router.push("/" + restaurantinfo.restaurantURL + "/pickup");
+                debugger
+                let locationUrl=getResponse.addressList[0].locationURL.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")
+                router.push("/" + restaurantinfo.restaurantURL + "/"+locationUrl);
             } else {
                 dispatch({
                     type: RestaurantsTypes.RESTAURANT_LOCATION_LIST,

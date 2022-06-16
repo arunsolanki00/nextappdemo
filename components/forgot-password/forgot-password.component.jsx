@@ -10,7 +10,7 @@ import { ToasterPositions } from "../helpers/toaster/toaster-positions";
 
 function ForgotPasswordForm() {
     const router = useRouter();
-    const { query: { dynamic }, } = router;
+    const { query: { dynamic,location}, } = router;
 
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
 
@@ -67,7 +67,7 @@ function ForgotPasswordForm() {
             const reponse = await handleForgotPasswordRequest(emailExists.d);
             if (reponse === 1) {
                 setSubmitting(false);
-                router.push("/" + dynamic + "/password-help");
+                router.push("/" + dynamic +"/"+location+ "/password-help");
             }
             setSubmitting(false);
         }
@@ -81,7 +81,7 @@ function ForgotPasswordForm() {
         const data = {
             emailid: email,
             restaurantId: restaurantinfo.restaurantId,
-            requesturl: window.location.origin + "/" + dynamic + "/create-new-password",
+            requesturl: window.location.origin + "/" + dynamic+"/"+location + "/create-new-password",
             customerId: cid
         };
         return await userForgotPasswordRequest(data);
