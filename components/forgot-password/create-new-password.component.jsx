@@ -9,7 +9,7 @@ import { ToasterPositions } from "../helpers/toaster/toaster-positions";
 import { ToasterTypes } from "../helpers/toaster/toaster-types";
 import handleNotify from "../helpers/toaster/toaster-notify";
 
-function CreateNewPasswordForm() {
+const CreateNewPasswordForm = () => {
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
     const router = useRouter();
     const { query: { dynamic }, } = router;
