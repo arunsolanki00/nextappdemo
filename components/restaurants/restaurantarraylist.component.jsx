@@ -36,7 +36,7 @@ const RestaurantArrayListNew = (props) => {
                                     <div className="col-lg-4">
                                         <a target="_blank" href={`/${location.restaurantURL}/`} rel="noopener noreferrer">
                                             {location.logo ? (
-                                                     <img src={location.logo} alt={location.restaurantname} width={180} height={100} />
+                                                <img src={location.logo} alt={location.restaurantname} width={180} height={100} />
                                             ) : ('')}
                                         </a>
                                         <a href={location?.restaurantURL} target="_blank" rel="noopener noreferrer"> <button type="button" className="btn btn-warning btn-lg margin_top_20"> Order Now</button> </a>
@@ -53,13 +53,26 @@ const RestaurantArrayListNew = (props) => {
                                     </h5>
                                     {location && location?.locationDetails.map((data, newindex) =>
                                     (<>
+                                        {/* let restaurantLocationUrl=location?.restaurantURL + location?.locationURL ? "/"+location?.locationURL: +""; */}
+
                                         {/* <div className="col-lg-6" key={newindex}> */}
-                                        <div className={location?.locationDetails.length > 1 ? "col-lg-6" : "col-lg-12 " } key={newindex}>
-                                            <div className={location?.locationDetails.length > 1 ? "col-lg-2" :"col-sm-1" }>
+                                        <div className={location?.locationDetails.length > 1 ? "col-lg-6" : "col-lg-12 "} key={newindex}>
+                                            <div className={location?.locationDetails.length > 1 ? "col-lg-2" : "col-sm-1"}>
                                                 <img src="/images/pin.png" alt={data.locationName} />
                                             </div>
                                             <div className="col-lg-10 padding_left_0">
-                                                <span className="size_20 color_grey">{data.locationName}</span>
+                                                {/* <a href={location?.locationURL ? location?.restaurantURL + "/" + location?.locationURL : location?.restaurantURL} */}
+                                                {data.locationURL !== undefined ?
+                                                    <a href={location?.restaurantURL + '/' + data?.locationURL}
+                                                        target="_blank" rel="noopener noreferrer">
+                                                        <span className="size_20 color_grey">{data.locationName}</span>
+                                                    </a>
+                                                    :
+                                                    <a href={location?.restaurantURL}
+                                                        target="_blank" rel="noopener noreferrer">
+                                                        <span className="size_20 color_grey">{data.locationName}</span>
+                                                    </a>
+                                                }
                                             </div>
                                         </div>
                                     </>
@@ -113,16 +126,26 @@ const RestaurantArrayListNew = (props) => {
                                         }
                                     </h5>
                                     {location && location?.locationDetails.map((data, newindex) =>
-                                    (
-                                        <div className={location?.locationDetails.length > 1 ? "col-lg-6" : "col-lg-12 " } key={newindex}>
-                                            <div className={location?.locationDetails.length > 1 ? "col-lg-2" :"col-sm-1" }>
-                                                <img src="/images/pin.png"  alt={data.locationName} />
+                                        <div className={location?.locationDetails.length > 1 ? "col-lg-6" : "col-lg-12 "} key={newindex}>
+                                            <div className={location?.locationDetails.length > 1 ? "col-lg-2" : "col-sm-1"}>
+                                                <img src="/images/pin.png" alt={data.locationName} />
                                             </div>
                                             <div className="col-lg-10 padding_left_0">
-                                                <span className="size_20 color_grey">{data.locationName}</span>
+                                                {/* <a href={`${location.locationURL!==undefined ? location?.restaurantURL+'/'+location?.locationURL : location?.restaurantURL}`} */}
+                                                {data.locationURL !== undefined ?
+                                                    <a href={location?.restaurantURL + '/' + data?.locationURL}
+                                                        target="_blank" rel="noopener noreferrer">
+                                                        <span className="size_20 color_grey">{data.locationName}</span>
+                                                    </a>
+                                                    :
+                                                    <a href={location?.restaurantURL}
+                                                        target="_blank" rel="noopener noreferrer">
+                                                        <span className="size_20 color_grey">{data.locationName}</span>
+                                                    </a>
+                                                }
                                             </div>
                                         </div>
-                                    ))}
+                                    )}
                                 </div>
                             </div>
                         )

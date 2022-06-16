@@ -24,6 +24,10 @@ import IntlTelInput from 'react-intl-tel-input';
 import 'react-intl-tel-input/dist/main.css';
 import $ from "jquery";
 export const RegisterComponent=(props)=> {
+  const router = useRouter();
+  const {
+      query: { dynamic,location },
+  } = router;
   const restaurantinfo = useSelector(
     ({ restaurant }) => restaurant.restaurantdetail
   );
@@ -35,7 +39,6 @@ export const RegisterComponent=(props)=> {
     setLoadComplete(false);
   }
   const dispatch = useDispatch();
-  const router = useRouter();
   const [addadresspopup, setaddadresspopup] = useState(false);
   const handleaddAddressPopup = () => {
     setaddadresspopup(true);
@@ -271,10 +274,9 @@ else{
               }, 1000);
 
               cleardata();
-
               let url = window.location.href;
               if (url.includes("register")) {
-                router.push("/" + restaurantinfo.restaurantURL+"/pickup");
+                router.push("/" + restaurantinfo.restaurantURL+"/"+location);
               }
               return;
             }
