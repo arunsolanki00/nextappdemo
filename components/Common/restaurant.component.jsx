@@ -72,7 +72,8 @@ const Restaurant = ({ children }) => {
                         console.log(newselectedRestaurant);
                         if (newselectedRestaurant) {
 
-                            let selectedColor = newselectedRestaurant.color == undefined || newselectedRestaurant.color == null ? '#FF7332' : newselectedRestaurant.color;
+                            let selectedColor = newselectedRestaurant.color == undefined || newselectedRestaurant.color == null
+                             ? '#FF7332' : newselectedRestaurant.color;
                             console.log(selectedColor);
 
                             document.documentElement.style.setProperty(
@@ -82,18 +83,14 @@ const Restaurant = ({ children }) => {
 
                             isSameRestaurant = newselectedRestaurant.restaurantId === restaurantId ? true : false;
                             if (!isSameRestaurant) {
-                                
+                                dispatch(clearRedux());
+                                //clear old session
                                 //create new session id
                                 let id = uuidv4();
-                                dispatch(createSessionId(id))
-                                //clear old session
-                                
-                                dispatch(clearRedux())
-                                // dispatch(clearSessionId());
+                                dispatch(createSessionId(id));
 
                                 // dispatch(removeMenuItem())
                                 // dispatch(removeMenuItemSelectedData())
-
                             } else {
                                 if (sessionId === null || sessionId === undefined) {
                                     //create new session id
@@ -104,12 +101,12 @@ const Restaurant = ({ children }) => {
 
 
                             //setLocation(newselectedRestaurant.restaurantId,newselectedRestaurant.defaultlocationId);
-                            
+
                             setLocationIdInStorage(newselectedRestaurant.defaultlocationId);
                             setRestaurantIdInStorage(newselectedRestaurant.restaurantId);
 
                             MainServices.getMenuCategoryList(newselectedRestaurant.restaurantId, newselectedRestaurant.defaultlocationId).then(catresponse => {
-                                
+
                                 if (catresponse && catresponse != null && catresponse.length > 0) {
                                     categoryresponse = catresponse;
                                     dispatch({
