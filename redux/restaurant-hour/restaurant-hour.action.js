@@ -14,3 +14,11 @@ export const getTodayTimming = (restaurantId,locationId) => {
         })
     }
 }
+export const resetRestaurantTiming=()=>{
+    return async dispatch => {
+        dispatch({
+            type:RestaurantTimmingTypes.RESET_RESTAURANTTIMING,
+            payload: null
+        })
+    } 
+}

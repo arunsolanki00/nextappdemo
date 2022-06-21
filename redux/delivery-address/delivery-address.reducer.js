@@ -41,6 +41,15 @@ const deliveryaddressReducer = (state = INITIAL_STATE, action) => {
               ...state,
               tempDeliveryAddress: action.payload,
             };
+            case DeliveryAddressTypes.RESET_DELIVERY_ADDRESS:
+              return {
+                deliveryaddressdata: {},
+                updatedAddress: false,
+                choosetime: {},
+                registeraddress: {},
+                addressId:{},
+                tempDeliveryAddress:[]
+              };
             case DeliveryAddressTypes.DELETE_TEMP_DELIVERY_ADDRESS:
             return {
               ...state,

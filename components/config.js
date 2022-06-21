@@ -11,7 +11,6 @@ const proxy = "";
 export const ENDPOINTS = {
     PROXY: `${proxy}`,
     BASE_URL: `${BASE_URL}`,
-
     GET_RESTAURANTS: `${BASE_URL}/RestaurantAPIOnlineWebV1.asmx/getAllRestaurantInfo`,
     GET_MENU_CATEGORY: `${BASE_URL}/RestaurantAPIOnlineV1.asmx/getMenuCategory_Version2`,
     GET_ALL_MENU_ITEMS: `${BASE_URL}/RestaurantAPIOnlineWebV1.asmx/getAllMenuItems`,
@@ -69,5 +68,8 @@ export const ENDPOINTS = {
     GET_RESTAURANT_LOCATIONS_LIST: `${BASE_URL}/RestaurantAPIOnlineWebV1.asmx/getAllRestaurantAndLocationDetail`,
     DELETE_CART_FROM_SESSIONID: `${BASE_URL}/RestaurantAPIOnlineWebV1.asmx/removeCartItemFromSessionId`,
     GET_TIMING: `${BASE_URL}/RestaurantAPIOnlineWebV1.asmx/getTiming`,
+    UPDATE_CART_ORDER_ITEMS: `${BASE_URL}/RestaurantAPIOnlineWebV1.asmx/UpdateCartOrders`,
+
     GOOGLE_MAP_LINK: "https://maps.google.com/?q=",
+    ERROR_LOG:`${BASE_URL}/RestaurantAPIOnlineWebV1.asmx/ErrorLog`
 }

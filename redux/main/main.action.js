@@ -76,3 +76,12 @@ export const refreshCategoryList = (newselectedRestaurant,customerId) =>{
     }
 }
 
+export const resetMain = () => {
+    return async dispatch => {
+        dispatch({
+            type: MainTypes.RESET_MAIN,
+            payload: null
+        })
+    }
+}
+

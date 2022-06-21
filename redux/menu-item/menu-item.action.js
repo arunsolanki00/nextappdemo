@@ -6,6 +6,7 @@ export const getMenuItemDetailes = (restaurantId,locationId,customerId,menuitemI
          
     return async dispatch => {        
         MenuItemServices.getMenuItemList(restaurantId,locationId,customerId,menuitemId,cartsessionId,cartId).then(response => { 
+            
             if (response) {                
                 dispatch({
                     type: MenuItemTypes.MENU_ITEM_DETAIL_LIST,
@@ -35,6 +36,7 @@ export const removeMenuItemForFavorite = () => {
 }
 
 export const selectedItemSize = (item) => {     
+    
     return (dispatch) => {                                                     
         dispatch({
             type: MenuItemTypes.SELECTED_ITEM_SIZE,
@@ -43,7 +45,8 @@ export const selectedItemSize = (item) => {
     }                            
 }
 
-export const removeMenuItem = () => {     
+export const removeMenuItem = () => {  
+       
     return (dispatch) => {                                                     
         dispatch({
             type: MenuItemTypes.REMOVE_SELECTED_ITEM,
@@ -51,6 +54,15 @@ export const removeMenuItem = () => {
         })                
     }                            
 }
+export const removeMenuItemSelectedData = () => {  
+    return (dispatch) => {                                                     
+        dispatch({
+            type: MenuItemTypes.REMOVE_SELECTED_MENU_ITEM_DATA,
+            payload: {}                    
+        })                
+    }                            
+}
+
 
 export const addFavorite = (customerId,restaurantId,menuItemId) => {     
     return async dispatch => {        
@@ -92,6 +104,7 @@ export const addItemToCart = (orderobj,restaurantId) => {
 }
 
 export const selecteditemquantity = (quantity) => {     
+    
     return (dispatch) => {                                                     
         dispatch({
             type: MenuItemTypes.SELECTED_ITEM_QUANTITY,
@@ -108,3 +121,25 @@ export const updateitemoption = () => {
         })                
     }                            
 }
+
+export const updateItemToCart = (orderobj,restaurantId) => {     
+    return async dispatch => {        
+        MenuItemServices.updateCartOrdersItem(orderobj,restaurantId).then(response => {            
+            if (response) {                
+                dispatch({
+                    type: MenuItemTypes.ADD_ITEM_TO_CART,
+                    payload: response                    
+                })                
+            }             
+        })
+    }                          
+}
+export const resetMenuitem = () => { 
+return (dispatch) => {                                                     
+    dispatch({
+        type: MenuItemTypes.RESET_MENU_ITEM,
+        payload:null
+    })                
+}   
+}                         
+

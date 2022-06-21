@@ -1,3 +1,4 @@
 export const FavouritesTypes = {
     FAVOURITES_LIST : "FAVOURITES_LIST",
+    RESET_FAVOURITES:"RESET_FAVOURITES"
 }

@@ -52,6 +52,15 @@ const restaurantsReducer = (state = RESTAURANTS_INITIAL_STATE, action) => {
                             ...state,
                             restaurantstiminglist: action.payload,
                         };
+                    case RestaurantsTypes.RESET_RESTAURANT:
+                        return{
+                            restaurantsList: [],
+                            restaurantdetail: null,
+                            leftmenutoggle: false,
+                            restaurantslocationlist: [],
+                            restaurantstiminglist: []
+                        
+                        }
                     default:
                         return state;
     }

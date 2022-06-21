@@ -39,6 +39,11 @@ const categoryReducer = (state = CATEGORY_INITIAL_STATE, action) => {
                 ...state,
                 categoryitemlist: action.payload,
             };
+            case CategoryTypes.RESET_CATEGORY:
+                return {
+                    selectedcategorydetail: {},
+                    categoryitemlist: []
+                };
         default:
             return state;
     }

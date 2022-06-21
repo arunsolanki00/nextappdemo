@@ -10,11 +10,18 @@ export const createSessionId=(guid)=>{
       }
 }
 export const clearSessionId=()=>{
-     
     return dispatch=>{
       dispatch({
           type:SessionTypes.CLEAR_SESSION_ID,
           payload:null
       })
     }
+}
+export const resetSessionId=()=>{
+  return dispatch=>{
+    dispatch({
+        type:SessionTypes.RESET_SESSION_ID,
+        payload:null
+    })
+  }
 }

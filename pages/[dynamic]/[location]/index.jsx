@@ -19,9 +19,10 @@ import { IndexSkeleton } from "../../../components/Common/Skeleton/index-skeleto
 import { MonthList } from "../../../components/helpers/utility";
 import { MemoizedHeaderLogoComponent } from "../../../components/Header/headerlogo.component";
 import { ENDPOINTS } from "../../../components/config";
-import { setLocationIdInStorage } from "../../../components/Common/localstore";
+import { getLocationIdFromStorage, setLocationIdInStorage } from "../../../components/Common/localstore";
 import { deleteCartItemFromSessionId, emptycart, initialrewardpoint } from "../../../redux/cart/cart.action";
 import { getAuthKey } from "../../../components/Common/auth";
+import { clearRedux } from "../../../redux/clearredux/clearredux.action";
 const Index = () => {
      
     const router = useRouter();
@@ -197,6 +198,12 @@ const setRestaurantLocation=async(locationId)=>{
       });
       dispatch(restaurantsdetail(null));
       dispatch(restaurantsdetail(restaurantinfo));
+      
+    //   CLEAR THE REDUX IF PREVIOUS LOCATION AND THE CURRENT SELECTED LOCATION IS NO SAME
+      let oldLocationId=getLocationIdFromStorage();
+      if(oldLocationId !== restaurantinfo.defaultlocationId ){
+        dispatch(clearRedux());
+    }
       setLocationIdInStorage(restaurantinfo.defaultlocationId);
       if (userinfo && userinfo?.customerId) {
         deleteCartItemFromSessionId(sessionid, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId);
@@ -207,8 +214,13 @@ const setRestaurantLocation=async(locationId)=>{
 }
 
     useEffect(()=>{ 
+        
         console.log("res info ",restaurantinfo)
         let defaultLocationUrl=defaultLocation.locationURL.toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "");
+        let oldLocationId=getLocationIdFromStorage();
+        if(oldLocationId !== restaurantinfo.defaultlocationId ){
+          dispatch(clearRedux());
+      }
         if(location.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")!== defaultLocationUrl ){
         if(addressList !== undefined){
             addressList.map(address=>{

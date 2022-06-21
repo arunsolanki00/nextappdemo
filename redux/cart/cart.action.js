@@ -29,9 +29,9 @@ export const getCartItem = (cartsessionId, locationId, restaurantId, cartId, cus
 }
 
 export const getCartItemCount = (cartsessionId, locationId, restaurantId, customerId) => {
+    
     return async dispatch => {
         CartServices.getCartItemCount(cartsessionId, locationId, restaurantId, customerId).then(response => {
-            ;
             if (response) {
                 dispatch({
                     type: CartTypes.CART_ITEM_COUNT,
@@ -217,6 +217,14 @@ export const emptycart = () => {
     return dispatch => {
         dispatch({
             type: CartTypes.CART_EMPTY,
+            payload: null
+        })
+    }
+}
+export const resetCart = () => {
+    return dispatch => {
+        dispatch({
+            type: CartTypes.RESET_CART,
             payload: null
         })
     }

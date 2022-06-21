@@ -50,6 +50,11 @@ const mainReducer = (state = MAIN_INITIAL_STATE, action) => {
                     ...state,
                     maincategoryList: [],
                 };
+                case MainTypes.RESET_MAIN:            
+                return {
+                    maincategoryList: [],
+                    promotioncategoryList: []
+                };
         default:
             return state;
         }

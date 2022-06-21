@@ -9,7 +9,7 @@ import { ENDPOINTS } from '../config';
 import { MemoizedHeaderLogoComponent } from '../Header/headerlogo.component'
 import Link from "next/link";
 import { selecteddeliveryaddress } from '../../redux/selected-delivery-data/selecteddelivery.action';
-import { setLocationIdInStorage } from '../Common/localstore';
+import { getLocationIdFromStorage, setLocationIdInStorage } from '../Common/localstore';
 import { getAuthKey } from '../Common/auth';
 import GoogleAddress from '../Common/Address/google-address.component';
 import LoginMainComponent from '../login/login.component';
@@ -17,6 +17,7 @@ import { GoogleAutoComplete } from '../Common/google.map.component';
 import { AddTempDeliveryAddress, DeleteTempDeliveryAddress } from '../../redux/delivery-address/delivery-address.action';
 import { useRouter } from 'next/router';
 import { IndexSkeleton } from '../Common/Skeleton/index-skeleton.component';
+import { clearRedux } from '../../redux/clearredux/clearredux.action';
 
 function IndexWithLogin() {
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
@@ -37,7 +38,7 @@ function IndexWithLogin() {
     const [showLogin, setShowLogin] = useState(false);
     const [addressdetail, setaddressdetail] = useState({ address1: '', city: '', state: '', country: '', zipcode: '', latitude: '', longitude: '' });
     const tempDeliveryAddress = useSelector(({ deliveryaddress }) => deliveryaddress.tempDeliveryAddress);
-   const [load, setLoad] = useState(true)
+    const [load, setLoad] = useState(true)
     const isTakeOutAsap = restaurantinfo.defaultLocation.isTakeOutAsap;
     const isTakeOutPickupTime = restaurantinfo.defaultLocation.isTakeOutPickupTime;
     // const isDeliveryPickupTime = defaultLocation.isDeliveryPickupTime;
@@ -51,11 +52,9 @@ function IndexWithLogin() {
         //setloadingState(true);
         const fetchData = async () => {
             const getResponse = await restaurantsLocation(restaurantinfo && restaurantinfo.restaurantId, "0", "0");
-
             if (getResponse.addressList.length === 1) {
-                debugger
-                let locationUrl=getResponse.addressList[0].locationURL.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")
-                router.push("/" + restaurantinfo.restaurantURL + "/"+locationUrl);
+                let locationUrl = getResponse.addressList[0].locationURL.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")
+                router.push("/" + restaurantinfo.restaurantURL + "/" + locationUrl);
             } else {
                 dispatch({
                     type: RestaurantsTypes.RESTAURANT_LOCATION_LIST,
@@ -100,7 +99,7 @@ function IndexWithLogin() {
                             //setBusinessAddresses(businessAddress);
                             // setPersonalAddresses(personalAddress);
                             var addressList = [...personalAddress, ...businessAddress];
-                             
+
                             setPersonalAddresses(addressList);
                         }
                     }
@@ -109,8 +108,8 @@ function IndexWithLogin() {
             setLoadComplete(true);
         }
     }, [userinfo, userinfo?.customerId]);
- 
-    
+
+
 
     const handleSelectDelivery = (item) => {
         if (item) {
@@ -149,6 +148,12 @@ function IndexWithLogin() {
                 };
             });
             dispatch(restaurantsdetail(restaurantinfo));
+            
+            //   CLEAR THE REDUX IF PREVIOUS LOCATION AND THE CURRENT SELECTED LOCATION IS NO SAME
+            let oldLocationId = getLocationIdFromStorage();
+            if (oldLocationId !== restaurantinfo.defaultlocationId) {
+                dispatch(clearRedux());
+            }
             setLocationIdInStorage(restaurantinfo.defaultlocationId);
             setLoad(true)
         }
@@ -157,7 +162,7 @@ function IndexWithLogin() {
     const logindetailsclick = () => setShowLogin(true);
 
     const sendToParent = (index) => {
-         
+
         console.log(index);
         var obj = {
             address1: index.address1,
@@ -265,19 +270,19 @@ function IndexWithLogin() {
                                                                             <a onClick={() => handleSelectDelivery(paddress)} >
                                                                                 <div className="col-lg-6 col-sm-6" style={{ height: '160px' }}>
                                                                                     <div className={'col-lg-12 col-sm-12  padding_10 margin_top_6 border_radius_20 ' + (selectedDeliveryAddressId > 0 && (paddress.deliveryaddressId === selectedDeliveryAddressId) ? 'full_grey_border_selected' : 'full_grey_border')}>
-                                                                                    <span className="size_20 color_grey" >
-                                                                                    <span className='color_black size_20'>
-                                                                                        <span className='color_orange'>Address {index} <br></br> </span> </span>
-                                                                                    {paddress.businessname && <><span className='color_black size_20'>  {paddress.businessname.replace(",", " ") + ", "} </span>  </>}
-                                                                                    {paddress.address1 && <><span className='color_black size_20'>   {paddress.address1.replace(",", " ") + ", "} </span> </>}
-                                                                                    {paddress.address2 && <> <br></br> {paddress.address2.replace(",", " ") + ", "}  </>}
-                                                                                    <br></br>
-                                                                                    {paddress.landmark && paddress.landmark.replace(",", " ") + ", "}
-                                                                                    {paddress.city && paddress.city.replace(",", " ") + ", "}
-                                                                                    {paddress.zipcode && paddress.zipcode.replace(",", " ")}
-                                                                                    <br></br>
-                                                                                    <br></br>
-                                                                                </span>
+                                                                                        <span className="size_20 color_grey" >
+                                                                                            <span className='color_black size_20'>
+                                                                                                <span className='color_orange'>Address {index} <br></br> </span> </span>
+                                                                                            {paddress.businessname && <><span className='color_black size_20'>  {paddress.businessname.replace(",", " ") + ", "} </span>  </>}
+                                                                                            {paddress.address1 && <><span className='color_black size_20'>   {paddress.address1.replace(",", " ") + ", "} </span> </>}
+                                                                                            {paddress.address2 && <> <br></br> {paddress.address2.replace(",", " ") + ", "}  </>}
+                                                                                            <br></br>
+                                                                                            {paddress.landmark && paddress.landmark.replace(",", " ") + ", "}
+                                                                                            {paddress.city && paddress.city.replace(",", " ") + ", "}
+                                                                                            {paddress.zipcode && paddress.zipcode.replace(",", " ")}
+                                                                                            <br></br>
+                                                                                            <br></br>
+                                                                                        </span>
                                                                                     </div>
                                                                                 </div>
                                                                             </a>
@@ -463,8 +468,8 @@ function IndexWithLogin() {
                                                                             <br />
                                                                             <br />
                                                                             {/* <span>{address.ClosingTime !== null && address.ClosingTime[1]}</span> */}
-                                                                            {(address.isTakeaway === true && restaurantinfo.istakeaway===true) && <span className="size_20 color_black"> <> Pickup <i className="fa fa-check greenColor" aria-hidden="true"></i></>&nbsp; &nbsp; </span>}
-                                                                            {(address.isDelivery === true && restaurantinfo.isdelivery===true) && <span className="size_20 color_black"> <> Delivery <i className="fa fa-check greenColor" aria-hidden="true"></i></> </span>}
+                                                                            {(address.isTakeaway === true && restaurantinfo.istakeaway === true) && <span className="size_20 color_black"> <> Pickup <i className="fa fa-check greenColor" aria-hidden="true"></i></>&nbsp; &nbsp; </span>}
+                                                                            {(address.isDelivery === true && restaurantinfo.isdelivery === true) && <span className="size_20 color_black"> <> Delivery <i className="fa fa-check greenColor" aria-hidden="true"></i></> </span>}
                                                                         </div>
                                                                     </div>
                                                                 </div>
@@ -482,12 +487,12 @@ function IndexWithLogin() {
 
                                                     <div className="col-lg-6 text-center col-sm-6 col-xs-12">
                                                         {
-                                                        displayNext === false && !load ?
-                                                            <a className="blue_btn blue_btn_porder disabled" disabled>Next</a>
-                                                            :
-                                                            <Link href="/[dynamic]/[location]" as={`/${restaurantinfo.restaurantURL}/${restaurantinfo.defaultLocation.locationURL.toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")}`}>
-                                                                <a className="blue_btn blue_btn_porder ">Next</a>
-                                                            </Link>
+                                                            displayNext === false && !load ?
+                                                                <a className="blue_btn blue_btn_porder disabled" disabled>Next</a>
+                                                                :
+                                                                <Link href="/[dynamic]/[location]" as={`/${restaurantinfo.restaurantURL}/${restaurantinfo.defaultLocation.locationURL.toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")}`}>
+                                                                    <a className="blue_btn blue_btn_porder ">Next</a>
+                                                                </Link>
                                                         }
                                                     </div>
                                                     <div className="col-lg-3 text-center col-sm-3 col-xs-12">

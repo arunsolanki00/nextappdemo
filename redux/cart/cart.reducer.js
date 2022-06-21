@@ -38,6 +38,11 @@ const cartReducer = (state = CARTITEM_INITIAL_STATE, action) => {
             ...state,
           };
         }
+        case CartTypes.CART_ITEM_COUNT_UPDATE:
+            return {
+              ...state,
+              cartitemcount: action.payload,
+            };
         case CartTypes.UPDATE_CART_ITEM_COUNT:
           return {
             ...state,
@@ -64,6 +69,11 @@ const cartReducer = (state = CARTITEM_INITIAL_STATE, action) => {
               ...state,
             };
           }
+        // case CartTypes.CART_TOTAL:
+        //     return {
+        //       ...state,
+        //       carttotal: action.payload,
+        //     };
           case CartTypes.EMPTY_CART_TOTAL:
               return {
                 ...state,
@@ -133,6 +143,18 @@ const cartReducer = (state = CARTITEM_INITIAL_STATE, action) => {
                   grandtotal: 0,
                   paymentintentid: '',
               };
+              case CartTypes.RESET_CART:
+                return {
+                  //  ...state,
+                    cartitemdetail: {},
+                    cartitemcount: 0,
+                    carttotal: {},
+                    deliverycharges: {},
+                    //rewardpoints: {},
+                    transactionid: null,
+                    grandtotal: 0,
+                    paymentintentid: '',
+                };
               case CartTypes.DELETE_CART_ITEM_FROM_SESSIONID:
                 return {
                   //  ...state,

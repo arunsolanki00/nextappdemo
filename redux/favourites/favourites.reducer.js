@@ -1,4 +1,6 @@
-import { FavouritesTypes } from "./favourites.types";
+import {
+    FavouritesTypes
+} from "./favourites.types";
 
 const FAVOURITES_INITIAL_STATE = {
     favouritesitemlist: []
@@ -17,8 +19,12 @@ const favouriteReducer = (state = FAVOURITES_INITIAL_STATE, action) => {
                     ...state
                 }
             }
-        default:
-            return state;
+            case FavouritesTypes.RESET_FAVOURITES:
+                return {
+                    favouritesitemlist: []
+                };
+            default:
+                return state;
     }
 }
 

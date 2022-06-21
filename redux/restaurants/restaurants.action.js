@@ -71,3 +71,12 @@ export const restaurantstiming = (locationId, restaurantId) => {
     }
 }
 
+export const resetRestaurant = () => {     
+    return async (dispatch) => {                                                     
+        dispatch({
+            type: RestaurantsTypes.RESET_RESTAURANT,
+            payload: null
+        })                
+    }                            
+}
+

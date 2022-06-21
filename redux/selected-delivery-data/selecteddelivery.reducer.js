@@ -29,6 +29,12 @@ const selecteddeliveryReducer = (state = INITIAL_STATE, action) => {
                     pickupordelivery: {},
                     selecteddeliveryaddress: {},
                 };
+        case SelectedDeliveryTypes.RESET_SELECTDELIVERY:
+            return{
+                choosetime: {},
+                pickupordelivery: {},
+                selecteddeliveryaddress: {}
+            }
         default:
             return state;
     }
