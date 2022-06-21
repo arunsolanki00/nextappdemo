@@ -18,6 +18,8 @@ import { AddTempDeliveryAddress, DeleteTempDeliveryAddress } from '../../redux/d
 import { useRouter } from 'next/router';
 import { IndexSkeleton } from '../Common/Skeleton/index-skeleton.component';
 import { clearRedux } from '../../redux/clearredux/clearredux.action';
+import { createSessionId } from '../../redux/session/session.action';
+import { v4 as uuidv4 } from 'uuid';
 
 function IndexWithLogin() {
     const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
@@ -148,11 +150,15 @@ function IndexWithLogin() {
                 };
             });
             dispatch(restaurantsdetail(restaurantinfo));
-            
+
             //   CLEAR THE REDUX IF PREVIOUS LOCATION AND THE CURRENT SELECTED LOCATION IS NO SAME
             let oldLocationId = getLocationIdFromStorage();
             if (oldLocationId !== restaurantinfo.defaultlocationId) {
                 dispatch(clearRedux());
+
+                //create new session id
+                let id = uuidv4();
+                dispatch(createSessionId(id))
             }
             setLocationIdInStorage(restaurantinfo.defaultlocationId);
             setLoad(true)
