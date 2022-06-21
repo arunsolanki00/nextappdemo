@@ -13,6 +13,7 @@ import { GetCurrency } from '../../../components/helpers/utility'
 import { refreshCategoryList } from '../../../redux/main/main.action'
 
 const MainPage =({ restaurant }) => {
+    
     const [currency, setcurrency] = useState(GetCurrency())
     const router = useRouter();
     const { query: { dynamic }, } = router;
@@ -31,17 +32,19 @@ const MainPage =({ restaurant }) => {
 
     useEffect(() => {
         if(restaurantinfo && restaurantinfo !== undefined)
+        
             dispatch(refreshCategoryList(restaurantinfo,customerId));
     }, [])
 
     useEffect(() => {
         if (dynamic && dynamic !== undefined) {
             promotionCategory.length > 0  ? setPromotionsData(promotionCategory) : setPromotionsData([]);
+            
             allCategory.length > 0 ? setHungryData(allCategory) : setHungryData([]);
             setLoadcontent(true);
             dispatch(getAddress(customerId, restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
         }
-    }, [dynamic,promotionCategory.length,allCategory.length]);
+    }, [dynamic,promotionCategory.length,allCategory.length,allCategory]);
 
     useEffect(() => {
         if (rewardpoints !== undefined && rewardpoints !== null && rewardpoints.length !== undefined) {

@@ -91,3 +91,11 @@ export const addCardShowMessage = (item) => {
         })
     }
 }
+export const resetOrders = () => {
+    return async dispatch => {
+        dispatch({
+            type: OrderTypes.RESET_ORDER,
+            payload: null
+        })
+    }
+}

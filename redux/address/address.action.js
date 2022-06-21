@@ -9,3 +9,12 @@ export const addAddress = (address) => {
         });                
     }                            
 }
+
+export const resetAddress = () => {
+    return dispatch => {
+        dispatch({
+            type: AddressTypes.RESET_ADDRESS,
+            payload: null
+        })
+    }
+}

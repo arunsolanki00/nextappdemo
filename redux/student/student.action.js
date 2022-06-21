@@ -9,11 +9,19 @@ export const saveStudentName=(name)=>{
       }
 }
 
-export const clearStudentName=(name)=>{
+export const clearStudentName=()=>{
     return dispatch=>{
         dispatch({
             type:StudentTypes.CLEAR_STUDENT_NAME,
-            payload:name
+            payload:null
+        });
+      }
+}
+export const resetStudent=()=>{
+    return dispatch=>{
+        dispatch({
+            type:StudentTypes.RESET_STUDENT,
+            payload:null
         });
       }
 }

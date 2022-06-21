@@ -19,14 +19,16 @@ import { v4 as uuidv4 } from 'uuid';
 import { selecteddeliveryaddress, setpickupordelivery } from '../../redux/selected-delivery-data/selecteddelivery.action';
 import { RestaurantsTypes } from '../../redux/restaurants/restaurants.types';
 import { emptyordertime } from '../../redux/order/order.action';
+import { removeMenuItem, removeMenuItemSelectedData } from '../../redux/menu-item/menu-item.action';
+import { clearRedux } from '../../redux/clearredux/clearredux.action';
 
-const Restaurant =({ children }) => {
-   console.log("Restaurant compo call");
+const Restaurant = ({ children }) => {
+    console.log("Restaurant compo call");
     const router = useRouter();
     const dispatch = useDispatch();
     let newselectedRestaurant = null;
     let categoryresponse = [];
-    const { query: { dynamic,location}, } = router;
+    const { query: { dynamic, location }, } = router;
     const [loadrestaurant, setLoadrestaurant] = useState(false);
     const [selectedRestaurant, setSelectedRestaurant] = useState(null);
     const userinfo = useSelector(({ userdetail }) => userdetail.loggedinuser, shallowEqual);
@@ -80,11 +82,18 @@ const Restaurant =({ children }) => {
 
                             isSameRestaurant = newselectedRestaurant.restaurantId === restaurantId ? true : false;
                             if (!isSameRestaurant) {
-                                //clear old session
-                                dispatch(clearSessionId());
+                                
                                 //create new session id
                                 let id = uuidv4();
                                 dispatch(createSessionId(id))
+                                //clear old session
+                                
+                                dispatch(clearRedux())
+                                // dispatch(clearSessionId());
+
+                                // dispatch(removeMenuItem())
+                                // dispatch(removeMenuItemSelectedData())
+
                             } else {
                                 if (sessionId === null || sessionId === undefined) {
                                     //create new session id
@@ -95,10 +104,12 @@ const Restaurant =({ children }) => {
 
 
                             //setLocation(newselectedRestaurant.restaurantId,newselectedRestaurant.defaultlocationId);
+                            
                             setLocationIdInStorage(newselectedRestaurant.defaultlocationId);
                             setRestaurantIdInStorage(newselectedRestaurant.restaurantId);
 
                             MainServices.getMenuCategoryList(newselectedRestaurant.restaurantId, newselectedRestaurant.defaultlocationId).then(catresponse => {
+                                
                                 if (catresponse && catresponse != null && catresponse.length > 0) {
                                     categoryresponse = catresponse;
                                     dispatch({
@@ -183,41 +194,42 @@ const Restaurant =({ children }) => {
         }
     }, [dynamic]);
     // IF ADDRESSLIST IS IS EMPTY AND USER DIRECT PUT THE WRONG LOCATION IN THE URL THEN CHECK THE LOCATION IS EXIST IN THE RESTAURANT
-    useEffect(()=>{
-      if(location !== undefined && restaurantinfo.defaultLocation !== undefined &&restaurantinfo.defaultLocation !== null && restaurantslocationlist.length===0  ){
-        const fetchData = async () => {
-            setLoadrestaurant(false)
-            const getResponse = await restaurantsLocation(restaurantinfo && restaurantinfo.restaurantId, "0", "0");
-            dispatch(setpickupordelivery('Pickup'));
-            dispatch(selecteddeliveryaddress(null));// as we do not need delivery address selected            
-            dispatch(restaurantstiming(restaurantinfo && restaurantinfo.defaultlocationId, restaurantinfo && restaurantinfo.restaurantId));
-            dispatch({
-                type: RestaurantsTypes.RESTAURANT_LOCATION_LIST,
-                payload: getResponse
-            })
-            dispatch(getSelectedRestaurantTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
-            dispatch(emptyordertime());
-            setadresslist(true) 
-        };
-           fetchData();
-      }
-    },[restaurantinfo])
-    
     useEffect(() => {
-     if(adresslist === true){
-        let addressList=restaurantslocationlist.addressList;
-        if(restaurantslocationlist.addressList !== undefined){
-            let linkLoacationurl=location.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "") 
-            addressList.map(locations=>{
-                let locationURL=locations.locationURL.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")  
-                if(linkLoacationurl === locationURL){
-                  setLoadrestaurant(true)
-                }
-            })
-        } 
-     }
+
+        if (location !== undefined && restaurantinfo.defaultLocation !== undefined && restaurantinfo.defaultLocation !== null && restaurantslocationlist.length === 0) {
+            const fetchData = async () => {
+                setLoadrestaurant(false)
+                const getResponse = await restaurantsLocation(restaurantinfo && restaurantinfo.restaurantId, "0", "0");
+                dispatch(setpickupordelivery('Pickup'));
+                dispatch(selecteddeliveryaddress(null));// as we do not need delivery address selected            
+                dispatch(restaurantstiming(restaurantinfo && restaurantinfo.defaultlocationId, restaurantinfo && restaurantinfo.restaurantId));
+                dispatch({
+                    type: RestaurantsTypes.RESTAURANT_LOCATION_LIST,
+                    payload: getResponse
+                })
+                dispatch(getSelectedRestaurantTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId));
+                dispatch(emptyordertime());
+                setadresslist(true)
+            };
+            fetchData();
+        }
+    }, [restaurantinfo])
+
+    useEffect(() => {
+        if (adresslist === true) {
+            let addressList = restaurantslocationlist.addressList;
+            if (restaurantslocationlist.addressList !== undefined) {
+                let linkLoacationurl = location.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")
+                addressList.map(locations => {
+                    let locationURL = locations.locationURL.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "")
+                    if (linkLoacationurl === locationURL) {
+                        setLoadrestaurant(true)
+                    }
+                })
+            }
+        }
     }, [adresslist])
-    
+
 
     console.log(router.pathname)
 

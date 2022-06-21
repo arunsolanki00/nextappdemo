@@ -21,9 +21,8 @@ export const resizeImageFn = async (file) => {
 }
 
 export const GetCurrency =() => {
-    const restaurantinfo = useSelector(({ restaurant }) => restaurant.restaurantdetail);
-    const location = restaurantinfo.defaultLocation;
-    
+    const restaurantinfo = useSelector(({ restaurant }) => restaurant?.restaurantdetail);
+    const location = restaurantinfo?.defaultLocation;
     return location.currencysymbol;
 }
 

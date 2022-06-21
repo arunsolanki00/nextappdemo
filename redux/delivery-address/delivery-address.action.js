@@ -92,3 +92,14 @@ export const DeleteTempDeliveryAddress = () => {
         })
     }
 }
+
+
+export const resetDeliveryAddress = () => {
+    return async dispatch => {
+        dispatch({
+            type: DeliveryAddressTypes.RESET_DELIVERY_ADDRESS,
+            payload: null
+        })
+    }
+}
+

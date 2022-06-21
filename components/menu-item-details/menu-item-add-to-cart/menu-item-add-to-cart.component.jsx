@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import { getCartItem, getCartItemCount, updateCartItemCount } from "../../../redux/cart/cart.action";
+import {  getCartItemCount, updateCartItemCount } from "../../../redux/cart/cart.action";
 import { removeMenuItem, selectedItemSize, updateitemoption } from "../../../redux/menu-item/menu-item.action";
-import { getSessionKey } from "../../Common/auth";
 import { FormatOrderObject } from "../../Common/format-order-object";
-import Loader from "../../Common/loader/loader.component";
 import handleNotify from "../../helpers/toaster/toaster-notify";
 import { ToasterPositions } from "../../helpers/toaster/toaster-positions";
 import { ToasterTypes } from "../../helpers/toaster/toaster-types";
@@ -20,15 +18,14 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 	const customerId = userinfo ? userinfo.customerId : 0;
 	let sessionid = useSelector(({ session }) => session?.sessionid);
 	let menuItemDetail = useSelector(({ menuitem }) => menuitem.menuitemdetaillist);
-	let selectedsize = menuItemDetail != undefined && menuItemDetail.size != undefined && menuItemDetail.size.filter(x => x.sizeselected = true);
-	let selectedtopping = menuItemDetail != undefined && menuItemDetail.topping != undefined && menuItemDetail.topping.filter(x => x.subparameterId == selectedsize[0].subparameterId);
+	let selectedsize = menuItemDetail != undefined && menuItemDetail.size != undefined && menuItemDetail.size.filter(x => x.sizeselected === true);
+	let selectedtopping = menuItemDetail != undefined && menuItemDetail.topping != undefined && menuItemDetail.topping.filter(x => x.	subparameterId == selectedsize[0].subparameterId);
 	let selectedoption = selectedtopping != undefined && selectedtopping.length > 0 && selectedtopping[0].list.filter(x => x.optionselected == true);
 	let defaultselected = selectedoption != undefined && selectedoption.length > 0 && selectedoption[0].type.filter(x => x.defaultSelection != null);
 	let categoryname = defaultselected != undefined && defaultselected.length > 0 && defaultselected[0].defaultSelection;
 	let lstcategory = categoryname != undefined && selectedoption != undefined && selectedoption.length > 0 && selectedoption[0].type.filter(x => x.suboptioncategoryname === categoryname);
 	const deliveryaddressinfo = useSelector(({ selecteddelivery }) => selecteddelivery);
 	const ordertype = deliveryaddressinfo.pickupordelivery === "Delivery" ? 2 : 1;
-
 	let objrestaurant = useSelector(({ restaurant }) => restaurant.restaurantdetail);
 	let objselectedItem = useSelector(({ menuitem }) => menuitem.selectedmenuitemdetail);
 	let quantity = useSelector(({ menuitem }) => menuitem.selecteditemquantity);
@@ -66,14 +63,27 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 		}
 	}
 
-
-
 	const addtocartclick = () => {
 		if (deliveryaddressinfo && (
 			deliveryaddressinfo.pickupordelivery === "Pickup" ||
 			(deliveryaddressinfo.pickupordelivery === "Delivery"))) {
+
 			let selectedoption = selectedtopping.length > 0 && selectedtopping[0].list.filter(x => x.isCompulsory == true);
-			if (menuItemDetail.topping != undefined && menuItemDetail.topping.length === 0) {
+			debugger
+			if(objselectedItem && objselectedItem?.cartid > 0){
+				let itemobj = FormatOrderObject(objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid,ordertype);
+				if (itemobj != undefined) {
+					MenuItemServices.updateCartOrdersItem(itemobj, objrestaurant.restaurantId).then(response => {
+						debugger
+						if (response) {
+							// dispatch({ type: MenuItemTypes.ADD_ITEM_TO_CART, payload: response });
+							dispatch(updateCartItemCount());
+							dispatch(getCartItemCount(sessionid, objrestaurant.defaultlocationId, objrestaurant.restaurantId, customerId));
+						}
+					})
+				}
+			}
+		    else if(menuItemDetail.topping != undefined && menuItemDetail.topping.length === 0) {
 				let itemobj = FormatOrderObject(objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid,ordertype);
 				if (itemobj != undefined) {
 					MenuItemServices.addItemToCart(itemobj, objrestaurant.restaurantId).then(response => {
@@ -88,6 +98,7 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 			else if (menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && selectedoption.length > 0) {
 				let result = [];
 				for (var i = 0; i < selectedoption.length; i++) {
+					
 					if (selectedoption[i].type != undefined && selectedoption[i].type.length > 0 && selectedoption[i].type.filter(x => x.subOptionselected === true).length === 0) {
 						handleNotify('Please select atleast one item in ' + selectedoption[i].name, ToasterPositions.TopRight, ToasterTypes.Error);
 						result.push({ value: i, text: false });
@@ -111,7 +122,7 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 				}
 			}
 			else if (menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && selectedoption.length === 0) {
-				let itemobj = FormatOrderObject(objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid,ordertype);
+				let itemobj =FormatOrderObject(objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid,ordertype);
 				if (itemobj != undefined) {
 					MenuItemServices.addItemToCart(itemobj, objrestaurant.restaurantId).then(response => {
 						if (response) {
@@ -124,7 +135,6 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 			}
 		}
 		else {
-
 			handleNotify('Please choose delivery address', ToasterPositions.TopRight, ToasterTypes.Error);
 		}
 	}

@@ -142,5 +142,36 @@ export class MenuItemServices {
       return e;
     }
   }
+
+  static async updateCartOrdersItem(orderobj, restaurantId) {  
+    debugger  
+    const location = ENDPOINTS.UPDATE_CART_ORDER_ITEMS;
+    const data = {
+      cartInfo : orderobj
+    };
+    const config = {
+      headers: {
+        'content-type': 'application/json',
+        'Authorization': getAuthKey(restaurantId)
+      }
+    };
+    try {
+      let response = await axios.post(location, data, config);
+      responseclass = await JSON.parse(response.data.d);
+      debugger
+      if (responseclass.result != null && responseclass.status === 1) {
+        handleNotify('Item updated succesfully', ToasterPositions.TopRight, ToasterTypes.Success);
+        return responseclass.result;
+      }
+      else {
+        handleNotify('Item added succesfully', ToasterPositions.TopRight, ToasterTypes.Success);
+        return [];
+      }
+    }
+    catch (e) {
+      handleNotify('Error with added item', ToasterPositions.TopRight, ToasterTypes.Error);
+      return e;
+    }
+  }
 }
 

@@ -326,28 +326,8 @@ const ShoppingCart = () => {
       )
     );
   };
-  const handlePaymentActive = () => {
-
-    if (order.checktime.includes('AM') || order.checktime.includes('PM')) {
-      let otime = order.checktime.split(' ');
-      OrderServices.checkOrderTime(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, otime[0], otime[1], ordertype)
-        .then((response) => {
-          if (response.result != undefined && response.result !== null) {
-            if (response.result.status === 'fail' || response.result.status === 'error') {
-              setordertimeerrormessage(response.result.message);
-              dispatch(setordertime(""));
-              setIsDisableOrder(true);
-            }
-            if (response.result.status === 'success') {
-              setIsDisableOrder(false);
-              setisPayActive(true);
-            }
-          }
-        });
-    }
-  }
+ 
   const onchangetipamount = (item) => {
-
     const pattern = new RegExp(/^[0-9]*(\.\d{0,2})*$/);
     if (pattern.test(item.target.value) || item.target.value === "") {
       let tvalue = item.target.value != "" ? item.target.value : "";

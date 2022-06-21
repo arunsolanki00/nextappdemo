@@ -31,26 +31,27 @@ const Index = () => {
     const {
         query: { dynamic ,location},
     } = router;
-    console.log(asPath)
     const [lstcarttopping, setlstcarttopping] = useState([]);
     let selcetedCategoryList;
     let menuItemDetail = useSelector(({ menuitem }) => menuitem?.menuitemdetaillist);
     let categoryitemlist = useSelector(({ category }) => category?.categoryitemlist);
     let maincategoryList = useSelector(({ main }) => main?.maincategoryList);
     let selectedsize = menuItemDetail != undefined && menuItemDetail.size != undefined && menuItemDetail.size.length > 0 && menuItemDetail.size.find(x => x.sizeselected === true);
-    let selectedtopping = menuItemDetail != undefined && menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && menuItemDetail.topping.find(x => x.subparameterId == selectedsize.subparameterId);
+    let selectedtopping = menuItemDetail != undefined && menuItemDetail.topping != undefined && menuItemDetail.topping.length > 0 && menuItemDetail?.topping.find(x => x.subparameterId == selectedsize?.subparameterId);
     let selectedmenuitemdetail = useSelector(({ menuitem }) => menuitem?.selectedmenuitemdetail);
     const [count, setcount] = useState(Math.random());
     const [load, setload] = useState(0);
 
     useEffect(() => {
+        
         //CONDITION FOR THE categoryitemlist REDUX IS EMPTY AND USER DIRECT ENTER THE LINK IN THE BROWSER 
-        if (categoryitemlist.length === 0 || selectedmenuitemdetail.length === undefined) {
+        if (categoryitemlist.length === 0 || (selectedmenuitemdetail.length === undefined && Object.keys(selectedmenuitemdetail).length === 0)) {
              
             const urlArray = asPath.split("/")
             const catagerySelected = maincategoryList.filter(x => x.catName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-") === urlArray[3].toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-"))
             dispatch(selectedCategory(catagerySelected[0]))
             CategoryServices.getCategoryItemList(restaurantinfo.restaurantId, catagerySelected[0].catId, userinfo ? userinfo.customerId : 1, restaurantinfo.defaultlocationId).then(response => {
+                
                 if (response) {
                     selcetedCategoryList = response;
                     dispatch({
@@ -60,19 +61,19 @@ const Index = () => {
                     let selectedCategoryItem;
                     if (selcetedCategoryList !== undefined && selcetedCategoryList !== null) {
                         selectedCategoryItem = selcetedCategoryList?.filter(x => x.menuItemName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-") === urlArray[4].toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-"))
-                        dispatch(selectedMenuItem(selectedCategoryItem[0]));
-                        dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, selectedCategoryItem[0].menuitemId, 0, 0));
+                        //dispatch(selectedMenuItem(selectedCategoryItem[0]));
+                        //dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, selectedCategoryItem[0].menuitemId, 0, 0));
                         setload(load + 1);
                     }
                 }
             })
         } else {
-            setload(load + 1)
+            setload(load + 1) 
         }
     }, [])
 
     useEffect(() => {
-        setTimeout(() => {
+        setTimeout(() => {  
             if (rewardpoints !== undefined && rewardpoints !== null) {
                 setamount(parseFloat(rewardpoints.rewardamount));
                 setpoint(rewardpoints.rewardPoint);

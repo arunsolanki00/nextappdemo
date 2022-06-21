@@ -14,3 +14,11 @@ export const getMenuItemList = (registerModel, address) => {
         })
     }
 }
+export const resetRegister = () => {
+    return async dispatch => {
+        dispatch({
+            type:RegisterTypes.RESET_REGISTER,
+            payload: null
+        })
+    }
+}

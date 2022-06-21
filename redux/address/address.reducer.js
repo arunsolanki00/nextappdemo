@@ -25,6 +25,19 @@ const addressReducer = (state = INITIAL_STATE, action) => {
             ...state,
             getaddress: action.payload,
           };
+      case AddressTypes.RESET_ADDRESS:
+        return{
+          address: {
+            address1:"",
+            address2:"",
+            address3:"",
+            city:"",
+            state:"",
+            country:"",
+            zipcode:"",
+            addressType:0
+          }
+        }
       default:
         return state; // this is not initial state otherwise it's load default state
     }

@@ -1,4 +1,6 @@
-import { LocationTypes } from "./location.types";
+import {
+    LocationTypes
+} from "./location.types";
 
 const LOCATION_INITIAL_STATE = {
     location: []
@@ -29,8 +31,13 @@ const loginReducer = (state = LOCATION_INITIAL_STATE, action) => {
                     }
                 }
 
-        default:
-            return state;
+                case LocationTypes.RESET_LOCATION:
+                    return {
+                        location: []
+                    };
+
+                default:
+                    return state;
     }
 }
 

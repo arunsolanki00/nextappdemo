@@ -16,7 +16,12 @@ const registerReducer = (state = REGISTER_INITIAL_STATE, action) => {
                 return {
                     ...state
                 }
-            }
+            } 
+            case RegisterTypes.RESET_REGISTER:
+                    return {
+                        register: []       
+                    };
+            
         default:
             return state;
     }

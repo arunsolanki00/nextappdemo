@@ -14,3 +14,12 @@ export const GetFavouritesList = (restaurantId, customerId,locationId) => {
         })
     }
 }
+
+export const resetFavourites = () => {
+    return async dispatch => {
+        dispatch({
+            type: FavouritesTypes.RESET_FAVOURITES,
+            payload: null
+        })
+    }
+}

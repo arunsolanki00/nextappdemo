@@ -27,7 +27,11 @@ const timmingReducer = (state = TIMMING_INITIAL_STATE, action) => {
                 return {
                     ...state
                 }
-            }      
+            } 
+        case RestaurantTimmingTypes.RESET_RESTAURANTTIMING:
+            return{
+                timming: [] 
+            }
         default:
             return state;
         }

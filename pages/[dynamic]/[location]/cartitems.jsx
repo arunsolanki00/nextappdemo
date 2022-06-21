@@ -37,7 +37,7 @@ const Cartlogin_Component = () => {
   let restaurantinfo = useSelector(
     ({ restaurant }) => restaurant.restaurantdetail
   );
-  const location = restaurantinfo.defaultLocation;
+  const location = restaurantinfo?.defaultLocation;
   const locationlink=router.query.location;
   const userinfo = useSelector(
     ({ userdetail }) => userdetail.loggedinuser,

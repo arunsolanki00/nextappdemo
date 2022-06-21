@@ -14,3 +14,12 @@ export const getLocations = (restaurantId,latitude,longitude) => {
         })
     }
 }
+
+export const resetLocations = () => {
+    return async dispatch => {
+        dispatch({
+            type: LocationTypes.RESET_LOCATION,
+            payload: null
+        })
+    }
+}

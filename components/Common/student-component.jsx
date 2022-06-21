@@ -5,23 +5,21 @@ import { CustomInputButton } from "./button/custominputbutton";
 import { useRouter } from "next/router";
 
 const StudentComponent = ({restaurantinfo,selectedCategoryMenuitemName}) => {
-    debugger
+    
     const [studentName, setStudentName] = useState('');
     const [error,setError] = useState('');
     const [isDisableSubmit,setIsDisableSubmit] = useState(false);
-
     const dispatch = useDispatch();
     const router = useRouter();
-
     const { query: { dynamic,location, id, index, category }, } = router;
-
+    
     const handleStudentNameChange = (name) => {
         setError("");
         setIsDisableSubmit(false);
         setStudentName(name)
     }
     const handleSave = () => {
-        debugger
+        
         if(studentName.trim().length <= 0){
             setError("Please enter student name");
             setIsDisableSubmit(true);

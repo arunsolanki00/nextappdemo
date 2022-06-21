@@ -42,4 +42,12 @@ export const setCategoryList = (item) => {
         })                
     }                            
 }
+export const resetCategory = () => {     
+    return (dispatch) => {                                                     
+        dispatch({
+            type: CategoryTypes.RESET_CATEGORY,
+            payload: null                   
+        })                
+    }                            
+}
 

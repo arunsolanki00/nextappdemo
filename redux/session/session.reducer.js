@@ -20,6 +20,11 @@ const sessionReducer=(state=SESSSION_INTIAL_STATE,action)=>{
                  ...state,
                  sessionid:action.payload
              }
+             case SessionTypes.RESET_SESSION_ID:
+      
+                return{
+                sessionid:null
+                }
         
       default :
       return state;

@@ -35,3 +35,11 @@ export const cleardeliveryaddress = () => {
         })
     }
 }
+export const resetSelectedDelivery = () => {
+    return async dispatch => {
+        dispatch({
+            type: SelectedDeliveryTypes.RESET_SELECTDELIVERY,
+            payload: null
+        })
+    }
+}

@@ -35,7 +35,7 @@ const LocationListComponent = (props) => {
                 <br />
                 {oddItem?.statename}{" , "}{oddItem?.countryName}{" , "}{oddItem?.zipcode}
               </span>
-            </h5>
+            </h5> 
             <h5 className="size_22 color_black weight_300 margin_top_20 margin_bottom_20">
               <i className="fa fa-phone" />{" "}
               <span className="size_20 color_grey">{oddItem?.phone}</span>
@@ -46,7 +46,7 @@ const LocationListComponent = (props) => {
             ""
           )}
         {evenItem ? (
-          <div className="col-lg-6 s-piza addressGrid b-bottom col-sm-12 col-xs-12">
+          <div className={`col-lg-6 s-piza addressGrid b-bottom col-sm-12 col-xs-12 ${(locationList.length - i === 1 ) && `b-right  `}`} >
             <div style={{marginLeft:"15px"}}>
             <h5 className="size_22 color_black weight_300">
               <img src="/images/pin.png" alt className="margin_right_10" />{" "}
