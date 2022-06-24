@@ -234,7 +234,7 @@ const LoginMainComponent = (props) => {
                     {/* <Link href="/[dynamic]/register" as={`/${restaurantinfo.restaurantURL}/register`}  onClick={handleLogin}>
                     <a className="regi" >Register</a>
                   </Link> */}
-                    <a className="orange_btn_submit" onClick={handleLogin} >Register</a>
+                    <a className="register_btn_submit" onClick={handleLogin} >Register</a>
                   </div>
 
                 </form>

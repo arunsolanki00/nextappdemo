@@ -32,3 +32,16 @@ export const MonthList = (mname) =>{
   ];
   return monthNames[mname];
 }
+
+export const ConvetObjectIntoString=(obj)=>{
+    let i=0;
+    let convertedString="";
+    if(Object.keys(obj).length !== 0){
+    for(let key in obj){
+        let keystring=`${key}:${obj[key]}${Object.keys(obj).length-i === 1 ?`.`:`,`}`
+        convertedString +=  keystring; 
+        i++;
+    }
+}
+    return convertedString;
+}

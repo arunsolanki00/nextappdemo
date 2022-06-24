@@ -1,6 +1,7 @@
 import axios from "axios";
 import { getAuthKey } from "../../components/Common/auth";
 import { ENDPOINTS } from "../../components/config";
+import { errorLog } from "../../components/helpers/errorlog/errorlog";
 import handleNotify from "../../components/helpers/toaster/toaster-notify";
 import { ToasterPositions } from "../../components/helpers/toaster/toaster-positions";
 import { ToasterTypes } from "../../components/helpers/toaster/toaster-types";
@@ -13,7 +14,7 @@ let responseclass = {
 
 export class CartServices {
   static async getCartItemList(cartsessionId, locationId, restaurantId, cartId, customerId, rewardpoints, redeemamount, deliveryaddressId,tipPercentage,tipAmount) {
-  
+    const methodName= "getCartItemList";
     const location = ENDPOINTS.GET_CART_ITEM;
     const data = {
       cartItem: {
@@ -47,12 +48,15 @@ export class CartServices {
       }
     }
     catch (e) {
+      errorLog(e,data,methodName,location).then(res=>{
+        return res;
+      })
       return e;
     }
   }
 
   static async getCartItemCount(cartsessionId, locationId, restaurantId, customerId) {
-   
+    const methodName= "getCartItemCount";
     const location = ENDPOINTS.GET_CART_ITEM_COUNT;
     const data = {
       cartsessionId: cartsessionId,     
@@ -78,11 +82,15 @@ export class CartServices {
       }
     }
     catch (e) {
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
   static async deleteCartItem(cartsessionId, cartId, restaurantId, locationId) {
+    const methodName= "deleteCartItem";
     const location = ENDPOINTS.DELETE_CART_ITEM;
     const data = {
       cartsessionId: cartsessionId,
@@ -111,12 +119,15 @@ export class CartServices {
     }
     catch (e) {
       handleNotify('error with delete item', ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
   static async checkCustomerRewardPoints(restaurantId, customerId, rewardpoints, amount) {
-    
+    const methodName= "addItemcheckCustomerRewardPointsToCart";
     const location = ENDPOINTS.CHECK_CUSTOMER_REWARD_POINTS;
     const data = {
       restaurantId: restaurantId,
@@ -147,11 +158,15 @@ export class CartServices {
     }
     catch (e) {
       handleNotify("Error with reward point", ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
   static async updatequantity(cartsessionId, cartId, qty, price, locationId, restaurantId) {
+    const methodName= "updatequantity";
     const location = ENDPOINTS.UPDATE_QUANTITY;
     const data = {
       updateCartItem: {
@@ -184,11 +199,15 @@ export class CartServices {
     }
     catch (e) {
       handleNotify("Error with update quantity", ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
   static async carttotal(cartsessionId, locationId, restaurantId, customerId, cartId, rewardpoints, redeemamount, tipPercentage, tipAmount, deliveryaddressId) {
+    const methodName= "carttotal";
     const location = ENDPOINTS.GET_CART_TOTAL;
     const data = {
       cartItem: {
@@ -225,11 +244,15 @@ export class CartServices {
     }
     catch (e) {
       handleNotify("Error with cart total", ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
   static async deliverycharges(restaurantId, locationId,isGeoFancing) {
+    const methodName= "deliverycharges";
     const location = ENDPOINTS.GET_DELIVERY_CHARGES;
     const data = {
       restaurantId: restaurantId,
@@ -258,11 +281,15 @@ export class CartServices {
     }
     catch (e) {
       handleNotify("Error with delivery charges", ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
   static async cartcheckout(itemobj, restaurantId) {
+    const methodName= "cartcheckout";
     const location = ENDPOINTS.CART_CHECKOUT;
     const data = {
       obj: itemobj
@@ -288,12 +315,16 @@ export class CartServices {
     }
     catch (e) {
       handleNotify("Error with checkout", ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
+		
       return e;
     }
   }
 
   static async getstripepaymentintentid(restaurantId, locationId, orderId, customerId, totalAmount) {
-    
+    const methodName= "getstripepaymentintentid";
     const paymentintenturl = ENDPOINTS.GET_PAYMENT_INTENT_ID;
     const data = {
       paymentIntent: {
@@ -325,12 +356,16 @@ export class CartServices {
     }
     catch (e) {
       handleNotify("Error with checkout", ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
   static async confirmstripepayment(restaurantId, locationId, orderId, customerId, totalAmount, paymentMethodId, paymentIntentId,
     cardname, cardnumber, cvv, expmonth, expyear, zipcode) {
+      const methodName= "confirmstripepayment";
     const paymentintenturl = ENDPOINTS.CONFIRM_STRIPE_PAYMENT;
     const data = {
       paymentIntent: {
@@ -370,11 +405,15 @@ export class CartServices {
     }
     catch (e) {
       handleNotify("Error with checkout", ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
   static async deleteCartItemFromSessionId(cartsessionId, restaurantId, locationId) {
+    const methodName= "deleteCartItemFromSessionId";
     const location = ENDPOINTS.DELETE_CART_FROM_SESSIONID;
     const data = {
       cartsessionId: cartsessionId,
@@ -402,6 +441,9 @@ export class CartServices {
     }
     catch (e) {
       handleNotify('error with delete item', ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }

@@ -98,10 +98,6 @@ const Restaurant = ({ children }) => {
                                     dispatch(createSessionId(id))
                                 }
                             }
-
-
-                            //setLocation(newselectedRestaurant.restaurantId,newselectedRestaurant.defaultlocationId);
-
                             setLocationIdInStorage(newselectedRestaurant.defaultlocationId);
                             setRestaurantIdInStorage(newselectedRestaurant.restaurantId);
 
@@ -146,35 +142,14 @@ const Restaurant = ({ children }) => {
                                 if (newselectedRestaurant.restaurantId > 0 && userinfo) {
                                     if (userinfo.restaurantId !== newselectedRestaurant.restaurantId) {
                                         dispatch(logout());
-
-                                        // //clear old session
-                                        // dispatch(clearSessionId());
-
-                                        // //create new session id
-                                        // let id = uuidv4();
-                                        // dispatch(createSessionId(id))
                                     }
                                 }
-                                // console.log("comaparesion",cart?.cartitemdetail.cartDetails.cartItemDetails[0].restaurantId!=newselectedRestaurant.restaurantId)
 
                                 if ((cart?.cartitemdetail?.cartDetails?.cartItemDetails[0]?.restaurantId != newselectedRestaurant.restaurantId) &&
                                     (cart?.cartitemdetail?.cartDetails?.cartItemDetails[0]?.locationid != newselectedRestaurant.defaultLocation.locationId)) {
 
                                     dispatch(emptycart())
-
-                                    //  //clear old session
-                                    //  dispatch(clearSessionId());
-                                    // //create new session id
-                                    // let id = uuidv4();
-                                    // dispatch(createSessionId(id))
                                 }
-
-
-                                // if(sessionId===null||sessionId===undefined){
-                                //       //create new session id
-                                //       let id = uuidv4();
-                                //       dispatch(createSessionId(id)) 
-                                // }
                                 //TO DO
                                 setLoadrestaurant(true);
                             })
@@ -251,13 +226,7 @@ const Restaurant = ({ children }) => {
             </>
         )
     }
-    // else if (loadrestaurant && !selectedRestaurant) {
-    //     return (
-    //         <>
-    //             <Error statusCode="404" title="Wrong restaurant" />
-    //         </>
-    //     )
-    // }
+
     else {
         return (
             <>
@@ -266,84 +235,5 @@ const Restaurant = ({ children }) => {
         );
     }
 }
-
-// Restaurant.getInitialProps = async (ctx) => {
-
-//     let responseclass = {
-//         result: {},
-//         status: "",
-//         message: ""
-//     }
-
-//     const location = ENDPOINTS.GET_RESTAURANTS;
-//     const config = {
-//         headers: {
-//             'content-type': 'multipart/form-data',
-//         }
-//     };
-//     try {
-//         let response = await axios.post(location, config);
-//         responseclass = await JSON.parse(response.data.d);
-//         if (responseclass.result != null && responseclass.status === 1) {
-//             let restaurants = responseclass.result;
-//             return { restaurants };
-//         }
-//     } catch (error) {
-//         return { error };
-//     }
-// }
-
-// export async function getServerSideProps({ query }) {
-
-//     const id = query.dynamic;
-//     let response = [];
-//     let responseclass = {
-//         result: {},
-//         status: "",
-//         message: ""
-//     }
-
-//     const location = ENDPOINTS.GET_RESTAURANTS;
-//     const config = {
-//         headers: {
-//             'content-type': 'multipart/form-data',
-//         }
-//     };
-
-//     try {
-//         let response = await axios.post(location, config);
-//         responseclass = await JSON.parse(response.data.d);
-
-//         if (responseclass.result != null && responseclass.status === 1) {
-//             response = responseclass.result;
-//         }
-//     }
-//     catch (e) {
-
-//     }
-
-//     if (response) {
-//         let selectedRestaurant = null;
-//         selectedRestaurant = id != undefined ?
-//             response.filter(item =>
-//                 (item.restaurantURL.toLowerCase().trim().toString().replace(" ", "-") === id.toLowerCase().toString().replace(" ", "-"))) : null;
-
-//         return { stars: selectedRestaurant[0] }
-//     }
-
-//     // RestaurantsServices.getRestaurantsList().then(response => {
-//     //     
-//     //     if (response) {
-//     //         let selectedRestaurant = null;
-//     //         selectedRestaurant = id != undefined ?
-//     //             response.filter(item =>
-//     //                 (item.restaurantURL.toLowerCase().trim().toString().replace(" ", "-") === id.toLowerCase().toString().replace(" ", "-"))) : null;
-
-//     //         return { stars: selectedRestaurant[0] }
-
-//     //     }
-//     // });
-//     return { stars: null }
-// }
 
 export default (Restaurant)

@@ -67,14 +67,11 @@ const MenuItemAddToCartComponent = ({ ctopping, sendDataToParent }) => {
 		if (deliveryaddressinfo && (
 			deliveryaddressinfo.pickupordelivery === "Pickup" ||
 			(deliveryaddressinfo.pickupordelivery === "Delivery"))) {
-
 			let selectedoption = selectedtopping.length > 0 && selectedtopping[0].list.filter(x => x.isCompulsory == true);
-			debugger
 			if(objselectedItem && objselectedItem?.cartid > 0){
 				let itemobj = FormatOrderObject(objrestaurant, objselectedItem, menuItemDetail, customerId, total, quantity,sessionid,ordertype);
 				if (itemobj != undefined) {
 					MenuItemServices.updateCartOrdersItem(itemobj, objrestaurant.restaurantId).then(response => {
-						debugger
 						if (response) {
 							// dispatch({ type: MenuItemTypes.ADD_ITEM_TO_CART, payload: response });
 							dispatch(updateCartItemCount());
