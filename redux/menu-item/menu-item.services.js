@@ -1,10 +1,10 @@
 import axios from "axios";
 import { getAuthKey } from "../../components/Common/auth";
 import { ENDPOINTS } from "../../components/config";
+import { errorLog } from "../../components/helpers/errorlog/errorlog";
 import handleNotify from "../../components/helpers/toaster/toaster-notify";
 import { ToasterPositions } from "../../components/helpers/toaster/toaster-positions";
 import { ToasterTypes } from "../../components/helpers/toaster/toaster-types";
-
 let responseclass = {
   result: {},
   status: "",
@@ -13,6 +13,7 @@ let responseclass = {
 
 export class MenuItemServices {
   static async getMenuItemList(restaurantId, locationId, customerId, menuitemId,cartsessionId,cartId) {
+    const methodName= "getMenuItemList";
     const location = ENDPOINTS.GET_MENU_ITEMS_DETAILS;
     const data = {
       itemDetail: {
@@ -42,18 +43,22 @@ export class MenuItemServices {
       }
     }
     catch (e) {
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
-
-  static async addfavorite(customerId, restaurantId, menuItemId) {
+static async addfavorite(customerId, restaurantId, menuItemId) {
+ const methodName="addfavorite";
     const location = ENDPOINTS.ADD_FAVORITE;
     const data = {
       customerId: customerId.toString(),
       restaurantId: parseInt(restaurantId),
       menuItemId: menuItemId.toString()
     };
+
     const config = {
       headers: {
         'content-type': 'application/json',
@@ -63,7 +68,6 @@ export class MenuItemServices {
     try {
       let response = await axios.post(location, data, config);
       responseclass = await JSON.parse(response.data.d);
-
       if (responseclass.result != null && responseclass.status === 1) {
         handleNotify('Item is add into your favorite list', ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
@@ -74,6 +78,9 @@ export class MenuItemServices {
       }
     }
     catch (e) {
+      errorLog(e,data,methodName,location).then(res=>{
+        console.log(res)
+      })
       handleNotify('Error with favorite list', ToasterPositions.TopRight, ToasterTypes.Error);
       return e;
     }
@@ -81,6 +88,7 @@ export class MenuItemServices {
 
 
   static async deletefavorite(customerId, restaurantId, menuItemId) {
+    const methodName="deletefavorite";
     const location = ENDPOINTS.DELETE_FAVORITE;
     const data = {
       customerId: parseInt(customerId),
@@ -108,12 +116,16 @@ export class MenuItemServices {
     }
     catch (e) {
       handleNotify('Error with favorite list', ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
 
-  static async addItemToCart(orderobj, restaurantId) {    
+  static async addItemToCart(orderobj, restaurantId) {  
+    const methodName= "addItemToCart"; 
     const location = ENDPOINTS.ADD_ITEM_TO_CART;
     const data = {
       cartInfo : orderobj
@@ -139,12 +151,15 @@ export class MenuItemServices {
     }
     catch (e) {
       handleNotify('Error with added item', ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }
 
   static async updateCartOrdersItem(orderobj, restaurantId) {  
-    debugger  
+    const methodName= "updateCartOrdersItem";
     const location = ENDPOINTS.UPDATE_CART_ORDER_ITEMS;
     const data = {
       cartInfo : orderobj
@@ -158,7 +173,6 @@ export class MenuItemServices {
     try {
       let response = await axios.post(location, data, config);
       responseclass = await JSON.parse(response.data.d);
-      debugger
       if (responseclass.result != null && responseclass.status === 1) {
         handleNotify('Item updated succesfully', ToasterPositions.TopRight, ToasterTypes.Success);
         return responseclass.result;
@@ -170,6 +184,9 @@ export class MenuItemServices {
     }
     catch (e) {
       handleNotify('Error with added item', ToasterPositions.TopRight, ToasterTypes.Error);
+      errorLog(e,data,methodName,location).then(res=>{
+        return;
+      })
       return e;
     }
   }

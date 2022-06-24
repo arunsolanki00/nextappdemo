@@ -13,6 +13,7 @@ import { emptycart } from "../../redux/cart/cart.action";
 import { LeftMenuName } from "../helpers/static-message/leftmenu-message";
 import { clearSessionId, createSessionId } from "../../redux/session/session.action";
 import { v4 as uuidv4 } from 'uuid';
+import { clearRedux } from "../../redux/clearredux/clearredux.action";
 function LeftMenuComponent() {
   let isOpen = useSelector(({ restaurant }) => restaurant.leftmenutoggle);
   const dispatch = useDispatch();
@@ -42,10 +43,12 @@ function LeftMenuComponent() {
   const handlelogoutclick = () => {
     if (userinfo != undefined && userinfo != null) {
       dispatch(logout());
-      dispatch(emptycart());
+      //dispatch(emptycart());
       dispatch(clearSessionId());
+      dispatch(clearRedux());
       // dispatch(cleardeliveryaddress());
       //CREATE SESSIONID AFTER THE LOGOUT
+
       let id=uuidv4()
       dispatch(createSessionId(id));
       handleNotify('logout successfully!', ToasterPositions.TopRight, ToasterTypes.Success);

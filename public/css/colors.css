@@ -176,6 +176,12 @@ h6 {
     background-color: var(--primary-color-orange);
     color: #fff !important;
 }
+.register_btn_submit {
+    border-color: var(--primary-color-orange);
+    background-color: #fff !important;
+    font-size: 18px;
+    color: #9C9C9C !important;
+}
 
 /****************** WHITE BUTTON *******************/
 .submit_white {

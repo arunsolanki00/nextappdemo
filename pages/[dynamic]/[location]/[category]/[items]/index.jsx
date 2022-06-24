@@ -61,8 +61,8 @@ const Index = () => {
                     let selectedCategoryItem;
                     if (selcetedCategoryList !== undefined && selcetedCategoryList !== null) {
                         selectedCategoryItem = selcetedCategoryList?.filter(x => x.menuItemName.toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-") === urlArray[4].toLowerCase().toString().replace(/[^a-zA-Z0-9]/g, " ").replace(/\s{2,}/g, ' ').replace(/ /g, "-"))
-                        //dispatch(selectedMenuItem(selectedCategoryItem[0]));
-                        //dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, selectedCategoryItem[0].menuitemId, 0, 0));
+                        dispatch(selectedMenuItem(selectedCategoryItem[0]));
+                        dispatch(getMenuItemDetailes(restaurantinfo.restaurantId, restaurantinfo.defaultlocationId, 0, selectedCategoryItem[0].menuitemId, 0, 0));
                         setload(load + 1);
                     }
                 }
